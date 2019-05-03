@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. /opt/wordpress/scripts/setenv.sh
+SASL_PATH="/opt/wordpress/common/lib/sasl2"
+                export SASL_PATH
+exec /opt/wordpress/common/sbin/.testsaslauthd.bin -f "/opt/wordpress/common/etc/sasldb2" "$@"

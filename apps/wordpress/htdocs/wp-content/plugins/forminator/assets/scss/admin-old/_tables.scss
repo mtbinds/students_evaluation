@@ -1,0 +1,24 @@
+@include body-class(true) {
+	
+	.fui-table-toggle {
+		@extend .sui-table;
+
+		&.sui-accordion {
+			margin: $sui-gutter 0;
+			border: 1px solid palette( silver, soft );
+
+			&:before,
+			&:after {
+				content: none;
+			}
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+}

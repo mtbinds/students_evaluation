@@ -1,0 +1,55 @@
+@include body-class(true) {
+
+	.fui-box-gray {
+		@extend .sui-box;
+		padding: $sui-gutter/2;
+		background-color: palette( silver );
+		box-shadow: none;
+
+		@include media( max-width, md ) {
+			padding: $sui-gutter-md/2;
+		}
+	}
+
+	div.fui-toggle-content {
+		margin: $sui-gutter/2 0;
+
+		.sui-form-field {
+			margin-top: $sui-gutter/2;
+			margin-bottom: $sui-gutter/2;
+
+			&:first-child {
+				margin-top: 0;
+			}
+	
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			@include media( max-width, md ) {
+				margin-top: $sui-gutter-md/2;
+				margin-bottom: $sui-gutter-md/2;
+			}
+		}
+
+		&:first-child {
+			margin-top: 0;
+
+			@include media( max-width, md ) {
+				margin-top: 0;
+			}
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+
+			@include media( max-width, md ) {
+				margin-bottom: 0;
+			}
+		}
+
+		@include media( max-width, md ) {
+			margin: $sui-gutter-md/2 0;
+		}
+	}
+}

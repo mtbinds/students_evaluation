@@ -1,0 +1,4 @@
+#!/bin/sh
+. /opt/wordpress/php/../scripts/setenv.sh
+
+exec /opt/wordpress/php/bin/composer.phar "$@"

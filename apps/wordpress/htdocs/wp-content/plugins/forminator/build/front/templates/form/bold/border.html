@@ -1,0 +1,35 @@
+<?php if ( forminator_array_value_exists( $properties, 'form-border' ) ) { ?>
+	<?php if ( forminator_array_value_exists( $properties, 'form-border-width' ) ) { ?>
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold {
+	border-width: <?php echo $properties['form-border-width'] ?>px;
+	}
+	<?php } else { ?>
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold {
+	border-width: 0;
+	}
+	<?php } ?>
+
+	<?php if ( forminator_array_value_exists( $properties, 'form-border-style' ) ) { ?>
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold {
+	border-style: <?php echo $properties['form-border-style'] ?>;
+	}
+	<?php } else { ?>
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold {
+	border-style: none;
+	}
+	<?php } ?>
+
+	<?php if ( forminator_array_value_exists( $properties, 'form-border-radius' ) ) { ?>
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold {
+	border-radius: <?php echo $properties['form-border-radius'] ?>px;
+	-moz-border-radius: <?php echo $properties['form-border-radius'] ?>px;
+	-webkit-border-radius: <?php echo $properties['form-border-radius'] ?>px;
+	}
+	<?php } else { ?>
+	.forminator-custom-form-<?php echo $properties['form_id'] ?>.forminator-design--bold {
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	}
+	<?php } ?>
+<?php } ?>

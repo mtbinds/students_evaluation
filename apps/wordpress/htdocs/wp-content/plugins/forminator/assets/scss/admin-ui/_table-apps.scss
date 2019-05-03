@@ -1,0 +1,52 @@
+@include body-class(true) {
+
+	.fui-table--apps {
+
+		tbody tr {
+
+			.sui-table-item-title > span {
+				display: flex;
+				align-items: center;
+
+				.sui-image {
+					width: 20px;
+					height: 20px;
+					flex: 0 0 auto;
+					margin-right: 10px;
+				}
+
+				.fui-noicon {
+					width: 20px;
+					height: 20px;
+					overflow: hidden;
+					user-select: none;
+					display: block;
+					flex: 0 0 auto;
+					margin-right: 10px;
+					padding: 2px;
+					border-radius: #{$border-radius / 2};
+					background-color: palette(gray, lighter);
+					color: $gray;
+					font-size: 7px;
+					line-height: 16px;
+					font-weight: bold;
+					font-family: $font--alt;
+					text-transform: uppercase;
+					text-align: center;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+
+				> span {
+					flex: 1;
+					display: block;
+				}
+
+				.sui-button-icon {
+					margin-left: 10px;
+					flex: 0 0 30px;
+				}
+			}
+		}
+	}
+}

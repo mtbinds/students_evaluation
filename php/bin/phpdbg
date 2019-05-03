@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. /opt/wordpress/scripts/setenv.sh
+
+exec /opt/wordpress/php/bin/.phpdbg.bin  "$@"

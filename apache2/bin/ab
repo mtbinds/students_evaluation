@@ -1,0 +1,3 @@
+#!/bin/sh
+. /opt/wordpress/apache2/bin/envvars
+exec /opt/wordpress/apache2/bin/ab.bin "$@"

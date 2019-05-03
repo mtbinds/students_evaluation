@@ -1,0 +1,960 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Educenter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-17 07:50+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#. used between list items, there is a space after the comma
+#: sparklethemes/core/template-tags.php:52
+msgid ", "
+msgstr ""
+
+#: 404.php:29
+msgid "404"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:267
+msgid "404 Not Found"
+msgstr ""
+
+#: section/educenter-section.php:251
+msgid "About Image"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1235
+msgid "About Us"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:541
+msgid "About US Plan Pages"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:469
+msgid "About Us Section Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:538
+msgid "About Us Settings Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:892
+msgid "Add New Counter"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:761
+msgid "Add New Course"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1199
+msgid "Add New Logo"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:542
+msgid "Add New Page"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:449
+#: sparklethemes/customizer/customizer.php:681
+msgid "Add New Services"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:327
+msgid "Add New Slider"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:978
+msgid "Add New Team"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1058
+msgid "Add New Testimonial"
+msgstr ""
+
+#: functions.php:139
+msgid "Add widgets here footer widget"
+msgstr ""
+
+#: functions.php:118 functions.php:128
+msgid "Add widgets here."
+msgstr ""
+
+#: sparklethemes/functions.php:680
+msgid "Add/Edit Gallery"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:148
+msgid "Address"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:268
+msgid "Archives"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:77
+msgid "Background Image"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:265
+msgctxt "breadcrumbs aria label"
+msgid "Breadcrumbs"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:264
+msgid "Browse:"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:561
+#: sparklethemes/customizer/customizer.php:1236
+msgid "Call To Action"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:401
+#: sparklethemes/customizer/customizer.php:482
+#: sparklethemes/customizer/customizer.php:575
+#: sparklethemes/customizer/customizer.php:633
+#: sparklethemes/customizer/customizer.php:713
+#: sparklethemes/customizer/customizer.php:795
+#: sparklethemes/customizer/customizer.php:854
+#: sparklethemes/customizer/customizer.php:931
+#: sparklethemes/customizer/customizer.php:1011
+#: sparklethemes/customizer/customizer.php:1087
+#: sparklethemes/customizer/customizer.php:1150
+msgid "Choose Enable/Disable Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:300
+msgid "Choose Enable/Disable Slider"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:484
+msgid "Choose Options to Disable About Us Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1089
+msgid "Choose Options to Disable Blog Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:577
+msgid "Choose Options to Disable Call To Action Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1152
+msgid "Choose Options to Disable Client Logo Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:856
+msgid "Choose Options to Disable Counter Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:715
+msgid "Choose Options to Disable Courses Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:403
+msgid "Choose Options to Disable Featues Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:797
+msgid "Choose Options to Disable Gallery Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:635
+msgid "Choose Options to Disable Services"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:264
+#: sparklethemes/customizer/customizer.php:302
+msgid "Choose Options to Disable Sticky Menu"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:933
+msgid "Choose Options to Disable Team Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1013
+msgid "Choose Options to Disable Testimonial Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:248
+msgid "Choose Options to Disable Top Header"
+msgstr ""
+
+#: sparklethemes/functions.php:681
+msgid "Clear"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1198
+msgid "Client/Brand Logo Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1195
+msgid "Client/Brand Logo Settings Area"
+msgstr ""
+
+#: sparklethemes/functions.php:576
+msgid "Close"
+msgstr ""
+
+#. %s is the page number.
+#: sparklethemes/breadcrumbs/breadcrumbs.php:274
+#, php-format
+msgid "Comment Page %s"
+msgstr ""
+
+#: comments.php:63
+msgid "Comments are closed."
+msgstr ""
+
+#. 1: comment count number, 2: title.
+#: comments.php:40
+#, php-format
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#. %s: Name of current post. Only visible to screen readers
+#: template-parts/content-single.php:49
+#, php-format
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: sparklethemes/functions.php:320
+msgid "Copyright  &copy; "
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1238
+msgid "Counter Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:841
+msgid "Counter Section Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:888
+#: sparklethemes/customizer/customizer.php:891
+msgid "Counter Settings Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:757
+msgid "Course Settings Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:760
+msgid "Course settings Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1239
+msgid "Courses Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:700
+msgid "Courses Section Settings"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:790
+#: sparklethemes/breadcrumbs/breadcrumbs.php:1219
+msgctxt "daily archives date format"
+msgid "j"
+msgstr ""
+
+#: sparklethemes/functions.php:575
+msgid "Delete"
+msgstr ""
+
+#: sparklethemes/functions.php:421
+msgid "Disable"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:277
+msgid "Disable Sidebar Sticky?"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:262
+msgid "Disable Sticky Menu?"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:246
+msgid "Disable Top Header?"
+msgstr ""
+
+#: sparklethemes/functions.php:869
+msgid "Display Layout Options"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:54
+msgid "Documentation"
+msgstr ""
+
+#. %s: Name of current post. Only visible to screen readers
+#: template-parts/content-page.php:40 sparklethemes/core/template-tags.php:89
+#, php-format
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr ""
+
+#. Name of the theme
+msgid "Educenter"
+msgstr ""
+
+#. Description of the theme
+msgid ""
+"Educenter is a user-friendly, elegant, easy to apply and responsive best "
+"FREE WordPress education theme with colorful design and stunning "
+"customization flexibility. Educenter WordPress theme is designed especially "
+"for colleges, university, institutions, schools, online courses and "
+"different other educationvbased websites. The theme shows your website "
+"within the satisfactory viable way on smartphones, iPhones, tablets, and "
+"laptops, as well as large laptop screens. This theme will help you to create "
+"very high-quality and perfect instructional website effortlessly and easily "
+"in less time."
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:124
+msgid "Email Address"
+msgstr ""
+
+#: sparklethemes/functions.php:420
+msgid "Enable"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:368
+#: sparklethemes/customizer/customizer.php:380
+msgid "Enable Front Page"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:497
+msgid "Enter About Us Main Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:508
+msgid "Enter About Us Sub Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1113
+msgid "Enter Blog Sub Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1101
+msgid "Enter Blog Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:338
+#: sparklethemes/customizer/customizer.php:601
+msgid "Enter Button Text"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:612
+msgid "Enter Button URL"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:343
+msgid "Enter Button Url"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1209
+msgid "Enter Client Logo Link"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1176
+msgid "Enter Client/Brand Logo Sub Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1165
+msgid "Enter Client/Brand Logo Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:902
+msgid "Enter Counter Number"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:907
+msgid "Enter Counter Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:771
+msgid "Enter Course Price"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:739
+msgid "Enter Courses Main Sub Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:728
+msgid "Enter Courses Main Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:427
+msgid "Enter Features Services Sub Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:416
+msgid "Enter Features Services Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:821
+msgid "Enter Gallery Main SubTitle"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:810
+msgid "Enter Gallery Main Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:988
+msgid "Enter Member Position"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:648
+msgid "Enter Services Main Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:659
+msgid "Enter Services Sub Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:956
+msgid "Enter Team Sub Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:945
+msgid "Enter Team Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1036
+msgid "Enter Testimonial Sub Title"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1025
+msgid "Enter Testimonial Title"
+msgstr ""
+
+#: sparklethemes/functions.php:98
+msgid "Error Page"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:177
+msgid "Facebook"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:448
+#: sparklethemes/customizer/customizer.php:1234
+msgid "Features Services"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:388
+msgid "Features Services Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:445
+msgid "Features Services Settings Area"
+msgstr ""
+
+#: functions.php:57
+msgid "Footer Menu"
+msgstr ""
+
+#: functions.php:137
+msgid "Footer Widget Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1219
+#: sparklethemes/customizer/customizer.php:1231
+msgid "FrontPage Section Re Order"
+msgstr ""
+
+#: sparklethemes/functions.php:891
+msgid "Full width"
+msgstr ""
+
+#: section/educenter-section.php:794
+msgid "Gallery Image"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1241
+msgid "Gallery Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:782
+msgid "Gallery Section Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:62
+msgid "General Settings"
+msgstr ""
+
+#: 404.php:32
+msgid "Go to home"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:187
+msgid "Google-Plus"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:266
+msgid "Home"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:361
+msgid "HomePage Block Section Area"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:772
+msgctxt "hour archives time format"
+msgid "g a"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://sparklewpthemes.com/"
+msgstr ""
+
+#. URI of the theme
+msgid "https://sparklewpthemes.com/wordpress-themes/educenter"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:43
+msgid "Important Links"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:352
+msgid "Inner Page Background Images"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:192
+msgid "Instagram"
+msgstr ""
+
+#: 404.php:31
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+
+#: template-parts/content-none.php:44
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: sparklethemes/functions.php:819
+msgctxt "Lato font: on or off"
+msgid "on"
+msgstr ""
+
+#. %s: post title
+#: sparklethemes/core/template-tags.php:72
+#, php-format
+msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr ""
+
+#: sparklethemes/functions.php:881
+msgid "Left Sidebar"
+msgstr ""
+
+#: functions.php:126
+msgid "Left Sidebar Widget Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:54
+msgid "Like Us in Facebook"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:202
+msgid "Linkedin"
+msgstr ""
+
+#. used between list items, there is a space after the comma
+#: sparklethemes/core/template-tags.php:59
+msgctxt "list item separator"
+msgid ", "
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:54
+msgid "Live Demo"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:288
+msgid "Main Banner Slider Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:234
+msgid "Main Header Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:680
+msgid "Main Services"
+msgstr ""
+
+#. Minute archive title. %s is the minute time format.
+#: sparklethemes/breadcrumbs/breadcrumbs.php:276
+#, php-format
+msgid "Minute %s"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:738
+msgctxt "minute and hour archives time format"
+msgid "g:i a"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:755
+msgctxt "minute archives time format"
+msgid "i"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:789
+#: sparklethemes/breadcrumbs/breadcrumbs.php:845
+#: sparklethemes/breadcrumbs/breadcrumbs.php:1215
+msgctxt "monthly archives date format"
+msgid "F"
+msgstr ""
+
+#: index.php:54 archive.php:49 search.php:48
+msgid "Next"
+msgstr ""
+
+#: sparklethemes/functions.php:538
+msgid "No image selected"
+msgstr ""
+
+#: template-parts/content-none.php:14
+msgid "Nothing Found"
+msgstr ""
+
+#. 1: title.
+#: comments.php:34
+#, php-format
+msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr ""
+
+#: 404.php:29
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:160
+msgid "Opeening Time"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1243
+msgid "Our Blogs"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1073
+msgid "Our Blogs Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1244
+msgid "Our Client/Brand"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1136
+msgid "Our Client/Brand Logo Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1240
+msgid "Our Team Member"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:917
+#: sparklethemes/customizer/customizer.php:977
+msgid "Our Team Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:998
+msgid "Our Testimonial Settings"
+msgstr ""
+
+#. %s is the page number.
+#: sparklethemes/breadcrumbs/breadcrumbs.php:272
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: template-parts/content-single.php:60 template-parts/content-page.php:27
+msgid "Pages:"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:136
+msgid "Phone Number"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:197
+msgid "Pinterest"
+msgstr ""
+
+#. %s: post author.
+#: sparklethemes/core/template-tags.php:35
+#, php-format
+msgctxt "post author"
+msgid "By %s"
+msgstr ""
+
+#. %s: post date.
+#: sparklethemes/core/template-tags.php:29
+#, php-format
+msgctxt "post date"
+msgid "On %s"
+msgstr ""
+
+#. 1: list of categories.
+#: sparklethemes/core/template-tags.php:55
+#, php-format
+msgid "Posted in %1$s"
+msgstr ""
+
+#: index.php:53 archive.php:48 search.php:47
+msgid "Prev"
+msgstr ""
+
+#: functions.php:56
+msgid "Primary"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:94
+msgid "Primary Theme Colors"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:113
+msgid "Quick Contact Information"
+msgstr ""
+
+#: section/educenter-section.php:141 section/educenter-section.php:390
+#: section/educenter-section.php:538 section/educenter-section.php:639
+#: template-parts/content.php:47 template-parts/content-search.php:45
+msgid "read more"
+msgstr ""
+
+#. 1: link to WP admin new post page.
+#: template-parts/content-none.php:25
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: sparklethemes/functions.php:544
+msgid "Remove"
+msgstr ""
+
+#: sparklethemes/functions.php:886
+msgid "Right (Default)"
+msgstr ""
+
+#: functions.php:116
+msgid "Right Sidebar Widget Area"
+msgstr ""
+
+#: sparklethemes/functions.php:815
+msgctxt "Roboto font: on or off"
+msgid "on"
+msgstr ""
+
+#. If there are characters in your language that are not supported by Roboto, translate this to 'off'. Do not translate into your own language.
+#: sparklethemes/functions.php:811
+msgctxt "Roboto+Condensed font: on or off"
+msgid "on"
+msgstr ""
+
+#. %1$s: search query.
+#: sparklethemes/functions.php:153
+#, php-format
+msgid "Search Results for : %1$s"
+msgstr ""
+
+#. %s: search query.
+#: sparklethemes/functions.php:94
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#. %s is the search query.
+#: sparklethemes/breadcrumbs/breadcrumbs.php:270
+#, php-format
+msgid "Search results for: %s"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1124
+msgid "Select Blog Cateogry"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:590
+msgid "Select Call To Action Pages"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:897
+msgid "Select Counter Icon"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:766
+msgid "Select Courses Page"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:547
+msgid "Select Icon"
+msgstr ""
+
+#: sparklethemes/functions.php:545
+msgid "Select Image"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:24
+#: sparklethemes/customizer/customizer.php:552
+msgid "Select Page"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:454
+#: sparklethemes/customizer/customizer.php:686
+msgid "Select Services Icon"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:459
+#: sparklethemes/customizer/customizer.php:691
+msgid "Select Services Page"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:333
+msgid "Select Slider Page"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:983
+msgid "Select Team Page"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1063
+msgid "Select Testimonial Page"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1237
+msgid "Services Section"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:620
+msgid "Services Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:677
+msgid "Services Settings Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:69
+msgid "Site Logo/Title/Tagline"
+msgstr ""
+
+#: sparklethemes/hooks/header.php:12
+msgid "Skip to content"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:323
+msgid "Slider Settings Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:326
+msgid "Slider Settings Options"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:170
+msgid "Social Media Link Options"
+msgstr ""
+
+#: template-parts/content-none.php:38
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: sparklethemes/functions.php:323
+msgid "Sparkle Themes"
+msgstr ""
+
+#. Author of the theme
+msgid "sparklewpthemes"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:54
+msgid "Support Forum"
+msgstr ""
+
+#. 1: list of tags.
+#: sparklethemes/core/template-tags.php:62
+#, php-format
+msgid "Tagged %1$s"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:974
+msgid "Team Settings Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1242
+msgid "Testimonial Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1057
+msgid "Testimonial Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1054
+msgid "Testimonial Settings Area"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:85
+msgid "Themes Colors Settings"
+msgstr ""
+
+#: sparklethemes/hooks/footer.php:20
+msgid "Top"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:105
+msgid "Top Header Settings"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:182
+msgid "Twitter"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:1204
+msgid "Update Client/Brand Logo"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:520
+msgid "Upload About Us Features Image"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:869
+msgid "Upload Counter BG Image"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:833
+msgid "Upload Gallery Images"
+msgstr ""
+
+#. Weekly archive title. %s is the week date format.
+#: sparklethemes/breadcrumbs/breadcrumbs.php:278
+#, php-format
+msgid "Week %s"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:818
+msgctxt "weekly archives date format"
+msgid "W"
+msgstr ""
+
+#: sparklethemes/breadcrumbs/breadcrumbs.php:788
+#: sparklethemes/breadcrumbs/breadcrumbs.php:817
+#: sparklethemes/breadcrumbs/breadcrumbs.php:844
+#: sparklethemes/breadcrumbs/breadcrumbs.php:871
+#: sparklethemes/breadcrumbs/breadcrumbs.php:1211
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr ""
+
+#: sparklethemes/customizer/customizer.php:207
+msgid "YouTube"
+msgstr ""

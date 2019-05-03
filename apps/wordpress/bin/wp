@@ -1,0 +1,6 @@
+#!/bin/bash
+. /opt/wordpress/scripts/setenv.sh
+export WP_CLI_CONFIG_PATH="/opt/wordpress/apps/wordpress/bin/wp-cli.yml"
+export WP_CLI_PHP_USED="/opt/wordpress/php/bin/php"
+
+exec "/opt/wordpress/php/bin/php" "/opt/wordpress/apps/wordpress/bin/wp-cli.phar" "$@"

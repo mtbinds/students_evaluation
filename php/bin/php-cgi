@@ -1,0 +1,7 @@
+#!/bin/sh
+PHPRC=/opt/wordpress/php/etc
+export PHPRC
+PHP_PEAR_SYSCONF_DIR=/opt/wordpress/php/etc
+export PHP_PEAR_SYSCONF_DIR
+. /opt/wordpress/php/../scripts/setenv.sh
+exec /opt/wordpress/php/bin/php-cgi.bin "$@"

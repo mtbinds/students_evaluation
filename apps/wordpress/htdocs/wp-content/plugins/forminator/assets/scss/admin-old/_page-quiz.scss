@@ -1,0 +1,12 @@
+@include body-class(true) {
+
+	.forminator-quizzes-content {
+
+		.sui-vertical-tabs {
+
+			li {
+				pointer-events: none;
+			}
+		}
+	}
+}

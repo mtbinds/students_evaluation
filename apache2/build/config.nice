@@ -1,0 +1,35 @@
+#! /bin/sh
+#
+# Created by configure
+
+CC="gcc"; export CC
+CFLAGS="-I/opt/wordpress/common/include -fPIC -m64"; export CFLAGS
+CPPFLAGS="-I/opt/wordpress/common/include"; export CPPFLAGS
+LDFLAGS="-L/opt/wordpress/common/lib -liconv"; export LDFLAGS
+"./configure" \
+"--prefix=/opt/wordpress/apache2" \
+"--enable-so" \
+"--enable-mods-shared=most" \
+"--disable-auth_dbm" \
+"--without-berkeley-db" \
+"--enable-deflate" \
+"--enable-ssl" \
+"--with-ssl=/opt/wordpress/common" \
+"--enable-proxy" \
+"--enable-proxy-http" \
+"--enable-proxy-balancer" \
+"--enable-rewrite" \
+"--with-ldap" \
+"--enable-authnz-ldap" \
+"--enable-ldap" \
+"--with-apr=/opt/wordpress/common/bin/apr-1-config" \
+"--with-apu=/opt/wordpress/common/bin/apr-1-config" \
+"--with-pcre=/opt/wordpress/common/bin/pcre-config" \
+"--enable-mpms-shared=all" \
+"--with-nghttp2=/opt/wordpress/common/lib" \
+"--with-mpm=prefork" \
+"CC=gcc" \
+"CFLAGS=-I/opt/wordpress/common/include -fPIC -m64" \
+"LDFLAGS=-L/opt/wordpress/common/lib -liconv" \
+"CPPFLAGS=-I/opt/wordpress/common/include" \
+"$@"

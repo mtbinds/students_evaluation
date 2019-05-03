@@ -1,0 +1,30 @@
+@include body-class(true) {
+
+	.fui-image {
+		margin-top: $sui-gutter;
+		margin-bottom: $sui-gutter;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		@include media( max-width, md ) {
+			margin-top: $sui-gutter-md;
+			margin-bottom: $sui-gutter-md;
+		}
+	}
+
+	.fui-limit-block-600 {
+		max-width: 600px;
+	}
+
+	.fui-limit-block-center {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
+	}
+}
