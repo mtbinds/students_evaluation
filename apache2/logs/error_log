@@ -43,3 +43,16 @@ sh: 1: /usr/bin/sendmail: not found
 [Fri May 03 14:03:27.790315 2019] [ssl:warn] [pid 2371] AH01909: localhost:443:0 server certificate does NOT include an ID which matches the server name
 [Fri May 03 14:03:28.176243 2019] [mpm_prefork:notice] [pid 2371] AH00163: Apache/2.4.39 (Unix) OpenSSL/1.0.2q PHP/7.2.16 configured -- resuming normal operations
 [Fri May 03 14:03:28.176277 2019] [core:notice] [pid 2371] AH00094: Command line: '/opt/wordpress/apache2/bin/httpd.bin -f /opt/wordpress/apache2/conf/httpd.conf'
+[Fri May 03 14:25:06.722095 2019] [mpm_prefork:notice] [pid 2371] AH00169: caught SIGTERM, shutting down
+[Fri May 03 14:25:26.877558 2019] [ssl:warn] [pid 3497] AH01882: Init: this version of mod_ssl was compiled against a newer library (OpenSSL 1.0.2r  26 Feb 2019, version currently loaded is OpenSSL 1.0.2q  20 Nov 2018) - may result in undefined or erroneous behavior
+[Fri May 03 14:25:26.877808 2019] [ssl:warn] [pid 3497] AH01909: localhost:443:0 server certificate does NOT include an ID which matches the server name
+[Fri May 03 14:25:26.893595 2019] [ssl:warn] [pid 3498] AH01882: Init: this version of mod_ssl was compiled against a newer library (OpenSSL 1.0.2r  26 Feb 2019, version currently loaded is OpenSSL 1.0.2q  20 Nov 2018) - may result in undefined or erroneous behavior
+[Fri May 03 14:25:26.893907 2019] [ssl:warn] [pid 3498] AH01909: localhost:443:0 server certificate does NOT include an ID which matches the server name
+[Fri May 03 14:25:26.899973 2019] [mpm_prefork:notice] [pid 3498] AH00163: Apache/2.4.39 (Unix) OpenSSL/1.0.2q PHP/7.2.16 configured -- resuming normal operations
+[Fri May 03 14:25:26.899999 2019] [core:notice] [pid 3498] AH00094: Command line: '/opt/wordpress/apache2/bin/httpd.bin -f /opt/wordpress/apache2/conf/httpd.conf'
+[Tue May 07 10:06:51.065897 2019] [ssl:warn] [pid 2581] AH01882: Init: this version of mod_ssl was compiled against a newer library (OpenSSL 1.0.2r  26 Feb 2019, version currently loaded is OpenSSL 1.0.2q  20 Nov 2018) - may result in undefined or erroneous behavior
+[Tue May 07 10:06:51.085751 2019] [ssl:warn] [pid 2581] AH01909: localhost:443:0 server certificate does NOT include an ID which matches the server name
+[Tue May 07 10:06:51.101912 2019] [ssl:warn] [pid 2582] AH01882: Init: this version of mod_ssl was compiled against a newer library (OpenSSL 1.0.2r  26 Feb 2019, version currently loaded is OpenSSL 1.0.2q  20 Nov 2018) - may result in undefined or erroneous behavior
+[Tue May 07 10:06:51.102191 2019] [ssl:warn] [pid 2582] AH01909: localhost:443:0 server certificate does NOT include an ID which matches the server name
+[Tue May 07 10:06:51.354893 2019] [mpm_prefork:notice] [pid 2582] AH00163: Apache/2.4.39 (Unix) OpenSSL/1.0.2q PHP/7.2.16 configured -- resuming normal operations
+[Tue May 07 10:06:51.354914 2019] [core:notice] [pid 2582] AH00094: Command line: '/opt/wordpress/apache2/bin/httpd.bin -f /opt/wordpress/apache2/conf/httpd.conf'
