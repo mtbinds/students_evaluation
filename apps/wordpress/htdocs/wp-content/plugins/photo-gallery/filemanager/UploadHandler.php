@@ -382,7 +382,7 @@ class bwg_UploadHandler {
     $index = isset($matches[1]) ? intval($matches[1]) + 1 : 1;
     $ext = isset($matches[2]) ? $matches[2] : '';
 
-    return ' (' . $index . ')' . $ext;
+    return '_(' . $index . ')' . $ext;
   }
 
   protected function upcount_name( $name ) {
@@ -619,6 +619,7 @@ class bwg_UploadHandler {
       $file->date_modified = date('Y-m-d H:i:s', filemtime($file_path));
       $image_info = @getimagesize(htmlspecialchars_decode($file_path, ENT_COMPAT | ENT_QUOTES));
       $file->resolution = $image_info[0] . ' x ' . $image_info[1] . ' px';
+      $file->resolution_thumb = WDWLibrary::get_thumb_size($file->thumb_url);
       if ( BWG()->options->read_metadata ) {
         $meta = WDWLibrary::read_image_metadata($upload_dir . '.original/' . $file->name);
         $file->credit = $meta['credit'];
@@ -979,6 +980,7 @@ class bwg_UploadHandler {
     if ( function_exists('iconv_mime_decode') ) {
       $iconv_mime_decode_function = 'iconv_mime_decode';
     }
+
     $data = array();
     $data['is_dir'] = 0;
     $data['date_modified'] = date('Y-m-d H:i:s');
@@ -990,6 +992,12 @@ class bwg_UploadHandler {
     $data['thumb'] = isset($info->name) ? 'thumb/' . $info->name : '';
     $data['size'] = isset($info->size) ? $info->size : '';
     $data['resolution'] = isset($info->resolution) ? $info->resolution : '';
+    $resolution_thumb = WDWLibrary::get_thumb_size("/".$data['thumb']);
+    if($resolution_thumb == '') {
+      $temp = explode(" ",$data['resolution']);
+      $resolution_thumb = $temp[0]."x".$temp[2];
+    }
+    $data['resolution_thumb'] = $resolution_thumb;
     $data['credit'] = isset($info->credit) ? $iconv_mime_decode_function($info->credit) : '';
     $data['aperture'] = isset($info->aperture) ? $iconv_mime_decode_function($info->aperture) : '';
     $data['camera'] = isset($info->camera) ? $iconv_mime_decode_function($info->camera) : '';

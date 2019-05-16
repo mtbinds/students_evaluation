@@ -1,10 +1,10 @@
 === Custom Login Page Customizer | LoginPress ===
 Requires at least: 4.0
-Tested up to: 5.1
+Tested up to: 5.2
 Contributors: WPBrigade, hiddenpearls, AbdulWahab610
 Author URI: https://wpbrigade.com
 Tags: wp-login, login, login customizer, custom login, wordpress login, login customizer, custom login page, login error, login page style, loginpress
-Stable tag: 1.1.23
+Stable tag: 1.1.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,15 @@ We have a collection of great Free and Pro addons that makes LoginPress more pow
 After going through this extensive list of features you can imagine Why LoginPress is the best login page customizer in the WordPress market.
 
 > <strong>Beautify and Innovate your WordPress login page without any coding knowledge!</strong>
+
+== Languages compatible ==
+* Arabic
+* Dutch
+* Spanish
+* French
+* Dutch (Netherlands) Translated by <a href="https://profiles.wordpress.org/harm10/" rel="friend">Harm10</a>
+* Russian Translated by <a href="https://profiles.wordpress.org/satone667" rel="friend">satone667</a>
+
 
 = What's Next =
 
@@ -204,6 +213,12 @@ Please visit <a target="_blank" rel="friend" href="https://WPBrigade.com/wordpre
 23. Custom Login page (Company theme) Example #23 with Captcha [Pro feature](https://WPBrigade.com/wordpress/plugins/loginpress-pro/?utm_source=loginpress-lite&utm_medium=screenshots&utm_campaign=pro-upgrade)
 
 == Changelog ==
+
+= 1.1.24 - 2019-05-09 =
+* Bugfix: login_headertitle hook has been deprecated in >= 5.2 versions.
+* Enhancement: Allow startup license to download loginpress add-ons from add-ons page.
+* Compatibility: Compatible with WordPress 5.2
+* Compatibility: LoginPress is compatible with Dutch (Netherlands) language now. Special thanks to <a href="https://profiles.wordpress.org/harm10/" rel="friend">Harm10</a> to contribute.
 
 = 1.1.23 - 2019-04-29 =
 * Bugfix: PHP callout error in LoginPress settings page.
@@ -466,5 +481,5 @@ Please visit <a target="_blank" rel="friend" href="https://WPBrigade.com/wordpre
 
 == Upgrade Notice ==
 
-= 1.1.23 =
+= 1.1.24 =
 * Important Release, upgrade immediately - Introducing Background video feature.

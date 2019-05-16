@@ -1,13 +1,13 @@
 === Forminator Contact Form, Poll & Quiz Builder ===
 Plugin Name: Forminator Contact Form, Poll & Quiz Builder
-Version: 1.6.2
+Version: 1.6.3
 Author: WPMU DEV
 Author URI: https://premium.wpmudev.org/
 Contributors: WPMUDEV
 Tags: form, contact form, survey, quiz, email, feedback, custom forms, form builder, online form, form maker
 Requires at least: 4.6
 Tested up to: 5.1
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 Requires PHP: 5.2.4
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -99,7 +99,39 @@ Forminator makes it easy for you to comply with the GDPR and other local privacy
 
 == Changelog ==
 
- = 1.6.2 =
+= 1.6.3 =
+
+* Add: Dashboard settings to control number of forms/polls/quizzes on dashboard page
+* Add: Data/Settings deletion settings
+* Add: Accessibility settings
+* Improvement: Allow decimals to be used in number field
+* Improvement: Include time field in submissions export
+* Improvement: Show correct data format on submission page when value is empty
+* Improvement: Allow {all_fields} shortcode in user confirmation email
+* Improvement: Added default values for Time field
+* Improvement: Added ability to change the delay or disable auto close for success message
+* Improvement: Visual issues on Internet Explorer
+* Improvement: Display font and color settings conditionally only for existing fields
+* Fix: Duplicated field changed if the original field changed
+* Fix: Phone field input missing type
+* Fix: URL Redirect replace & char
+* Fix: Confirmation email for users not being sent
+* Fix: Form can not be submitted if submit method is set to Reload page
+* Fix: Clicking Save button on Settings page redirects to blank page
+* Fix: Disable possibility to share Quiz Result via Google+
+* Fix: Custom styles printed multiple times
+* Fix: Poll results not displayed after vote
+* Fix: Min and Max validation triggered when value not set
+* Fix: Email notifications recipients duplicated
+* Fix: Issues with importing forms
+* Fix: Scheduled exports keep sending emails even disabled
+* Fix: Pagination submit button doesn't use styles from submit button
+* Fix: E char can be inserted in number field
+* Fix: Blue outline showing around the form
+* Fix: Select dropdown breaks after form submit
+* Multiple visual enhancements/fixes 
+
+= 1.6.2 =
  
 * Add: Brand new quiz wizard UI/UX
 * Add: Quiz integrations

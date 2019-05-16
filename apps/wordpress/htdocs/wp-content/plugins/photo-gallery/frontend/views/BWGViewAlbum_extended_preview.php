@@ -52,6 +52,8 @@ class BWGViewAlbum_extended_preview extends BWGViewSite {
     $theme_row->thumb_gal_title_align = $theme_row->album_extended_gal_title_align;
 
     $inline_style = $this->inline_styles($bwg, $theme_row, $params);
+    $lazyload = BWG()->options->lazyload_images;
+
     if ( !WDWLibrary::elementor_is_active() ) {
       if ( !$params['ajax'] ) {
         if ( BWG()->options->use_inline_stiles_and_scripts ) {
@@ -91,6 +93,16 @@ class BWGViewAlbum_extended_preview extends BWGViewSite {
                                   "type_" . $bwg => $row->def_type,
                                   "album_gallery_id_" . $bwg => (($params['album_gallery_id'] != 0) ? $row->alb_gal_id : $row->id),
                                 ), $_SERVER['REQUEST_URI']);
+
+          $resolution_thumb = $row->resolution_thumb;
+          $image_thumb_width = '';
+          $image_thumb_height = '';
+
+          if($resolution_thumb != "" && strpos($resolution_thumb,'x') !== false) {
+            $resolution_th = explode("x", $resolution_thumb);
+            $image_thumb_width = $resolution_th[0];
+            $image_thumb_height = $resolution_th[1];
+          }
           ?>
           <div class="bwg-extended-item">
             <div class="bwg-extended-item0">
@@ -102,11 +114,14 @@ class BWGViewAlbum_extended_preview extends BWGViewSite {
                  data-alb_gal_id="<?php echo (($params['album_gallery_id'] != 0) ? $row->alb_gal_id : $row->id); ?>"
                  data-def_type="<?php echo $row->def_type; ?>"
                  data-title="<?php echo htmlspecialchars(addslashes($row->name)); ?>">
-                <div class="bwg-item0 bwg_album_thumb_<?php echo $bwg; ?>">
+                <div class="bwg-item0 bwg_album_thumb_<?php echo $bwg; ?> lazy_loader">
                   <div class="bwg-item1 bwg_album_thumb_spun1_<?php echo $bwg; ?>">
                     <div class="bwg-item2">
-                      <img class="skip-lazy"
-                           src="<?php echo $row->preview_image; ?>"
+                      <img class="skip-lazy <?php if( $lazyload ) { ?> bwg_lazyload <?php } ?>"
+                           data-width="<?php echo $image_thumb_width; ?>"
+                           data-height="<?php echo $image_thumb_height; ?>"
+                           data-original="<?php echo $row->preview_image; ?>"
+                           src="<?php if( !$lazyload ) { echo $row->preview_image; } else { echo BWG()->plugin_url."/images/lazy_placeholder.gif"; } ?>"
                            alt="<?php echo $row->name; ?>" />
                     </div>
                   </div>

@@ -249,6 +249,8 @@ class Forminator_CForm_View_Page extends Forminator_Admin_Page {
 						exit;
 					}
 					break;
+				default:
+					break;
 			}
 		}
 
@@ -262,6 +264,8 @@ class Forminator_CForm_View_Page extends Forminator_Admin_Page {
 						$this->maybe_redirect_to_referer();
 						exit;
 					}
+					break;
+				default:
 					break;
 			}
 		}
@@ -1269,8 +1273,33 @@ class Forminator_CForm_View_Page extends Forminator_Admin_Page {
 			'ASC',
 		);
 		$request_data = $_REQUEST;// WPCS CSRF ok.
-		$order_by     = isset( $request_data['order_by'] ) ? sanitize_text_field( $request_data['order_by'] ) : 'entries.date_created';
-		$order        = isset( $request_data['order'] ) ? sanitize_text_field( $request_data['order'] ) : 'DESC';
+		$order_by     = 'entries.date_created';
+		if( isset( $request_data['order_by' ] ) ) {
+			switch ( $request_data['order_by' ] ) {
+				case 'entries.entry_id':
+					$order_by = 'entries.entry_id';
+					break;
+				case 'entries.date_created':
+					$order_by = 'entries.date_created';
+					break;
+				default:
+					break;
+			}
+		}
+
+		$order = 'DESC';
+		if( isset( $request_data['order'] ) ) {
+			switch ( $request_data['order_by' ] ) {
+				case 'DESC':
+					$order_by = 'DESC';
+					break;
+				case 'ASC':
+					$order_by = 'ASC';
+					break;
+				default:
+					break;
+			}
+		}
 
 		if ( ! empty( $order_by ) ) {
 			if ( ! in_array( $order, $valid_order_bys, true ) ) {

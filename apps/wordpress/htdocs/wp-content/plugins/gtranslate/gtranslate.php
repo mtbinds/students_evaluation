@@ -3,7 +3,7 @@
 Plugin Name: GTranslate
 Plugin URI: https://gtranslate.io/?xyz=998
 Description: Makes your website <strong>multilingual</strong> and available to the world using Google Translate. For support visit <a href="https://wordpress.org/support/plugin/gtranslate">GTranslate Support</a>.
-Version: 2.8.46
+Version: 2.8.47
 Author: Translate AI Multilingual Solutions
 Author URI: https://gtranslate.io
 Text Domain: gtranslate
@@ -1944,7 +1944,10 @@ if($data['add_hreflang_tags'] and ($data['pro_version'] or $data['enterprise_ver
 
         if($current_url !== false) {
             // adding default language
-            echo '<link rel="alternate" hreflang="'.$data['default_language'].'" href="'.$current_url.'" />'."\n";
+            if($data['default_language'] == 'iw')
+                echo '<link rel="alternate" hreflang="he" href="'.$current_url.'" />'."\n";
+            else
+                echo '<link rel="alternate" hreflang="'.$data['default_language'].'" href="'.$current_url.'" />'."\n";
 
             // adding enabled languages
             foreach($enabled_languages as $lang) {
@@ -2031,7 +2034,7 @@ if(($data['pro_version'] or $data['enterprise_version']) and $data['detect_brows
         if($data['pro_version'])
             header('Location: ' . home_url() . '/' . $accept_language . '/');
         if($data['enterprise_version'] and isset($_SERVER['HTTP_HOST']))
-            header('Location: ' . str_replace('://'.$_SERVER['HTTP_HOST'], '://'.$accept_language.'.'.$_SERVER['HTTP_HOST'], site_url()));
+            header('Location: ' . str_replace('://'.$_SERVER['HTTP_HOST'], '://'.$accept_language.'.'.preg_replace('/^www\./', '', $_SERVER['HTTP_HOST']), site_url()));
 
         // todo: special redirect for language hosting
 
@@ -2190,6 +2193,15 @@ if($data['pro_version'] or $data['enterprise_version']) {
         return $data;
     }
 
+    function gt_woocommerce_geolocate_ip($false) {
+        if(isset($_SERVER['HTTP_X_GT_VIEWER_IP']))
+            $_SERVER['HTTP_X_REAL_IP'] = $_SERVER['HTTP_X_GT_VIEWER_IP'];
+        elseif(isset($_SERVER['HTTP_X_GT_CLIENTIP']))
+            $_SERVER['HTTP_X_REAL_IP'] = $_SERVER['HTTP_X_GT_CLIENTIP'];
+
+        return $false;
+    }
+
     //add_action('wp_print_scripts', 'gtranslate_filter_l10n_scripts', 1);
     //add_action('wp_print_header_scripts', 'gtranslate_filter_l10n_scripts', 1);
     //add_action('wp_print_footer_scripts', 'gtranslate_filter_l10n_scripts', 1);
@@ -2197,4 +2209,6 @@ if($data['pro_version'] or $data['enterprise_version']) {
     add_filter('script_loader_tag', 'gtranslate_add_script_attributes', 100, 2);
 
     add_filter('woocommerce_get_script_data', 'gt_filter_woocommerce_scripts_data', 10, 2 );
+
+    add_filter('woocommerce_geolocate_ip', 'gt_woocommerce_geolocate_ip', 10, 4);
 }

@@ -3,6 +3,8 @@
 class WDWLibrary {
   public static $shortcode_ids = array();
 
+  public static $thumb_dimansions;
+
   /**
    * Get request value.
    *
@@ -1517,13 +1519,18 @@ class WDWLibrary {
           $height_orig = $get_size[ 'height' ];
           $original_image->set_quality( BWG()->options->image_quality );
           self::recover_image_size( $width_orig, $height_orig, $width, $original_image, $filename );
-          self::recover_image_size( $width_orig, $height_orig, $thumb_width, $original_image, $thumb_filename );
+          self::recover_image_size( $width_orig, $height_orig, $thumb_width, $original_image, $thumb_filename);
+
+          $resolution_thumb = self::get_thumb_size( $thumb_filename );
+          $where = "id = " . $image->id;
+          self::update_thumb_dimansions( $resolution_thumb, $where );
         }
         else {
           copy( $original_filename, $filename );
           copy( $original_filename, $thumb_filename );
         }
       }
+
     }
     if ($page == 'gallery_page') {
       ?>
@@ -1538,20 +1545,36 @@ class WDWLibrary {
   public static function recover_image_size($width_orig, $height_orig, $width, $original_image, $filename) {
     $percent = $width_orig / $width;
     $height = $height_orig / $percent;
-
     $original_image->resize($width, $height, false);
     $original_image->save($filename);
   }
 
+  public static function detect_thumb( $detination ) {
+    if (strpos($detination, '/thumb/') !== false) {
+      return true;
+    }
+    return false;
+  }
+
+  public static function update_thumb_dimansions( $resolution_thumb, $where ) {
+    global $wpdb;
+    $update = $wpdb->query($wpdb->prepare('UPDATE `' . $wpdb->prefix . 'bwg_image` SET `resolution_thumb` = "%s"  WHERE ' . $where, $resolution_thumb));
+  }
+
   public static function resize_image($source, $destination, $max_width, $max_height) {
+
     $image = wp_get_image_editor( $source );
     if ( ! is_wp_error( $image ) ) {
+
       $image_size = $image->get_size();
       $img_width = $image_size[ 'width' ];
       $img_height = $image_size[ 'height' ];
       $scale = min( $max_width / $img_width, $max_height / $img_height );
       if ( ($scale >= 1) || (($max_width == NULL) && ($max_height == NULL)) ) {
         if ( $source !== $destination ) {
+          if(self::detect_thumb($destination)) {
+            self::$thumb_dimansions = intval($img_width)."x".intval($img_height);
+          }
           return copy( $source, $destination );
         }
         return true;
@@ -1559,6 +1582,9 @@ class WDWLibrary {
       else {
         $new_width = $img_width * $scale;
         $new_height = $img_height * $scale;
+        if(self::detect_thumb($destination)) {
+          self::$thumb_dimansions = intval($new_width)."x".intval($new_height);
+        }
         $image->set_quality( BWG()->options->image_quality );
         $image->resize( $new_width, $new_height, false );
         $saved = $image->save( $destination );
@@ -1811,7 +1837,6 @@ class WDWLibrary {
     $defaults['addthis_profile_id'] = self::get_option_value('addthis_profile_id', 'addthis_profile_id', 'addthis_profile_id', $from || $use_option_defaults, $params);
     $defaults['popup_enable_facebook'] = self::get_option_value('popup_enable_facebook', 'popup_enable_facebook', 'popup_enable_facebook', $from || $use_option_defaults, $params);
     $defaults['popup_enable_twitter'] = self::get_option_value('popup_enable_twitter', 'popup_enable_twitter', 'popup_enable_twitter', $from || $use_option_defaults, $params);
-    $defaults['popup_enable_google'] = self::get_option_value('popup_enable_google', 'popup_enable_google', 'popup_enable_google', $from || $use_option_defaults, $params);
     $defaults['popup_enable_pinterest'] = self::get_option_value('popup_enable_pinterest', 'popup_enable_pinterest', 'popup_enable_pinterest', $from || $use_option_defaults, $params);
     $defaults['popup_enable_tumblr'] = self::get_option_value('popup_enable_tumblr', 'popup_enable_tumblr', 'popup_enable_tumblr', $from || $use_option_defaults, $params);
     $defaults['popup_enable_ecommerce'] = self::get_option_value('popup_enable_ecommerce', 'popup_enable_ecommerce', 'popup_enable_ecommerce', $from || $use_option_defaults, $params);
@@ -2295,7 +2320,7 @@ class WDWLibrary {
       }
       global $wpdb;
       $time = time();
-      $update = $wpdb->query( $wpdb->prepare( 'UPDATE `' . $wpdb->prefix  . 'bwg_image` SET `modified_date` = "%d" WHERE ' . $where, $time ) );
+      $update = $wpdb->query($wpdb->prepare('UPDATE `' . $wpdb->prefix . 'bwg_image` SET `modified_date` = "%d" WHERE ' . $where, $time));
       $items = $wpdb->get_results( 'SELECT `gallery_id`, `thumb_url` FROM `' . $wpdb->prefix . 'bwg_image` WHERE ' . $where );
       if ( !empty($items) ) {
         $thumbs_str = '';
@@ -2349,6 +2374,25 @@ class WDWLibrary {
       return $url;
     }
 
+  /**
+   * Get thumb dimensions.
+   *
+   * @param string $thumb_url
+   *
+   * @return string
+   */
+  public static function get_thumb_size( $thumb_url ) {
+    $resolution_thumb = '';
+    if ( !file_exists( BWG()->upload_url.$thumb_url ) ) {
+      $thumb_image = wp_get_image_editor( BWG()->upload_url.$thumb_url );
+      if ( !is_wp_error( $thumb_image ) ) {
+        $get_thumb_size = $thumb_image->get_size();
+        $resolution_thumb = $get_thumb_size["width"] . "x" . $get_thumb_size["height"];
+      }
+    }
+    return $resolution_thumb;
+  }
+
   public static function bwg_session_start() {
     if (session_id() == '' || (function_exists('session_status') && (session_status() == PHP_SESSION_NONE))) {
       @session_start();
@@ -2360,74 +2404,114 @@ class WDWLibrary {
    *
    * @return array
    */
-  public static function image_actions() {
-    $image_actions = array(
-      'image_resize' => array(
-        'title' => __('Resize', BWG()->prefix),
-        'bulk_action' => __('resized', BWG()->prefix),
-        'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
-      ),
-      'image_recreate_thumbnail' => array(
-        'title' => __('Recreate thumbnail', BWG()->prefix),
-        'bulk_action' => __('recreated', BWG()->prefix),
-        'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
-      ),
-      'image_rotate_left' => array(
-        'title' => __('Rotate left', BWG()->prefix),
-        'bulk_action' => __('rotated left', BWG()->prefix),
-        'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
-      ),
-      'image_rotate_right' => array(
-        'title' => __('Rotate right', BWG()->prefix),
-        'bulk_action' => __('rotated right', BWG()->prefix),
-        'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
-      ),
-      'image_set_watermark' => array(
-        'title' => __('Set watermark', BWG()->prefix),
-        'bulk_action' => __('edited', BWG()->prefix),
-        'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
-      ),
-      'image_reset' => array(
-        'title' => __('Reset', BWG()->prefix),
-        'bulk_action' => __('reset', BWG()->prefix),
-        'disabled' => '',
-      ),
-      'image_edit_alt' => array(
-        'title' => __('Edit Alt/Title', BWG()->prefix),
-        'bulk_action' => __('edited', BWG()->prefix),
-        'disabled' => '',
-      ),
-      'image_edit_description' => array(
-        'title' => __('Edit description', BWG()->prefix),
-        'bulk_action' => __('edited', BWG()->prefix),
-        'disabled' => '',
-      ),
-      'image_edit_redirect' => array(
-        'title' => __('Edit redirect URL', BWG()->prefix),
-        'bulk_action' => __('edited', BWG()->prefix),
-        'disabled' => '',
-      ),
-      'image_add_tag' => array(
-        'title' => __('Add tag', BWG()->prefix),
-        'bulk_action' => __('edited', BWG()->prefix),
-        'disabled' => '',
-      ),
-      'image_publish' => array(
-        'title' => __('Publish', BWG()->prefix),
-        'bulk_action' => __('published', BWG()->prefix),
-        'disabled' => '',
-      ),
-      'image_unpublish' => array(
-        'title' => __('Unpublish', BWG()->prefix),
-        'bulk_action' => __('unpublished', BWG()->prefix),
-        'disabled' => '',
-      ),
-      'image_delete' => array(
-        'title' => __('Delete', BWG()->prefix),
-        'bulk_action' => __('deleted', BWG()->prefix),
-        'disabled' => '',
-      ),
-    );
+  public static function image_actions( $gallery_type = '' ) {
+    if( $gallery_type == 'google_photos' || $gallery_type == 'instagram' ) {
+      $image_actions = array(
+        'image_edit_alt' => array(
+          'title' => __('Edit Alt/Title', BWG()->prefix),
+          'bulk_action' => __('edited', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_edit_description' => array(
+          'title' => __('Edit description', BWG()->prefix),
+          'bulk_action' => __('edited', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_edit_redirect' => array(
+          'title' => __('Edit redirect URL', BWG()->prefix),
+          'bulk_action' => __('edited', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_add_tag' => array(
+          'title' => __('Add tag', BWG()->prefix),
+          'bulk_action' => __('edited', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_publish' => array(
+          'title' => __('Publish', BWG()->prefix),
+          'bulk_action' => __('published', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_unpublish' => array(
+          'title' => __('Unpublish', BWG()->prefix),
+          'bulk_action' => __('unpublished', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_delete' => array(
+          'title' => __('Delete', BWG()->prefix),
+          'bulk_action' => __('deleted', BWG()->prefix),
+          'disabled' => '',
+        ),
+      );
+    } else {
+      $image_actions = array(
+        'image_resize' => array(
+          'title' => __('Resize', BWG()->prefix),
+          'bulk_action' => __('resized', BWG()->prefix),
+          'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
+        ),
+        'image_recreate_thumbnail' => array(
+          'title' => __('Recreate thumbnail', BWG()->prefix),
+          'bulk_action' => __('recreated', BWG()->prefix),
+          'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
+        ),
+        'image_rotate_left' => array(
+          'title' => __('Rotate left', BWG()->prefix),
+          'bulk_action' => __('rotated left', BWG()->prefix),
+          'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
+        ),
+        'image_rotate_right' => array(
+          'title' => __('Rotate right', BWG()->prefix),
+          'bulk_action' => __('rotated right', BWG()->prefix),
+          'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
+        ),
+        'image_set_watermark' => array(
+          'title' => __('Set watermark', BWG()->prefix),
+          'bulk_action' => __('edited', BWG()->prefix),
+          'disabled' => (BWG()->wp_editor_exists ? '' : 'disabled="disabled"'),
+        ),
+        'image_reset' => array(
+          'title' => __('Reset', BWG()->prefix),
+          'bulk_action' => __('reset', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_edit_alt' => array(
+          'title' => __('Edit Alt/Title', BWG()->prefix),
+          'bulk_action' => __('edited', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_edit_description' => array(
+          'title' => __('Edit description', BWG()->prefix),
+          'bulk_action' => __('edited', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_edit_redirect' => array(
+          'title' => __('Edit redirect URL', BWG()->prefix),
+          'bulk_action' => __('edited', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_add_tag' => array(
+          'title' => __('Add tag', BWG()->prefix),
+          'bulk_action' => __('edited', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_publish' => array(
+          'title' => __('Publish', BWG()->prefix),
+          'bulk_action' => __('published', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_unpublish' => array(
+          'title' => __('Unpublish', BWG()->prefix),
+          'bulk_action' => __('unpublished', BWG()->prefix),
+          'disabled' => '',
+        ),
+        'image_delete' => array(
+          'title' => __('Delete', BWG()->prefix),
+          'bulk_action' => __('deleted', BWG()->prefix),
+          'disabled' => '',
+        ),
+      );
+    }
     if ( function_exists('BWGEC') ) {
       $image_actions['set_image_pricelist'] = array(
         'title' => __('Add pricelist', BWG()->prefix),
@@ -2769,126 +2853,5 @@ class WDWLibrary {
     if ( $e ) {
       exit;
     }
-  }
-
-  /**
-   * Is plugin active.
-   *
-   * @param $plugin_name
-   *
-   * @return bool
-   */
-  public static function is_plugin_installed($plugin_name) {
-    if ( is_dir(WP_PLUGIN_DIR . '/' . $plugin_name . '/') ) {
-      return TRUE;
-    }
-
-    return FALSE;
-  }
-
-  public static function twbb_install_button($v) {
-    $prefix = BWG()->prefix;
-    $slug = '10web-manager';
-    $install_url = esc_url(wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=' . $slug), 'install-plugin_' . $slug));
-    $activation_url = na_action_link($slug . '/10web-manager.php', 'activate');
-    $tenweb_url = admin_url('admin.php?page=tenweb_menu');
-    $dismiss_url = add_query_arg(array( 'action' => 'wd_tenweb_dismiss' ), admin_url('admin-ajax.php'));
-    $activate = WDWLibrary::is_plugin_installed($slug) && !is_plugin_active('10web-manager/manager.php') ? TRUE : FALSE;
-    ?>
-    <a class="button<?php echo($v == 2 ? ' button-primary' : ''); ?> tenweb_activaion"
-       id="<?php echo $activate ? 'activate_now' : 'install_now'; ?>"
-       data-activation="<?php _e("Activation", $prefix); ?>"
-       data-tenweb-url="<?php echo $tenweb_url; ?>"
-       data-install-url="<?php echo $install_url; ?>"
-       data-activate-url="<?php echo $activation_url; ?>">
-        <span class="tenweb_activaion_text"><?php echo $activate ? __("Activate", $prefix) : __("Install", $prefix); ?></span>
-      <span class="spinner" id="loading"></span>
-    </a>
-    <span class="hide <?php echo $activate ? 'error_activate' : 'error_install tenweb_active'; ?> ">
-      <?php echo $activate ? __("Activation failed, please try again.", $prefix) : __("Installation failed, please try again.", $prefix); ?>
-    </span>
-    <script>
-      var url = jQuery(".tenweb_activaion").attr("data-install-url");
-      var activate_url = jQuery(".tenweb_activaion").attr("data-activate-url");
-
-      function install_tenweb_plugin() {
-        jQuery("#loading").addClass('is-active');
-        jQuery(this).prop('disable', true);
-        jQuery.ajax({
-          method: "POST",
-          url: url,
-        }).done(function () {
-          /* Check if plugin installed.*/
-          jQuery.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: jQuery("#verifyUrl").attr('data-url'),
-            error: function () {
-              jQuery("#loading").removeClass('is-active');
-              jQuery(".error_install").show();
-            },
-            success: function (response) {
-              if (response.status_install == 1) {
-                jQuery('#install_now .tenweb_activaion_text').text(jQuery("#install_now").data("activation"));
-                activate_tenweb_plugin();
-              }
-              else {
-                jQuery("#loading").removeClass('is-active');
-                jQuery(".error_install").removeClass('hide');
-              }
-            }
-          });
-        }).fail(function () {
-          jQuery("#loading").removeClass('is-active');
-          jQuery(".error_install").removeClass('hide');
-        });
-      }
-      function activate_tenweb_plugin() {
-        jQuery("#activate_now #loading").addClass('is-active');
-        jQuery.ajax({
-          method: "POST",
-          url: activate_url,
-        }).done(function () {
-          jQuery("#loading").removeClass('is-active');
-          var data_tenweb_url = '';
-          /* Check if plugin installed.*/
-          jQuery.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: jQuery("#verifyUrl").attr('data-url'),
-            error: function () {
-              jQuery("#loading").removeClass('is-active');
-              jQuery(".error_activate").removeClass('hide');
-            },
-            success: function (response) {
-              if (response.status_active == 0) {
-                //jQuery('#install_now').addClass('hide');
-                data_tenweb_url = jQuery('.tenweb_activaion').attr('data-tenweb-url');
-                jQuery.post('<?php echo $dismiss_url; ?>');
-              }
-              else {
-                jQuery("#loading").removeClass('is-active');
-                jQuery(".error_activate").removeClass('hide');
-              }
-            },
-            complete: function () {
-              if (data_tenweb_url != '') {
-                window.location.href = data_tenweb_url;
-              }
-            }
-          });
-        }).fail(function () {
-          jQuery("#loading").removeClass('is-active');
-        });
-      }
-      jQuery("#install_now").on("click", function () {
-        install_tenweb_plugin();
-      });
-      jQuery("#activate_now").on("click", function () {
-        activate_tenweb_plugin();
-      });
-    </script>
-
-    <?php
   }
 }

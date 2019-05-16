@@ -19,6 +19,7 @@ class BWGViewImage_browser extends BWGViewSite {
     $page_nav = $image_rows['page_nav'];
     $images = $image_rows['images'];
     $items_per_page = array('images_per_page' => 1, 'load_more_image_count' => 1);
+    $lazyload = BWG()->options->lazyload_images;
     if ( $params['watermark_type'] == 'none' ) {
       $text_align = '';
       $vertical_align = '';
@@ -118,7 +119,10 @@ class BWGViewImage_browser extends BWGViewSite {
                 if ( !$is_embed ) {
                   ?>
                   <a style="position:relative;" <?php echo($params['thumb_click_action'] == 'open_lightbox' ? (' class="bwg_lightbox" data-image-id="' . $image_row->id . '"') : ($params['thumb_click_action'] == 'redirect_to_url' && $image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' . ($params['thumb_link_target'] ? '_blank' : '') . '"' : '')) ?>>
-                    <img class="skip-lazy bwg-item0 bwg_image_browser_img bwg_image_browser_img_<?php echo $bwg; ?>" src="<?php echo BWG()->upload_url . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
+                    <img class="skip-lazy bwg-item0 bwg_image_browser_img bwg_image_browser_img_<?php echo $bwg; ?> <?php if( $lazyload ) { ?> bwg_lazyload lazy_loader<?php } ?>"
+                         src="<?php if( !$lazyload ) { echo BWG()->upload_url . $image_row->image_url; } else { echo BWG()->plugin_url."/images/lazy_placeholder.gif"; } ?>"
+                         data-original="<?php echo BWG()->upload_url . $image_row->image_url; ?>"
+                         alt="<?php echo $image_row->alt; ?>" />
                   </a>
                   <?php
                 }

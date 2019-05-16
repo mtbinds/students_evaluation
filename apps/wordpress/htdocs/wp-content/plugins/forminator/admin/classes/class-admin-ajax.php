@@ -85,6 +85,7 @@ class Forminator_Admin_AJAX {
 		add_action( "wp_ajax_forminator_save_pagination_popup", array( $this, "save_pagination" ) );
 
 		add_action( "wp_ajax_forminator_save_accessibility_settings_popup", array( $this, "save_accessibility_settings" ) );
+		add_action( "wp_ajax_forminator_save_dashboard_settings_popup", array( $this, "save_dashboard_settings" ) );
 	}
 
 	/**
@@ -833,11 +834,12 @@ class Forminator_Admin_AJAX {
 		// Validate nonce
 		forminator_validate_ajax( "forminator_save_popup_uninstall_settings" );
 
-		$delete_uninstall = $_POST['delete_uninstall'];// WPCS: CSRF ok by forminator_validate_ajax.
+		$delete_uninstall = isset( $_POST['delete_uninstall'] ) ? $_POST['delete_uninstall'] : false;// WPCS: CSRF ok by forminator_validate_ajax.
 		$delete_uninstall = filter_var( $delete_uninstall, FILTER_VALIDATE_BOOLEAN );
 
 		update_option( "forminator_uninstall_clear_data", $delete_uninstall );
 		wp_send_json_success();
+
 	}
 
 	/**
@@ -1213,14 +1215,6 @@ class Forminator_Admin_AJAX {
 		update_option( 'forminator_retain_quiz_submissions_interval_unit', $post_data['quiz_submissions_retention_unit'] );
 		// Submissions Retention
 
-		/**
-		 * UNINSTALL PLUGIN
-		 */
-		$delete_uninstall = $_POST['delete_uninstall'];// WPCS: CSRF ok by forminator_validate_ajax.
-		$delete_uninstall = filter_var( $delete_uninstall, FILTER_VALIDATE_BOOLEAN );
-
-		update_option( "forminator_uninstall_clear_data", $delete_uninstall );
-
 		wp_send_json_success();
 	}
 
@@ -1533,6 +1527,54 @@ class Forminator_Admin_AJAX {
 		$enable_accessibility = filter_var( $enable_accessibility, FILTER_VALIDATE_BOOLEAN );
 
 		update_option( "forminator_enable_accessibility", $enable_accessibility );
+		wp_send_json_success();
+	}
+
+	/**
+	 * Save dashboard
+	 *
+	 * @since 1.6.3
+	 */
+	public function save_dashboard_settings() {
+		// Validate nonce
+		forminator_validate_ajax( "forminator_save_dashboard_settings" );
+
+		$dashboard_settings = forminator_get_dashboard_settings();
+		$widgets            = array( 'forms', 'polls', 'quizzes' );
+
+		$num_recents = isset( $_POST['num_recent'] ) ? $_POST['num_recent'] : array();// WPCS: CSRF ok by forminator_validate_ajax.
+		$publisheds  = isset( $_POST['published'] ) ? $_POST['published'] : array();// WPCS: CSRF ok by forminator_validate_ajax.
+		$drafts      = isset( $_POST['draft'] ) ? $_POST['draft'] : array();// WPCS: CSRF ok by forminator_validate_ajax.
+
+		// value based settings
+		foreach ( $num_recents as $widget => $value ) {
+			if ( ! isset( $dashboard_settings[ $widget ] ) ) {
+				$dashboard_settings[ $widget ] = array();
+			}
+			$value = intval( $value );
+			// at least 0
+			if ( $value >= 0 ) {
+				$dashboard_settings[ $widget ]['num_recent'] = intval( $value );
+			}
+		}
+
+		// bool based settings aka checkboxes
+		foreach ( $widgets as $widget ) {
+			if ( ! isset( $dashboard_settings[ $widget ] ) ) {
+				$dashboard_settings[ $widget ] = array();
+			}
+
+			// default enabled, handle when not exist = false
+			if ( ! isset( $publisheds[ $widget ] ) ) {
+				$dashboard_settings[ $widget ]['published'] = false;
+			}
+			if ( ! isset( $drafts[ $widget ] ) ) {
+				$dashboard_settings[ $widget ]['draft'] = false;
+			}
+		}
+
+		update_option( 'forminator_dashboard_settings', $dashboard_settings );
+
 		wp_send_json_success();
 	}
 

@@ -94,7 +94,7 @@ class Forminator_Poll_Form_Model extends Forminator_Base_Form_Model {
 
 			if ( $this->is_allow_multiple_votes() ) {
 				if ( isset( $settings['vote_limit_input'] ) ) {
-					$duration           = is_numeric( $settings['vote_limit_input'] ) ? $settings['vote_limit_input'] : 0;
+					$duration           = is_numeric( $settings['vote_limit_input'] ) ? esc_sql( $settings['vote_limit_input'] ) : 0;
 					$vote_limit_options = 'm';
 					if ( isset( $settings['vote_limit_options'] ) ) {
 						$vote_limit_options = $settings['vote_limit_options'];

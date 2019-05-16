@@ -9,39 +9,6 @@ var bwg_params_ib = [];
 /* Carousel params */
 var bwg_params_carousel = [];
 
-jQuery.fn.extend({
-  hideShow: function (callback) {
-    this.checkForVisiblilityChange(callback);
-    return this;
-  },
-  checkForVisiblilityChange: function (callback) {
-    if (!(this.length >>> 0)) {
-      return undefined;
-    }
-    var elem, i = 0;
-    while ((elem = this[i++])) {
-      var curValue = jQuery(elem).is(":visible");
-      (elem.lastVisibility === undefined) && (elem.lastVisibility = curValue);
-      (curValue !== elem.lastVisibility) && (
-        elem.lastVisibility = curValue,
-        (typeof callback === "function") && (
-          callback.apply(this, [new jQuery.Event('visibilityChanged'), curValue ? "shown" : "hidden"])
-        ),
-          (function (elem, curValue) {
-            setTimeout(function () {
-              jQuery(elem).trigger('visibilityChanged', [curValue ? "shown" : "hidden"])
-            }, 10)
-          })(elem, curValue)
-      )
-    }
-    (function (that, a) {
-      setTimeout(function () {
-        that.checkForVisiblilityChange.apply(that, a);
-      }, 10)
-    })(this, arguments)
-  }
-});
-
 /* Execute on ajax complete.*/
 jQuery(document).ajaxComplete(function () {
   setTimeout(function () {
@@ -50,6 +17,7 @@ jQuery(document).ajaxComplete(function () {
 });
 
 jQuery(document).ready(function () {
+
   document.addEventListener("visibilitychange", function() {
     var bwg_error = false;
     /* If there is error (empty gallery).*/
@@ -67,18 +35,60 @@ jQuery(document).ready(function () {
       }
     }
   });
-
-
-  /* To bind only visible containers.*/
   bwg_main_ready();
+
+
+  jQuery.fn.extend({
+    hideShow: function (callback) {
+      this.checkForVisiblilityChange(callback);
+      return this;
+    },
+    checkForVisiblilityChange: function (callback) {
+      if (!(this.length >>> 0)) {
+        return undefined;
+      }
+      var elem, i = 0;
+      while ((elem = this[i++])) {
+        var curValue = jQuery(elem).is(":visible");
+        (elem.lastVisibility === undefined) && (elem.lastVisibility = curValue);
+        (curValue !== elem.lastVisibility) && (
+          elem.lastVisibility = curValue,
+          (typeof callback === "function") && (
+            callback.apply(this, [new jQuery.Event('visibilityChanged'), curValue ? "shown" : "hidden"])
+          ),
+            (function (elem, curValue) {
+              setTimeout(function () {
+                jQuery(elem).trigger('visibilityChanged', [curValue ? "shown" : "hidden"])
+              }, 10)
+            })(elem, curValue)
+        )
+      }
+      (function (that, a) {
+        setTimeout(function () {
+          that.checkForVisiblilityChange.apply(that, a);
+        }, 10)
+      })(this, arguments)
+    }
+  });
   jQuery(this).hideShow(function(event, visibility) {
     if ( visibility == 'shown' ) {
       bwg_main_ready();
     }
   });
+
 });
 
 function bwg_main_ready() {
+  if ( bwg_objectsL10n.lazy_load == 1 ) {
+    jQuery(function() {
+      jQuery('img.bwg_lazyload').lazy({
+        onFinishedAll: function() {
+          jQuery(".lazy_loader").removeClass("lazy_loader");
+        }
+      });
+    });
+  }
+
   /* If there is error (empty gallery).*/
   jQuery(".bwg_container").each(function () {
     if ( jQuery(this).find(".wd_error").length > 0 ) {
@@ -294,12 +304,14 @@ function bwg_carousel_ready() {
         /*play*/
         jQuery(".bwg_carousel_play_pause_" + bwg).attr("title", bwg_objectsL10n.pause);
         jQuery(".bwg_carousel_play_pause_" + bwg).attr("class", "bwg-icon-pause bwg_ctrl_btn_" + bwg + " bwg_carousel_play_pause_" + bwg + "");
+        bwg_params_carousel[bwg]['bwg_currentlyMoving'] = false;
         bwg_params_carousel[bwg]['carousel'].start();
       }
       else {
         /* Pause.*/
         jQuery(".bwg_carousel_play_pause_" + bwg).attr("title", bwg_objectsL10n.play);
         jQuery(".bwg_carousel_play_pause_" + bwg).attr("class", "bwg-icon-play bwg_ctrl_btn_" + bwg + " bwg_carousel_play_pause_" + bwg + "");
+        bwg_params_carousel[bwg]['bwg_currentlyMoving'] = true;
         bwg_params_carousel[bwg]['carousel'].pause();
       }
       event.stopPropagation();
@@ -766,7 +778,7 @@ function bwg_all_thumnails_loaded(that) {
 }
 
 function bwg_all_thumbnails_loaded_callback(that) {
-  if (jQuery(that).hasClass('bwg-thumbnails')) {
+  if (jQuery(that).hasClass('bwg-thumbnails') && !jQuery(that).hasClass('bwg-masonry-thumbnails')) {
     bwg_thumbnail( that );
   }
   if (jQuery(that).hasClass('bwg-masonry-thumbnails')) {
@@ -785,7 +797,6 @@ function bwg_container_loaded(bwg) {
 function bwg_album_thumbnail(that) {
   bwg_container_loaded(jQuery(that).data('bwg'));
 }
-
 function bwg_album_extended(that) {
   var container_width = jQuery(that).width();
   var thumb_width = jQuery(that).data("thumbnail-width");
@@ -828,25 +839,37 @@ function bwg_album_extended(that) {
     var image = jQuery(this).find("img");
     var item0 = jQuery(this).find(".bwg-item0");
     var item2 = jQuery(this).find(".bwg-item2");
-    if ( (item2.width() / item2.height()) > (image.width() / image.height()) ) {
-      if ( item2.width() > image.width() ) {
-        image.css({width: "100%"});
+    var image_width = image.data('width');
+    var image_height = image.data('height');
+    if(image_width == '' || image_height == '') {
+      image_width = image.width();
+      image_height = image.height();
+    }
+    var scale = image_width/image_height;
+
+    if ( (item2.width() / item2.height()) > (image_width / image_height) ) {
+      if ( item2.width() > image_width ) {
+        image.css({width: "100%", height: item2.width()/scale});
       }
       else {
-        image.css({maxWidth: "100%"});
+        image.css({maxWidth: "100%", height: item2.width()/scale});
       }
+      image_width = item2.width();
+      image_height = item2.width()/scale;
     }
     else {
-      if ( item2.height() > image.height() ) {
-        image.css({height: "100%"});
+      if ( item2.height() > image_height ) {
+        image.css({height : "100%", width : item2.height()*scale, maxWidth : 'initial'});
       }
       else {
-        image.css({maxHeight: "100%"});
+        image.css({maxHeight: "100%", width: item2.height()*scale, maxWidth:'initial'});
       }
+      image_height = item2.height();
+      image_width = item2.height()*scale;
     }
     jQuery(this).find(".bwg-item2").css({
-      marginLeft: (item0.width() - image.width()) / 2,
-      marginTop: (item0.height() - image.height()) / 2
+      marginLeft: (item0.width() - image_width) / 2,
+      marginTop: (item0.height() - image_height) / 2
     });
   });
   bwg_container_loaded(jQuery(that).data('bwg'));
@@ -870,25 +893,40 @@ function bwg_thumbnail(that) {
   jQuery(that).children(".bwg-item").each(function () {
     var image = jQuery(this).find("img");
     var item2 = jQuery(this).find(".bwg-item2");
-    if ( (item2.width() / item2.height()) > (image.width() / image.height()) ) {
-      if ( item2.width() > image.width() ) {
-        image.css({width: "100%"});
+    var item1 = jQuery(this).find(".bwg-item1");
+    var container_width = item2.width() > 0 ? item2.width() : item1.width();
+    var container_height = item2.height() > 0 ? item2.height() : item1.height();
+    var image_width = image.data('width');
+    var image_height = image.data('height');
+    if(image_width == '' || image_height == '' || typeof image_width === 'undefined' || typeof image_height === 'undefined') {
+      image_width = image.width();
+      image_height = image.height();
+    }
+    var scale = image_width/image_height;
+    if ( (container_width / container_height) > scale ) {
+      if ( container_width > image_width ) {
+        image.css({width: "100%", height: container_width/scale});
       }
       else {
-        image.css({maxWidth: "100%"});
+        image.css({maxWidth: "100%", height: container_width/scale});
       }
+      image_width = container_width;
+      image_height = container_width/scale;
     }
     else {
-      if ( item2.height() > image.height() ) {
-        image.css({height: "100%"});
+      if ( container_height > image.height() ) {
+        image.css({height : "100%", width : container_height*scale, maxWidth : 'initial'});
       }
       else {
-        image.css({maxHeight: "100%"});
+        image.css({maxHeight: "100%", width: container_height*scale, maxWidth:'initial'});
       }
+      image_height = container_height;
+      image_width = container_height*scale;
     }
+
     jQuery(this).find(".bwg-item2").css({
-      marginLeft: (item2.width() - image.width()) / 2,
-      marginTop: (item2.height() - image.height()) / 2
+      marginLeft: (container_width - image_width) / 2,
+      marginTop: (container_height - image_height) / 2
     });
   });
   bwg_container_loaded(jQuery(that).data('bwg'));
@@ -940,17 +978,24 @@ function bwg_thumbnail_masonry(that) {
     }
     var min_width = 100 / column_count;
     var column_heights = [];
+    var scaleHeight;
+    var scale;
     for ( i = 0; i < column_count; i++ ) {
       column_heights.push( 0 );
     }
     container.find( ".bwg-item" ).each( function () {
       var order = column_heights.indexOf( Math.min.apply( Math, column_heights ) );
       jQuery( this ).css( { width: min_width + "%", order: order + 1 } );
+      if ( jQuery( this ).find("img").attr("data-width").length > 0 && jQuery( this ).find("img").attr("data-height").length > 0 ) {
+        scale = jQuery( this ).find("img").data("width")/jQuery( this ).find("img").data("height");
+        scaleHeight = jQuery( this ).width()/scale;
+        jQuery(this).height(scaleHeight);
+      }
       /* Use getBoundingClientRect instead of jQuery.height() to avoid rounding. */
       column_heights[order] += jQuery( this )[0].getBoundingClientRect().height;
     } );
-
     var container_height = Math.max.apply( Math, column_heights );
+
     /* Equalize all columns. */
     for ( i = 0; i < column_count; i++ ) {
       if ( column_heights[i] < container_height ) {
@@ -961,7 +1006,6 @@ function bwg_thumbnail_masonry(that) {
         } ) );
       }
     }
-
     container.outerWidth( column_count * thumb_width );
     container.height( container_height );
   }
@@ -995,8 +1039,13 @@ function bwg_thumbnail_mosaic(that) {
     /* initialize */
     var mosaic_pics = jQuery(".bwg_mosaic_thumb_" + bwg);
     mosaic_pics.each(function (index) {
-      var thumb_w = mosaic_pics.get(index).naturalWidth;
-      var thumb_h = mosaic_pics.get(index).naturalHeight;
+      var thumb_w = jQuery(this).data('width');
+      var thumb_h = jQuery(this).data('height');
+      if(thumb_w == '' || thumb_h == '' || typeof thumb_w === 'undefined' || typeof thumb_h === 'undefined') {
+        thumb_w = mosaic_pics.get(index).naturalWidth;
+        thumb_h = mosaic_pics.get(index).naturalHeight;
+      }
+
       thumb_w = thumb_w * thumbnail_height / thumb_h;
       mosaic_pics.eq(index).height(thumbnail_height);
       mosaic_pics.eq(index).width(thumb_w);
@@ -1114,6 +1163,10 @@ function bwg_thumbnail_mosaic(that) {
       else {
         var thumbnail_width = thumb_width;
       }
+      /* Custom solution for 10web.io web site gallery plugin page mosaic view for 4 columns view */
+      if( jQuery(".header-content-with_tab").length > 0 ) {
+        var thumbnail_width = (jQuery(".header-content-with_tab").width()) / 4 - 8;
+      }
     }
     else {
       var thumbnail_width = thumb_width;
@@ -1121,8 +1174,12 @@ function bwg_thumbnail_mosaic(that) {
     /* Initialize.*/
     var mosaic_pics = jQuery(".bwg_mosaic_thumb_" + bwg);
     mosaic_pics.each(function (index) {
-      var thumb_w = mosaic_pics.get(index).naturalWidth;
-      var thumb_h = mosaic_pics.get(index).naturalHeight;
+      var thumb_w = jQuery(this).data('width');
+      var thumb_h = jQuery(this).data('height');
+      if(thumb_w == '' || thumb_h == '' || typeof thumb_w === 'undefined' || typeof thumb_h === 'undefined') {
+        thumb_w = mosaic_pics.get(index).naturalWidth;
+        thumb_h = mosaic_pics.get(index).naturalHeight;
+      }
       mosaic_pics.eq(index).height(thumb_h * thumbnail_width / thumb_w);
       mosaic_pics.eq(index).width(thumbnail_width);
     });

@@ -134,7 +134,38 @@
 					background-color: transparent;
 
 					&::placeholder {
-						color: transparent;
+						filter: alpha(opacity=0);
+						filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+						opacity: 0;
+						-khtml-opacity: 0;
+					}
+
+					&:-moz-placeholder {
+						filter: alpha(opacity=0);
+						filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+						opacity: 0;
+						-khtml-opacity: 0;
+					}
+
+					&::-moz-placeholder {
+						filter: alpha(opacity=0);
+						filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+						opacity: 0;
+						-khtml-opacity: 0;
+					}
+
+					&:-ms-input-placeholder {
+						filter: alpha(opacity=0);
+						filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+						opacity: 0;
+						-khtml-opacity: 0;
+					}
+
+					&::-webkit-input-placeholder {
+						filter: alpha(opacity=0);
+						filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+						opacity: 0;
+						-khtml-opacity: 0;
 					}
 				}
 

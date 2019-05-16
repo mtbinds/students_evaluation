@@ -250,6 +250,8 @@ class Forminator_Date extends Forminator_Field {
 						$html .= '</div>';
 						$html .= '</div>';
 						break;
+					default:
+						break;
 				}
 			}
 
@@ -332,6 +334,8 @@ class Forminator_Date extends Forminator_Field {
 						// End field
 						$html .= '</div>';
 						$html .= '</div>';
+						break;
+					default:
 						break;
 				}
 			}
@@ -442,6 +446,9 @@ class Forminator_Date extends Forminator_Field {
 					$date_info['year']  = isset( $date['year'] ) ? $date['year'] : 0;
 					$date_info['month'] = isset( $date['month'] ) ? $date['month'] : 0;
 					$date_info['day']   = isset( $date['day'] ) ? $date['day'] : 0;
+					break;
+
+				default:
 					break;
 			}
 
@@ -630,6 +637,21 @@ class Forminator_Date extends Forminator_Field {
 		if ( empty( $data ) ) {
 			return;
 		}
+
+		// subfields `{"year":"","day":"","month":""}`
+		if ( is_array( $data ) ) {
+			$is_all_empty = true;
+			foreach ( $data as $value ) {
+				if ( ! empty( $value ) ) {
+					$is_all_empty = false;
+					break;
+				}
+			}
+			if ( $is_all_empty ) {
+				return;
+			}
+		}
+
 		// Always! (we dont have validate flag on builder) validate date_format
 		$date_format = self::get_property( 'date_format', $field );
 		$date        = self::parse_date( $data, $date_format );
@@ -689,9 +711,10 @@ class Forminator_Date extends Forminator_Field {
 	 * @return array|string $data - the data after sanitization
 	 */
 	public function sanitize( $field, $data ) {
+		$original_data = $data;
 		// Sanitize
 		$data = forminator_sanitize_field( $data );
 
-		return apply_filters( 'forminator_field_date_sanitize', $data, $field );
+		return apply_filters( 'forminator_field_date_sanitize', $data, $field, $original_data );
 	}
 }

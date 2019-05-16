@@ -63,6 +63,8 @@ class Forminator_Widget extends WP_Widget {
 						echo forminator_quiz( $instance['quiz_id'], false );// wpcs xss ok.
 					}
 					break;
+				default:
+					break;
 			}
 		}
 

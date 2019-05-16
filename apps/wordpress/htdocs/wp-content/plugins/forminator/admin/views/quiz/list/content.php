@@ -87,7 +87,7 @@ $total_entries_from_last_month = count( Forminator_Form_Entry_Model::get_newer_e
 						<span class="sui-screen-reader-text"><?php esc_html_e( 'Select all', Forminator::DOMAIN ); ?></span>
 					</label>
 
-					<select class="sui-select-sm sui-select-inline" name="forminator_action">
+					<select class="sui-select-sm sui-select-inline fui-select-listing-actions" name="forminator_action">
 						<option value=""><?php esc_html_e( 'Bulk Action', Forminator::DOMAIN ); ?></option>
 						<?php foreach ( $bulk_actions as $val => $label ) : ?>
 							<option value="<?php echo esc_attr( $val ); ?>"><?php echo esc_html( $label ); ?></option>
@@ -240,15 +240,18 @@ $total_entries_from_last_month = count( Forminator_Form_Entry_Model::get_newer_e
 
 								<?php endif; ?>
 
-								<li><a href="#"
-								       class="wpmudev-open-modal"
-								       data-modal="delete-module"
-								       data-modal-title="<?php esc_attr_e( 'Delete Quiz', Forminator::DOMAIN ); ?>"
-								       data-modal-content="<?php esc_attr_e( 'Are you sure you wish to permanently delete this quiz?', Forminator::DOMAIN ); ?>"
-								       data-form-id="<?php echo esc_attr( $module['id'] ); ?>"
-								       data-nonce="<?php echo wp_create_nonce( 'forminatorQuizFormRequest' ); // WPCS: XSS ok. ?>">
+								<li>
+									<button
+										class="sui-option-red wpmudev-open-modal"
+										data-modal="delete-module"
+										data-modal-title="<?php esc_attr_e( 'Delete Quiz', Forminator::DOMAIN ); ?>"
+										data-modal-content="<?php esc_attr_e( 'Are you sure you wish to permanently delete this quiz?', Forminator::DOMAIN ); ?>"
+										data-form-id="<?php echo esc_attr( $module['id'] ); ?>"
+										data-nonce="<?php echo wp_create_nonce( 'forminatorQuizFormRequest' ); // WPCS: XSS ok. ?>"
+									>
 										<i class="sui-icon-trash" aria-hidden="true"></i> <?php esc_html_e( 'Delete', Forminator::DOMAIN ); ?>
-									</a></li>
+									</button>
+								</li>
 
 							</ul>
 

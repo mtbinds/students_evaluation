@@ -131,6 +131,7 @@ class Forminator_Form_Field_Model {
 		}
 
 		foreach ( $data as $key => $val ) {
+			$key = sanitize_key( $key ); // Attempt ti sanitize key
 			$this->$key = $val;
 		}
 

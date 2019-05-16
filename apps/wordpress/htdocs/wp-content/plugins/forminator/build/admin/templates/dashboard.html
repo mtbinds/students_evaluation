@@ -543,4 +543,25 @@
 
     </script>
 
+	<script type="text/template" id="forminator-reset-plugin-settings-popup-tpl">
+
+		<div class="sui-box-body">
+			<span class="sui-description">{{ content }}</span>
+		</div>
+
+		<div class="sui-box-footer">
+			<button type="button" class="sui-button sui-button-ghost forminator-popup-cancel" data-a11y-dialog-hide>{{ Forminator.l10n.popup.cancel }}</button>
+			<form method="post" class="delete-action">
+				<input type="hidden" name="forminator_action" value="reset_plugin_settings">
+				<input type="hidden" id="forminatorNonce" name="forminatorNonce" value="{{ nonce }}">
+				<input type="hidden" name="_wp_http_referer" value="{{ referrer }}">
+				<button type="submit" class="sui-button sui-button-ghost sui-button-red popup-confirmation-confirm">
+					<i class="sui-icon-refresh" aria-hidden="true"></i>
+					{{ Forminator.l10n.popup.reset }}
+				</button>
+			</form>
+		</div>
+
+	</script>
+
 </div>

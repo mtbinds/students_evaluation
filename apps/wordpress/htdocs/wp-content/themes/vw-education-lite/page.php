@@ -16,15 +16,59 @@ get_header(); ?>
 
 <div id="content-vw" class="container">
     <div class="middle-align">
-        <?php while ( have_posts() ) : the_post(); ?>
-            <h1><?php the_title(); ?></h1>
-            <?php the_content();?>
-        <?php endwhile; // end of the loop. ?>
-        <?php
-            //If comments are open or we have at least one comment, load up the comment template
-            if ( comments_open() || '0' != get_comments_number() )
-                comments_template();
-        ?>
+        <?php $theme_lay = get_theme_mod( 'vw_education_lite_page_layout','One Column');
+            if($theme_lay == 'One Column'){ ?>
+                <?php while ( have_posts() ) : the_post();
+
+                    get_template_part( 'template-parts/page-content'); 
+              
+                endwhile; ?>
+        <?php }else if($theme_lay == 'Right Sidebar'){ ?>
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <?php while ( have_posts() ) : the_post();
+
+                        get_template_part( 'template-parts/page-content'); 
+                  
+                    endwhile; ?>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="sidebar">
+                        <?php dynamic_sidebar('sidebar-1'); ?>
+                    </div>
+                </div>
+            </div>
+        <?php }else if($theme_lay == 'Left Sidebar'){ ?>
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="sidebar">
+                        <?php dynamic_sidebar('sidebar-1'); ?>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                    <?php while ( have_posts() ) : the_post();
+
+                        get_template_part( 'template-parts/page-content'); 
+                  
+                    endwhile; ?>
+                </div>
+            </div>
+        <?php }else {?>
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <?php while ( have_posts() ) : the_post();
+
+                        get_template_part( 'template-parts/page-content'); 
+                  
+                    endwhile; ?>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="sidebar">
+                        <?php dynamic_sidebar('sidebar-1'); ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
         <div class="clear"></div>
     </div>
 </div>

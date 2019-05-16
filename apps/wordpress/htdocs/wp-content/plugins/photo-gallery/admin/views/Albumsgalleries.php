@@ -84,7 +84,7 @@ class AlbumsgalleriesView_bwg extends AdminView_bwg {
           $iterator = 0;
           foreach ($params['rows'] as $row) {
             $alternate = (!isset($alternate) || $alternate == '') ? 'class="alternate"' : '';
-                  $preview_image = BWG()->plugin_url . '/images/no-image.png';
+			      $preview_image = BWG()->plugin_url . '/images/no-image.png';
             if ( !empty($row->preview_image) ) {
               $preview_image = BWG()->upload_url . $row->preview_image;
             }

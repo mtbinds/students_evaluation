@@ -161,6 +161,11 @@ class Forminator_Quizz_Admin extends Forminator_Admin_Module {
 						'admin-email-recipients' => array(
 							get_option( 'admin_email' ),
 						),
+						'admin-email-title'      => __( "New Quiz Submission for {quiz_name}", Forminator::DOMAIN ),
+						'admin-email-editor'     => __(
+							"You have a new quiz submission: <br/><br/>{quiz_answer}<br/><br/>Quiz results: <br/>{quiz_result} <br/>---<br/> This message was sent from {site_url}.",
+							Forminator::DOMAIN
+						),
 						'results_behav' => 'after',
 						'visual_style' => 'list',
 						'forminator-quiz-theme' => 'default',

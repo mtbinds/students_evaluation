@@ -4,7 +4,7 @@
  *
  * @package LoginPress
  * @since 1.0.19
- * @since 1.1.22
+ * @since 1.1.24
  *
  */
 
@@ -82,26 +82,6 @@ if ( ! class_exists( 'LoginPress_Addons' ) ) :
 			</div>
 
 		<?php }
-
-		/**
-		 * [_addon_promotion Create a method for Add-Ons promotion]
-		 * @since  1.1.22
-		 */
-		function _addon_promotion( $addon ){
-
-			$desc = $this->addons_promotion_description( $addon->id, $addon->slug, $this->convert_to_array( $addon->categories ) );
-			$slug = $addon->slug;
-			$slug = $slug . '/' . $slug . '.php';
-
-			if( ! in_array( 'loginpress-free-add-ons', $this->convert_to_array( $addon->categories ) ) && 'Login Widget' != $addon->title && ! is_plugin_active( $slug ) ){
-
-				return array(
-					'id'    => $addon->slug,
-					'title' => esc_html( $addon->title ),
-					'desc'  => $desc
-				);
-			}
-		}
 
 		function _addon_card_free( $addon ) { ?>
 
@@ -182,6 +162,8 @@ if ( ! class_exists( 'LoginPress_Addons' ) ) :
 				return true;
 			}else if( LoginPress_Pro::get_license_id() == 4 and in_array('loginpress-pro-agency', $categories) ){
 				return true;
+			}else if( LoginPress_Pro::get_license_id() == 7 and in_array('loginpress-pro-agency', $categories) ){
+				return true;
 			}else if( LoginPress_Pro::get_license_id() == 1 and in_array('loginpress-free-add-ons', $categories) ){
 				return true;
 			}else{
@@ -225,99 +207,6 @@ if ( ! class_exists( 'LoginPress_Addons' ) ) :
 				?>
 					<a target="_blank" href="https://wpbrigade.com/wordpress/plugins/loginpress-pro/?utm_source=loginpress-lite&utm_medium=addons-coming-soon&utm_campaign=pro-upgrade" class="button-primary"><?php esc_html_e( 'UPGRADE NOW', 'loginpress' ); ?></a>
 					<?php
-			}
-		}
-
-		/**
-		* Return promoted Add-on description.
-		*
-		* @return array
-		* @since 1.1.22
-		*/
-		public function addons_promotion_description( $id, $slug, $categories = array() ) {
-
-			$_slug = $slug . '/' . $slug . '.php';
-
-			if ( class_exists( 'LoginPress_Pro' ) && $this->is_addon_licensed ( $categories ) ) {
-
-			 	if ( is_plugin_active( $_slug ) ) {
-
-					return sprintf( esc_html__( '%1$s Already Installed %2$s', 'loginpress' ), '<button class="button-primary">', '</button>' );
-				}
-				else if ( array_key_exists( $_slug , $this->plugins_list ) ) {
-
-						$link = wp_nonce_url( add_query_arg( array( 'action' => 'activate', 'plugin' => $_slug ), admin_url( 'plugins.php' ) ),  'activate-plugin_' . $_slug ) ;
-						$desc = $this->_addons_description( $slug, false );
-						return sprintf( esc_html__( '%3$s %1$s Activate Plugin %2$s', 'loginpress' ), '<div class="loginpress-promotion-big-button"><a href="' .  $link . '" class="button-primary">', '</a></div>', $desc );
-				}
-				else{
-
-					$link   = wp_nonce_url( add_query_arg( array( 'action' => 'install-plugin', 'plugin' => $_slug, 'lgp' => 1, 'id' => $id), admin_url( 'update.php' ) ), 'install-plugin_' . $_slug );
-					return sprintf( esc_html__( '%1$s Install %2$s', 'loginpress' ), '<a  href="' . $link . '" class="button-primary">', '</a>' );
-				}
-			}
-			else {
-
-				return $this->_addons_description( $slug );
-			}
-		}
-
-		/**
-		* Return promoted Add-on description.
-		*
-		* @return string
-		* @since 1.1.22
-		*/
-
-		public function _addons_description( $slug, $button = true ) {
-
-			$desc = '';
-
-			if ( 'loginpress-hide-login' == $slug ) {
-
-				$desc .= '<p class="loginpress-addon-promotion-desc">' . esc_html( 'This LoginPress add-on lets you change the login page URL to anything you want. It will give a hard time to spammers who keep hitting to your login page. This is helpful for Brute force attacks. One caution to use this add-on is you need to remember the custom login url after you change it. We have an option to email your custom login url so you remember it.', 'loginpress' ) . '</p>' . $this->_addon_video( 'How Hide Login Works', 'LhITKK63e7o' ) . $this->upgrade_now( 'utm_source=loginpress-hide-login&utm_medium=addons-coming-soon&utm_campaign=pro-upgrade', $button );
-			} else if ( 'loginpress-limit-login-attempts' == $slug ) {
-
-				$desc .= '<p class="loginpress-addon-promotion-desc">' . esc_html( 'Everybody needs a control of their Login page. This will help you to track your login attempts by each user. You can limit the login attempts for each user. Brute force attacks are the most common way to gain access to your website. This add-on acts as a sheild to these hacking attacks and gives you control to set the time between each login attempts.', 'loginpress' ) . '</p>' . $this->_addon_video( 'How Limit Login Login Attempts Works', 'SSh346cHNqE' ) . $this->upgrade_now( 'utm_source=loginpress-limit-login-attempts&utm_medium=addons-coming-soon&utm_campaign=pro-upgrade', $button );
-			} else if ( 'loginpress-social-login' == $slug ) {
-
-				$desc .= '<p class="loginpress-addon-promotion-desc">' . esc_html( 'Social login from LoginPress is an add-on which provides facility your users to login and Register via Facebook, Google and Twitter. This add-on will eliminate the Spam and Bot registrations. This add-on will help your users to hassle free registrations/logins on your site.', 'loginpress' ) . '</p>' . $this->_addon_video( 'How Social Logins Works', 'qN64xwiKuxs' ) . $this->upgrade_now( 'utm_source=loginpress-social-login&utm_medium=addons-coming-soon&utm_campaign=pro-upgrade', $button );
-			} else if ( 'loginpress-login-redirects' == $slug ) {
-
-				$desc .= '<p class="loginpress-addon-promotion-desc">' . esc_html( 'Redirect users based on their roles and specific usernames. This is helpful, If you have an editor and want to redirect him to his editor stats page. Restrict your subscribers, guests or even customers to certain pages instead of wp-admin. This add-on has a cool UX/UI to manage all the login redirects you have created on your site.', 'loginpress' ) . '</p>' . $this->_addon_video( 'How Login Redirects Works', 'F-kxP8eCQzU' ) . $this->upgrade_now( 'utm_source=loginpress-login-redirects&utm_medium=addons-coming-soon&utm_campaign=pro-upgrade', $button );
-			} else if ( 'loginpress-auto-login' == $slug ) {
-
-				$desc .= '<p class="loginpress-addon-promotion-desc">' . esc_html( 'This LoginPress add-on lets you (Adminstrator) generates a unique URL for your certain users who you don\'t want to provide a password to login into your site. This Pro add-on gives you a list of all the users who you have given auto generated login links. You can disable someones access and delete certain users.', 'loginpress' ) . '</p>' . $this->_addon_video( 'How Auto Login Works', 'fEQYB5LToNY' ) . $this->upgrade_now( 'utm_source=loginpress-auto-login&utm_medium=addons-coming-soon&utm_campaign=pro-upgrade', $button );
-			}
-			return $desc;
-		}
-
-		/**
-		* Return video of the Add-on.
-		*
-		* @return string
-		* @since 1.1.22
-		*/
-		public function _addon_video( $title, $code ) {
-			return '<hr /><div class="loginpress-addon-promotion-video">
-				<h3><span class="dashicons dashicons-dashboard"></span>&nbsp;&nbsp;' . esc_html__( $title, 'loginpress' ) . '</h3>
-				<div class="inside">
-					<iframe width="500" height="400" src="https://www.youtube.com/embed/' . $code . '?showinfo=0" frameborder="0" allowfullscreen="" style=" max-width: 100%;"></iframe>
-				</div>
-			</div>';
-		}
-
-		/**
-		* Return Upgrade Button of the promoted Add-on.
-		*
-		* @return string
-		* @since 1.1.22
-		*/
-		public function upgrade_now( $url, $button ) {
-
-			if ( $button ) {
-
-				return '<div class="loginpress-promotion-big-button"><a target="_blank" href="https://wpbrigade.com/wordpress/plugins/loginpress-pro/?' . $url . '" class="button-primary">' . esc_html__( 'UPGRADE NOW', 'loginpress' ) . '</a></div>';
 			}
 		}
 

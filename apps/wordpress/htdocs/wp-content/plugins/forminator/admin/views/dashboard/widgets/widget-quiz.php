@@ -1,3 +1,17 @@
+<?php
+$dashboard_settings = forminator_get_dashboard_settings( 'quizzes', array() );
+$num_recent         = isset( $dashboard_settings['num_recent'] ) ? $dashboard_settings['num_recent'] : 5;
+$published          = isset( $dashboard_settings['published'] ) ? filter_var( $dashboard_settings['published'], FILTER_VALIDATE_BOOLEAN ) : true;
+$draft              = isset( $dashboard_settings['draft'] ) ? filter_var( $dashboard_settings['draft'], FILTER_VALIDATE_BOOLEAN ) : true;
+$statuses           = array();
+if ( $published ) {
+	$statuses[] = Forminator_Base_Form_Model::STATUS_PUBLISH;
+}
+if ( $draft ) {
+	$statuses[] = Forminator_Base_Form_Model::STATUS_DRAFT;
+}
+
+?>
 <div class="sui-box">
 
 	<div class="sui-box-header">
@@ -38,7 +52,7 @@
 
 			<tbody>
 
-				<?php foreach ( forminator_quizzes_modules() as $module ) { ?>
+				<?php foreach ( forminator_quizzes_modules( $num_recent, $statuses ) as $module ) { ?>
 
 					<tr>
 

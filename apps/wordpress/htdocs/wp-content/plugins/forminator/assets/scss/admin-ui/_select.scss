@@ -17,4 +17,21 @@
 		font-family: $font;
 		letter-spacing: 0;
 	}
+
+	.select-container {
+
+		&.fui-select-listing-actions {
+			width: 100%;
+			max-width: 160px;
+			min-width: unset;
+			display: flex;
+	
+			.select-list-container {
+
+				.list-results {
+					max-height: 230px;
+				}
+			}
+		}
+	}
 }

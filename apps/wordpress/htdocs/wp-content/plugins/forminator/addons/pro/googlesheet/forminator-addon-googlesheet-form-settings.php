@@ -111,7 +111,7 @@ class Forminator_Addon_Googlesheet_Form_Settings extends Forminator_Addon_Form_S
 		if ( $this->pick_name_is_completed( array( 'multi_id' => $multi_id ) ) ) {
 			$buttons['disconnect']['markup'] = Forminator_Addon_Abstract::get_button_markup( esc_html__( 'DISCONNECT', Forminator::DOMAIN ),
 			                                                                                 'sui-button-ghost sui-tooltip sui-tooltip-top-center forminator-addon-form-disconnect',
-			                                                                                 esc_html__( 'Disconnect this Google Sheets Integration from this Form.', Forminator::DOMAIN )
+			                                                                                 esc_html__( 'Disconnect Google Sheets Integration from this Form.', Forminator::DOMAIN )
 			);
 		}
 
@@ -276,7 +276,7 @@ class Forminator_Addon_Googlesheet_Form_Settings extends Forminator_Addon_Form_S
 		if ( $this->pick_name_is_completed( array( 'multi_id' => $multi_id ) ) ) {
 			$buttons['disconnect']['markup'] = Forminator_Addon_Abstract::get_button_markup( esc_html__( 'DISCONNECT', Forminator::DOMAIN ),
 			                                                                                 'sui-button-ghost sui-tooltip sui-tooltip-top-center forminator-addon-form-disconnect',
-			                                                                                 esc_html__( 'Disconnect this Google Sheets Integration from this Form.', Forminator::DOMAIN )
+			                                                                                 esc_html__( 'Disconnect Google Sheets Integration from this Form.', Forminator::DOMAIN )
 			);
 		}
 

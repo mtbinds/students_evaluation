@@ -1,0 +1,377 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: visitors-online\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-03 15:47+0200\n"
+"PO-Revision-Date: 2019-01-03 15:47+0200\n"
+"Last-Translator: \n"
+"Language-Team: Dromar030186 <dromar030186@gmail.com>\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: import-country.php:150
+msgid ""
+"To collect statistics on the country for the day with the highest number of "
+"visits, you need to import the information on the countries to the database."
+msgstr ""
+"Per raccogliere statistiche sul paese per la giornata con il maggior numero "
+"di visite, è necessario importare le informazioni sui paesi al database."
+
+#: import-country.php:151
+msgid "Importing country information from the GeoIPCountryWhois.csv file"
+msgstr ""
+"L'importazione di informazioni sul paese dal file GeoIPCountryWhois.csv"
+
+#: import-country.php:153
+msgid "You do not have permission to access the file"
+msgstr "Non si ha il permesso di accedere al file"
+
+#: import-country.php:154
+msgid "cannot be imported"
+msgstr "non possono essere importati"
+
+#: import-country.php:159
+msgid "the file is not found, import is impossible"
+msgstr "il file non viene trovato, l'importazione è impossibile"
+
+#: import-country.php:165
+msgid ""
+"The table is already loaded, you can also update the data using this "
+"instructions"
+msgstr ""
+"La tabella è già caricata, è possibile anche aggiornare i dati utilizzando "
+"queste istruzioni"
+
+#: import-country.php:167
+msgid "Instructions on downloading and updating the country table"
+msgstr "Le istruzioni su come scaricare e aggiornare la tabella Paese"
+
+#: import-country.php:174
+msgid "Update"
+msgstr "Aggiornamento"
+
+#: import-country.php:176
+msgid "Import"
+msgstr "Importare"
+
+#: import-country.php:183
+msgid "Number of loaded files"
+msgstr "Numero di file caricati"
+
+#: import-country.php:184
+msgid "Number of a loading file"
+msgstr "Numero di file in caricamento"
+
+#: import-country.php:197 import-country.php:205 visitors-online.php:181
+msgid ""
+"Not enough rights to import from the GeoIPCountryWhois.csv file, import is "
+"impossible"
+msgstr ""
+"Impossibile importare dal file GeoIPCountryWhois.csv, diritti insufficienti."
+
+#: import-country.php:202 visitors-online.php:180
+msgid "Import was finished"
+msgstr "Importazione terminata"
+
+#: visitors-online.php:145
+msgid "Visitors online"
+msgstr "Visitatori online"
+
+#: visitors-online.php:146 visitors-online.php:151
+msgid "users"
+msgstr "Utenti"
+
+#: visitors-online.php:147 visitors-online.php:152
+msgid "guests"
+msgstr "Ospiti"
+
+#: visitors-online.php:148 visitors-online.php:153
+msgid "bots"
+msgstr "Bots"
+
+#: visitors-online.php:149
+msgid "The maximum number of visits was"
+msgstr "Il numero massimo di visitatori è stato"
+
+#: visitors-online.php:150
+msgid "all visitors"
+msgstr ""
+
+#: visitors-online.php:160
+msgid "country"
+msgstr "nazione"
+
+#: visitors-online.php:164
+msgid "browser"
+msgstr "browser"
+
+#: visitors-online.php:487
+msgid "Statistics was successfully cleared"
+msgstr ""
+
+#: visitors-online.php:500
+msgid "Please fill The time period. The settings are not saved"
+msgstr "Riempi il \"Periodo di tempo\". Impostazioni non salvate."
+
+#: visitors-online.php:502
+msgid "Please fill The data structure. The settings are not saved"
+msgstr ""
+
+#: visitors-online.php:508
+msgid "Settings saved"
+msgstr "Impostazioni salvate"
+
+#: visitors-online.php:536
+msgid "Visitors Online Settings"
+msgstr "Impostazioni Visitors Online"
+
+#: visitors-online.php:538 visitors-online.php:1106 visitors-online.php:1125
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: visitors-online.php:539
+msgid "Custom Code"
+msgstr ""
+
+#: visitors-online.php:540
+msgid "Go PRO"
+msgstr "Go PRO"
+
+#: visitors-online.php:552
+#, php-format
+msgid "You can add the Visitors Online counter by clicking on %s button."
+msgstr ""
+
+#: visitors-online.php:558
+#, php-format
+msgid ""
+"You can add the Visitors Online counter to your content by clicking on %s "
+"button in the content edit block using the Visual mode. If the button isn't "
+"displayed, please use the shortcode %s"
+msgstr ""
+
+#: visitors-online.php:565
+msgid "You can also add a widget"
+msgstr "Puoi anche aggiungere un widget"
+
+#: visitors-online.php:567
+msgid "Statistics can be viewed on the Dashboard."
+msgstr "Le statistiche sono disponibili sulla dashboard"
+
+#: visitors-online.php:571
+msgid "The time period when the user is online, without making any actions"
+msgstr ""
+"Dopo quanto tempo un utente online che non effettua alcuna azione va rimosso?"
+
+#: visitors-online.php:574 visitors-online.php:816
+msgid "min"
+msgstr "min"
+
+#: visitors-online.php:578
+msgid "Data Structure"
+msgstr ""
+
+#: visitors-online.php:582
+msgid "Allowed Variables"
+msgstr ""
+
+#: visitors-online.php:584
+msgid "Total number of current visitors"
+msgstr ""
+
+#: visitors-online.php:585
+msgid "Current number of registred users"
+msgstr ""
+
+#: visitors-online.php:586
+msgid "Current number of guests"
+msgstr ""
+
+#: visitors-online.php:587
+msgid "Current number of bots"
+msgstr ""
+
+#: visitors-online.php:588
+msgid "The date of the highest visitors attendance"
+msgstr ""
+
+#: visitors-online.php:589
+msgid "Total number of visitors at the highest attendance date"
+msgstr ""
+
+#: visitors-online.php:590
+msgid "The number of registered users at the highest attendance date"
+msgstr ""
+
+#: visitors-online.php:591
+msgid "The number of guests at the highest attendance date"
+msgstr ""
+
+#: visitors-online.php:592
+msgid "The number of bots at the highest attendance date"
+msgstr ""
+
+#: visitors-online.php:593
+msgid "Country"
+msgstr ""
+
+#: visitors-online.php:594
+msgid "Browser"
+msgstr ""
+
+#: visitors-online.php:606
+msgid "Close"
+msgstr "Chiudi"
+
+#: visitors-online.php:611
+msgid "Update GeoIP"
+msgstr "Update GeoIP"
+
+#: visitors-online.php:614
+msgid "every"
+msgstr "ogni"
+
+#: visitors-online.php:616
+msgid "months"
+msgstr "mesi"
+
+#: visitors-online.php:620
+msgid ""
+"This option allows you to download lists with registered IP addresses all "
+"over the world to the database (from"
+msgstr ""
+"Questa opzione ti permette di scaricare la lista dal database mondiale degli "
+"IP"
+
+#: visitors-online.php:622
+msgid ""
+"Hence you will receive the information about each IP address, and the "
+"country it belongs to. You can select the desired frequency for IP database "
+"updating"
+msgstr ""
+
+#: visitors-online.php:629
+msgid "User Data"
+msgstr ""
+
+#: visitors-online.php:635
+msgid "Enable to display the list of users and information about each of them."
+msgstr ""
+
+#: visitors-online.php:641
+msgid "If you upgrade to Pro version all your settings will be saved."
+msgstr "Se passi a PRO le tue impostazioni non andranno perse"
+
+#: visitors-online.php:647
+msgid "Learn More"
+msgstr "Leggi di più"
+
+#: visitors-online.php:654
+msgid "Clear the Statistics"
+msgstr ""
+
+#: visitors-online.php:656
+msgid "Clear"
+msgstr "Cancella"
+
+#: visitors-online.php:662
+msgid "Save Changes"
+msgstr "Salva modifiche"
+
+#: visitors-online.php:931 visitors-online.php:936 visitors-online.php:947
+#: visitors-online.php:948
+msgid "No data"
+msgstr ""
+
+#: visitors-online.php:994
+msgid "Add the Visitors Online counter to your website"
+msgstr ""
+
+#: visitors-online.php:1016
+msgid ""
+"This Widget shows the number of active visitors on the site, including "
+"users, guests and bots."
+msgstr ""
+"Questo Widget mostra il numero di visitatori online sul sito, inclusi utenti "
+"registrati, ospiti e bots."
+
+#: visitors-online.php:1043
+msgid "Title"
+msgstr "Titolo"
+
+#: visitors-online.php:1108
+msgid "FAQ"
+msgstr "FAQ"
+
+#: visitors-online.php:1109
+msgid "Support"
+msgstr "Supporto"
+
+#~ msgid "Custom code"
+#~ msgstr "Codice Personalizzato"
+
+#~ msgid "Clear the statistics"
+#~ msgstr "Cancella statistiche"
+
+#~ msgid "all visits"
+#~ msgstr "Tutte le visite"
+
+#~ msgid "Statistics was cleared successfully"
+#~ msgstr "Le statistiche sono state azzerate."
+
+#~ msgid "You can add the counter of Visitors Online by clicking on %s button."
+#~ msgstr ""
+#~ "Puoi aggiungere il contatore di Visitors Online cliccando sul pulsante %s "
+
+#~ msgid ""
+#~ "You can add the counter of Visitors Online to your content by clicking on "
+#~ "%s button in the content edit block using the Visual mode. If the button "
+#~ "isn't displayed, please use the shortcode %s"
+#~ msgstr ""
+#~ "Puoi aggiungere il contatore di Visitors Online cliccando sul pulsante %s "
+#~ "nell'editor usando la modalità visuale. Se il pulsante non viene "
+#~ "visualizzato, per favore usa lo shortcode %s"
+
+#~ msgid ""
+#~ "With this, you receive an information about each IP address, and to which "
+#~ "country it belongs to. You can select the desired frequency for IP "
+#~ "database updating"
+#~ msgstr ""
+#~ "Con questa opzione riceverai informazioni riguardanti la nazione ogni "
+#~ "indirizzo IP, puoi selezionare la frequenza con cui questa funzione si "
+#~ "sincronizza con il database."
+
+#~ msgid "Add the counter of Visitors Online to your website"
+#~ msgstr "Aggiungi il contatore di visite al tuo sito web"
+
+#~ msgid "Unlock premium options by upgrading to Pro version"
+#~ msgstr "Sblocca le impostazioni Premium passando alla versione PRO"
+
+#~ msgid ""
+#~ "The plugin's settings have been changed. In order to save them please "
+#~ "don't forget to click the 'Save Changes' button."
+#~ msgstr ""
+#~ "Le impostazioni del plugin son ocambiate. PEr salvarle non dimenticarti "
+#~ "di cliccare su \"Salva Modifche\"."
+
+#~ msgid ""
+#~ "If you would like to add the counter of Visitors Online to your website, "
+#~ "just copy and paste this shortcode to your post or page"
+#~ msgstr ""
+#~ "Se vuoi inserire il contatore di visite sul tuo sito web, basta solo "
+#~ "copiare questo shortcode nei tuoi post o pagine."
+
+#~ msgid ""
+#~ "on the developers site the data is updated on the first Tuesday of every "
+#~ "month"
+#~ msgstr ""
+#~ "sul sito degli sviluppatori i dati sono aggiornati ogni primo mercoledì "
+#~ "del mese."

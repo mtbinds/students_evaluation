@@ -16,6 +16,7 @@ admin/popup/new-form.js
 admin/popup/ajax.js
 admin/popup/delete.js
 admin/popup/preview.js
+admin/popup/reset-plugin-settings.js
 admin/popups.js
 text!tpl/popups.html
 admin/addons/view.js

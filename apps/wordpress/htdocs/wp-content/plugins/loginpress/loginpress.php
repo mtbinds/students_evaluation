@@ -3,7 +3,7 @@
 * Plugin Name: LoginPress - Customizing the WordPress Login
 * Plugin URI: https://WPBrigade.com/wordpress/plugins/loginpress/
 * Description: LoginPress is the best <code>wp-login</code> Login Page Customizer plugin by <a href="https://wpbrigade.com/">WPBrigade</a> which allows you to completely change the layout of login, register and forgot password forms.
-* Version: 1.1.23
+* Version: 1.1.24
 * Author: WPBrigade
 * Author URI: https://WPBrigade.com/
 * Text Domain: loginpress
@@ -22,7 +22,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
     /**
     * @var string
     */
-    public $version = '1.1.23';
+    public $version = '1.1.24';
 
     /**
     * @var The single instance of the class

@@ -398,7 +398,7 @@ class Forminator_CForm_Front_Action extends Forminator_Front_Action {
 
 				// set default response to error message
 				$response = array(
-					'message' => __( "Error saving form", Forminator::DOMAIN ),
+					'message' => __( "At least one field must be filled out to submit the form.", Forminator::DOMAIN ),
 					'errors'  => array(),
 					'success' => false,
 					'behav'   => $submission_behav,

@@ -7,7 +7,7 @@ class LoginPress_Entities {
   *
   * @var string
   * @since 1.0.0
-  * @version 1.1.22
+  * @version 1.1.24
   */
   public $loginpress_key;
 
@@ -25,11 +25,16 @@ class LoginPress_Entities {
   * Hook into actions and filters
   *
   * @since 1.0.0
+  * @version 1.1.24
   */
   private function _hooks() {
 
     add_filter( 'login_headerurl',		array( $this, 'login_page_logo_url' ) );
-    add_filter( 'login_headertitle',	array( $this, 'login_page_logo_title' ) );
+    if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' )) {
+      add_filter( 'login_headertitle',	  array( $this, 'login_page_logo_title' ) );
+    } else {
+      add_filter( 'login_headertext',	array( $this, 'login_page_logo_title' ) );
+    }
     add_filter( 'login_errors',			 	array( $this, 'login_error_messages' ) );
 
     add_filter( 'login_message',			array( $this, 'change_welcome_message' ) );
@@ -382,16 +387,21 @@ class LoginPress_Entities {
     /**
      * [ Change CSS Properties Input fields with LoginPress_Range_Control ]
      * @since 1.0.1
-     * @version 1.1.3
+     * @version 1.1.24
      */
 
     $this->loginpress_rangle_seting( $wp_customize, $logo_range_control, $logo_range_default, $logo_range_label, $logo_range_attrs, $logo_range_unit, 'customize_logo_section', 0, 10 );
     $this->loginpress_rangle_seting( $wp_customize, $logo_range_control, $logo_range_default, $logo_range_label, $logo_range_attrs, $logo_range_unit, 'customize_logo_section', 1, 15 );
     $this->loginpress_rangle_seting( $wp_customize, $logo_range_control, $logo_range_default, $logo_range_label, $logo_range_attrs, $logo_range_unit, 'customize_logo_section', 2, 20 );
 
+    if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' )) {
+      $loginpress_logo_title = __( 'Logo Hover Title:', 'loginpress' );
+    } else {
+      $loginpress_logo_title = __( 'Logo Title:', 'loginpress' );
+    }
     $logo_control = array( 'customize_logo_hover', 'customize_logo_hover_title' );
     $logo_default = array( '', '' );
-    $logo_label = array( __( 'Logo URL:', 'loginpress' ), __( 'Logo Hover Title:', 'loginpress' ) );
+    $logo_label = array( __( 'Logo URL:', 'loginpress' ), $loginpress_logo_title );
     $logo_sanitization = array( 'esc_url_raw', 'wp_strip_all_tags' );
 
     $logo = 0;

@@ -163,6 +163,8 @@ class Forminator_Hidden extends Forminator_Field {
 			case "custom_value":
 				$value = self::get_property( 'custom_value', $field );
 				break;
+			default:
+				break;
 		}
 
 		return apply_filters( 'forminator_field_hidden_field_value', $value, $saved_value, $field, $this );
@@ -179,9 +181,10 @@ class Forminator_Hidden extends Forminator_Field {
 	 * @return array|string $data - the data after sanitization
 	 */
 	public function sanitize( $field, $data ) {
+		$original_data = $data;
 		// Sanitize
 		$data = forminator_sanitize_field( $data );
 
-		return apply_filters( 'forminator_field_hidden_sanitize', $data, $field );
+		return apply_filters( 'forminator_field_hidden_sanitize', $data, $field, $original_data );
 	}
 }

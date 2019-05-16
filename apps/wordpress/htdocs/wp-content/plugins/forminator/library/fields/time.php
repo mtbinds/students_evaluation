@@ -383,12 +383,38 @@ class Forminator_Time extends Forminator_Field {
 	 * @return string
 	 */
 	public function get_validation_messages() {
-		$field    = $this->field;
-		$id       = self::get_property( 'element_id', $field );
-		$messages = '';
+		$field            = $this->field;
+		$id               = self::get_property( 'element_id', $field );
+		$required_message = self::get_property( 'required_message', $field, '' );
+		$type             = trim( self::get_property( 'time_type', $field, 'twelve' ) );
+		$messages         = '';
+		$hours_label      = self::get_property( 'hh_label', $field, 'Hours' );
+		$minutes_label    = self::get_property( 'mm_label', $field, 'Minutes' );
 
+		$messages .= '"' . $this->get_id( $field ) . '-hours": {' . "\n";
+		$min_hour = ( "twelve" === $type ) ? '1' : '0';
+		$max_hour = ( "twelve" === $type ) ? '12' : '23';
+		$messages .= '"min": "' . sprintf(
+				apply_filters(
+					'forminator_time_field_hours_min_validation_message',
+					__( 'Please enter a value greater than or equal to %1$s for %2$s.', Forminator::DOMAIN )
+				),
+				$min_hour,
+				$hours_label
+			) . '",' . "\n";
+		$messages .= '"max": "' . sprintf(
+				apply_filters( 'forminator_time_field_hours_max_validation_message', __( 'Please enter a value less than or equal to %1$s for %2$s.', Forminator::DOMAIN ) ),
+				$max_hour,
+				$hours_label
+			) . '",' . "\n";
+		$messages .= '"number": "' . sprintf(
+				apply_filters(
+					'forminator_time_field_hours_number_validation_message',
+					__( 'Please enter a valid number for %1$s.', Forminator::DOMAIN )
+				),
+				$hours_label
+			) . '",' . "\n";
 		if ( $this->is_required( $field ) ) {
-			$required_message = self::get_property( 'required_message', $field, '' );
 			// Hours validation
 			$hours_message = apply_filters(
 				'forminator_time_field_hours_required_validation_message',
@@ -396,8 +422,32 @@ class Forminator_Time extends Forminator_Field {
 				$id,
 				$field
 			);
-			$messages      = '"' . $this->get_id( $field ) . '-hours": { "required": "' . $hours_message . '" },' . "\n";
 
+			$messages .= '"required": "' . $hours_message . '",' . "\n";
+		}
+		$messages .= '},' . "\n";
+
+		// minutes
+		$messages .= '"' . $this->get_id( $field ) . '-minutes": {' . "\n";
+		$messages .= '"min": "' . sprintf(
+				apply_filters( 'forminator_time_field_minutes_min_validation_message', __( 'Please enter a value greater than or equal to 0 for %1$s.', Forminator::DOMAIN ) ),
+				$minutes_label
+			) . '",' . "\n";
+		$messages .= '"max": "' . sprintf(
+				apply_filters(
+					'forminator_time_field_minutes_max_validation_message',
+					__( 'Please enter a value less than or equal to 59 for %1$s.', Forminator::DOMAIN )
+				),
+				$minutes_label
+			) . '",' . "\n";
+		$messages .= '"number": "' . sprintf(
+				apply_filters(
+					'forminator_time_field_minutes_number_validation_message',
+					__( 'Please enter a valid number for %1$s.', Forminator::DOMAIN )
+				),
+				$minutes_label
+			) . '",' . "\n";
+		if ( $this->is_required( $field ) ) {
 			// Minutes validation
 			$minutes_message = apply_filters(
 				'forminator_time_field_minutes_required_validation_message',
@@ -405,8 +455,10 @@ class Forminator_Time extends Forminator_Field {
 				$id,
 				$field
 			);
-			$messages        .= '"' . $this->get_id( $field ) . '-minutes": { "required": "' . $minutes_message . '" },' . "\n";
+
+			$messages .= '"required": "' . $minutes_message . '",' . "\n";
 		}
+		$messages .= '},' . "\n";
 
 		return $messages;
 	}
@@ -492,9 +544,10 @@ class Forminator_Time extends Forminator_Field {
 	 * @return array|string $data - the data after sanitization
 	 */
 	public function sanitize( $field, $data ) {
+		$original_data = $data;
 		// Sanitize
 		$data = forminator_sanitize_field( $data );
 
-		return apply_filters( 'forminator_field_time_sanitize', $data, $field );
+		return apply_filters( 'forminator_field_time_sanitize', $data, $field, $original_data );
 	}
 }

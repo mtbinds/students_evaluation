@@ -1,5 +1,5 @@
 <?php
-$section = isset( $_GET['section'] ) ? $_GET['section'] : 'emails'; // wpcs csrf ok.
+$section = isset( $_GET['section'] ) ? $_GET['section'] : 'dashboard'; // wpcs csrf ok.
 
 $nonce                 = wp_create_nonce( 'forminator_save_accessibility_settings' );
 $accessibility_enabled = get_option( 'forminator_enable_accessibility', false );
@@ -17,12 +17,13 @@ $accessibility_enabled = filter_var( $accessibility_enabled, FILTER_VALIDATE_BOO
 
 		<div class="sui-box-body">
 
-			<p><?php esc_html_e( 'Enable support for any accessibility enhancements available in the plugin interface.', Forminator::DOMAIN ); ?></p>
-
+            <div class="sui-box-settings-row">
+			    <p><?php esc_html_e( 'Enable support for any accessibility enhancements available in the plugin interface.', Forminator::DOMAIN ); ?></p>
+            </div>
 			<div class="sui-box-settings-row">
 
 				<div class="sui-box-settings-col-1">
-					<span class="sui-settings-label"><?php esc_html_e( 'Color Accessibility', Forminator::DOMAIN ); ?></span>
+					<span class="sui-settings-label"><?php esc_html_e( 'High Contrast Mode', Forminator::DOMAIN ); ?></span>
 					<span class="sui-description"><?php esc_html_e( 'Increase the visibility and accessibility of elements and components to meet WCAG AAA requirements.', Forminator::DOMAIN ); ?></span>
 				</div>
 

@@ -27,7 +27,7 @@ class OptionsView_bwg extends AdminView_bwg {
 
   public function body($params = array()) {
     $row = $params['row'];
-	$instagram_return_url = $params['instagram_return_url'];
+	  $instagram_return_url = $params['instagram_return_url'];
     $instagram_reset_href = $params['instagram_reset_href'];
     $options_url_ajax = $params['options_url_ajax'];
     $imgcount = $params['imgcount'];
@@ -68,27 +68,36 @@ class OptionsView_bwg extends AdminView_bwg {
 
     ?>
     <div class="bwg_tabs">
-      <ul class="bwg-tabs">
-        <li class="tabs">
-          <a href="#bwg_tab_general_content" class="bwg-tablink"><?php _e('General', BWG()->prefix); ?></a>
-        </li>
-        <li class="tabs">
-          <a href="#bwg_tab_gallery_content" class="bwg-tablink"><?php _e('Gallery defaults', BWG()->prefix); ?></a>
-        </li>
-        <li class="tabs">
-          <a href="#bwg_tab_gallery_group_content" class="bwg-tablink"><?php _e('Gallery Group defaults', BWG()->prefix); ?></a>
-        </li>
-        <li class="tabs">
-          <a href="#bwg_tab_lightbox_content" class="bwg-tablink"><?php _e('Lightbox defaults', BWG()->prefix); ?></a>
-        </li>
-        <li class="tabs">
-          <a href="#bwg_tab_advanced_content" class="bwg-tablink"><?php _e('Advanced', BWG()->prefix); ?></a>
-        </li>
-        <li class="tabs">
-          <a href="#bwg_tab_watermark_content" class="bwg-tablink"><?php _e('Watermark', BWG()->prefix); ?></a>
-        </li>
-      </ul>
-      <div id="bwg_tab_general_content" class="bwg-section wd-box-content">
+      <div id='search_in_options_container' class="tablenav top">
+        <ul class="bwg-tabs">
+          <li class="tabs">
+            <a href="#bwg_tab_general_content" class="bwg-tablink"><?php _e('General', BWG()->prefix); ?></a>
+          </li>
+          <li class="tabs">
+            <a href="#bwg_tab_gallery_content" class="bwg-tablink"><?php _e('Gallery defaults', BWG()->prefix); ?></a>
+          </li>
+          <li class="tabs">
+            <a href="#bwg_tab_gallery_group_content" class="bwg-tablink"><?php _e('Gallery Group defaults', BWG()->prefix); ?></a>
+          </li>
+          <li class="tabs">
+            <a href="#bwg_tab_lightbox_content" class="bwg-tablink"><?php _e('Lightbox defaults', BWG()->prefix); ?></a>
+          </li>
+          <li class="tabs">
+            <a href="#bwg_tab_advanced_content" class="bwg-tablink"><?php _e('Advanced', BWG()->prefix); ?></a>
+          </li>
+          <li class="tabs">
+            <a href="#bwg_tab_watermark_content" class="bwg-tablink"><?php _e('Watermark', BWG()->prefix); ?></a>
+          </li>
+        </ul>
+        <!--<div id="div_search_in_options">
+          <input type="text" id="search_in_options" placeholder="Search">
+          <span id="current_match"></span>
+          <span id="total_matches"></span>
+          <span class="tablenav-pages-navspan tablenav-pages-navspan-search" id="search_prev" aria-hidden="true">‹</span>
+          <span class="tablenav-pages-navspan tablenav-pages-navspan-search" id="search_next" aria-hidden="true">›</span>
+        </div>-->
+      </div>
+      <div id="bwg_tab_general_content" class="search-div bwg-section wd-box-content">
         <div class="bwg-section bwg-flex-wrap">
           <div class="wd-box-content wd-width-100 bwg-flex-wrap">
             <div class="wd-box-content wd-width-50">
@@ -167,6 +176,16 @@ class OptionsView_bwg extends AdminView_bwg {
                     <input type="radio" name="resizable_thumbnails" id="resizable_thumbnails_0" value="0" <?php if (!$row->resizable_thumbnails) echo 'checked="checked"'; ?> /><label for="resizable_thumbnails_0" class="wd-radio-label"><?php _e('No', BWG()->prefix); ?></label>
                   </div>
                   <p class="description"><?php _e('Enable this option to allow resizing gallery thumbnails on smaller screens.', BWG()->prefix); ?></p>
+                </div>
+              </div>
+              <div class="wd-box-content wd-width-100">
+                <div class="wd-group">
+                  <label class="wd-label"><?php _e('Lazy load', BWG()->prefix); ?></label>
+                  <div class="bwg-flex">
+                    <input type="radio" name="lazyload_images" id="lazyload_images_1" value="1" <?php if ($row->lazyload_images) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_lazyload_images_count', 'lazyload_images_1')" /><label for="lazyload_images_1" class="wd-radio-label"><?php _e('Yes', BWG()->prefix); ?></label>
+                    <input type="radio" name="lazyload_images" id="lazyload_images_0" value="0" <?php if (!$row->lazyload_images) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_lazyload_images_count', 'lazyload_images_0')" /><label for="lazyload_images_0" class="wd-radio-label"><?php _e('No', BWG()->prefix); ?></label>
+                  </div>
+                  <p class="description"><?php _e('Enable this option to activate lazy loading for images and improve the loading speed on your galleries.', BWG()->prefix); ?></p>
                 </div>
               </div>
               <div class="wd-box-content wd-width-100">
@@ -329,7 +348,7 @@ class OptionsView_bwg extends AdminView_bwg {
           </div>
         </div>
       </div>
-      <div id="bwg_tab_gallery_content" class="bwg-section wd-box-content">
+      <div id="bwg_tab_gallery_content" class="search-div bwg-section wd-box-content">
       <div class="bwg-section bwg-flex-wrap">
         <div class="wd-box-content wd-width-100 bwg-flex-wrap">
           <div id="bwg_tab_galleries_content" class="wd-width-100">
@@ -421,7 +440,7 @@ class OptionsView_bwg extends AdminView_bwg {
         </div>
       </div>
       </div>
-      <div id="bwg_tab_gallery_group_content" class="bwg-section wd-box-content">
+      <div id="bwg_tab_gallery_group_content" class="search-div bwg-section wd-box-content">
         <div class="bwg-section bwg-flex-wrap">
           <div class="wd-box-content wd-width-100 bwg-flex-wrap">
             <div id="bwg_tab_albums_content" class="wd-width-100">
@@ -478,14 +497,14 @@ class OptionsView_bwg extends AdminView_bwg {
           </div>
         </div>
       </div>
-      <div id="bwg_tab_lightbox_content" class="bwg-section wd-box-content">
+      <div id="bwg_tab_lightbox_content" class="search-div bwg-section wd-box-content">
         <div class="bwg-section bwg-flex-wrap">
           <?php
           self::lightbox_options($row);
           ?>
         </div>
       </div>
-      <div id="bwg_tab_advanced_content" class="bwg-section wd-box-content">
+      <div id="bwg_tab_advanced_content" class="search-div bwg-section wd-box-content">
         <div class="bwg-section bwg-flex-wrap">
           <div class="wd-box-content wd-width-100 meta-box-sortables">
             <div class="postbox">
@@ -550,6 +569,7 @@ class OptionsView_bwg extends AdminView_bwg {
                     ?>
                   </div>
                   <?php } ?>
+                  <?php do_action('bwg_advanced_sections_social', $row ); ?>
                 </div>
               </div>
             </div>
@@ -782,7 +802,7 @@ class OptionsView_bwg extends AdminView_bwg {
           </div>
         </div>		  
 	  </div>
-      <div id="bwg_tab_watermark_content" class="bwg-section wd-box-content">
+      <div id="bwg_tab_watermark_content" class="search-div bwg-section wd-box-content">
         <div class="bwg-section bwg-flex-wrap">
           <div class="wd-box-content wd-width-100 bwg-flex-wrap">
             <div class="wd-box-content wd-width-50">
@@ -970,6 +990,7 @@ class OptionsView_bwg extends AdminView_bwg {
         bwg_enable_disable(<?php echo $row->album_masonry_show_search_box ? "'', 'tr_album_masonry_search_box_placeholder', 'album_masonry_show_search_box_1'" : "'none', 'tr_album_masonry_search_box_placeholder', 'album_masonry_show_search_box_0'" ?>);
         bwg_enable_disable(<?php echo $row->album_extended_show_search_box ? "'', 'tr_album_extended_search_box_width', 'album_extended_show_search_box_1'" : "'none', 'tr_album_extended_search_box_width', 'album_extended_show_search_box_0'" ?>);
         bwg_enable_disable(<?php echo $row->album_extended_show_search_box ? "'', 'tr_album_extended_search_box_placeholder', 'album_extended_show_search_box_1'" : "'none', 'tr_album_extended_search_box_placeholder', 'album_extended_show_search_box_0'" ?>);
+        bwg_enable_disable(<?php echo $row->lazyload_images ? "'', 'tr_lazyload_images_count', 'lazyload_images_1'" : "'none', 'tr_lazyload_images_count', 'lazyload_images_0'" ?>);
         bwg_enable_disable(<?php echo $row->preload_images ? "'', 'tr_preload_images_count', 'preload_images_1'" : "'none', 'tr_preload_images_count', 'preload_images_0'" ?>);
         bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_0'" ?>);
         bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_info', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_info', 'popup_enable_ctrl_btn_0'" ?>);
@@ -3641,17 +3662,6 @@ class OptionsView_bwg extends AdminView_bwg {
               <input <?php echo BWG()->is_pro ? '' : 'disabled="disabled"'; ?> type="radio" name="popup_enable_twitter" id="popup_enable_twitter_0" value="0" <?php if (!$row->popup_enable_twitter) echo 'checked="checked"'; ?> /><label for="popup_enable_twitter_0" class="wd-radio-label"><?php _e('No', BWG()->prefix); ?></label>
             </div>
             <p class="description"><?php _e('Enable this setting to add Tweet button to Photo Gallery lightbox.', BWG()->prefix) ?></p>
-            <?php if ( !BWG()->is_pro ) { ?><p class="description spider_free_version"><?php echo BWG()->free_msg; ?></p><?php } ?>
-          </div>
-        </div>
-        <div class="wd-box-content wd-width-100 bwg-lightbox bwg-lightbox-lightbox" id="tr_popup_google">
-          <div class="wd-group">
-            <label class="wd-label"><?php _e('Show Google+ button', BWG()->prefix); ?></label>
-            <div class="bwg-flex">
-              <input <?php echo BWG()->is_pro ? '' : 'disabled="disabled"'; ?> type="radio" name="popup_enable_google" id="popup_enable_google_1" value="1" <?php if ($row->popup_enable_google) echo 'checked="checked"'; ?> /><label for="popup_enable_google_1" class="wd-radio-label"><?php _e('Yes', BWG()->prefix); ?></label>
-              <input <?php echo BWG()->is_pro ? '' : 'disabled="disabled"'; ?> type="radio" name="popup_enable_google" id="popup_enable_google_0" value="0" <?php if (!$row->popup_enable_google) echo 'checked="checked"'; ?> /><label for="popup_enable_google_0" class="wd-radio-label"><?php _e('No', BWG()->prefix); ?></label>
-            </div>
-            <p class="description"><?php _e('Add Google+ sharing button to Photo Gallery lightbox by activating this option.', BWG()->prefix) ?></p>
             <?php if ( !BWG()->is_pro ) { ?><p class="description spider_free_version"><?php echo BWG()->free_msg; ?></p><?php } ?>
           </div>
         </div>

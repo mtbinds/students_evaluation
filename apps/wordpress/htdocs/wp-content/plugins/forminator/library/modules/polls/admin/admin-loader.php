@@ -82,6 +82,11 @@ class Forminator_Poll_Admin extends Forminator_Admin_Module {
 						'admin-email-recipients' => array(
 							get_option( 'admin_email' ),
 						),
+						'admin-email-title'      => __( "New Poll submission for {poll_name}", Forminator::DOMAIN ),
+						'admin-email-editor'     => __(
+							"You have a new poll submission: <br/><br/>{poll_answer}<br/><br/>Current results: <br/>{poll_result} <br/>---<br/> This message was sent from {site_url}.",
+							Forminator::DOMAIN
+						),
 					),
 				);
 

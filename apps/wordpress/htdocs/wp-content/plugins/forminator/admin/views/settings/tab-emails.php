@@ -1,5 +1,5 @@
 <?php
-$section = isset( $_GET['section'] ) ? $_GET['section'] : 'emails'; // wpcs csrf ok.
+$section = isset( $_GET['section'] ) ? $_GET['section'] : 'dashboard'; // wpcs csrf ok.
 
 $sender_email_address = get_global_sender_email_address();
 $sender_name = get_global_sender_name();

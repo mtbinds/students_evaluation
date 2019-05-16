@@ -191,8 +191,18 @@ class WPPB_add_notices{
 
 				$plugin_serial_status = get_option( $this->pluginSerialStatus );
 				if ( $plugin_serial_status != 'found' ){
+
+				    //we want to show the expiration notice on our plugin pages even if the user dismissed it on the rest of the site
+                    $force_show = false;
+                    if ( $plugin_serial_status == 'expired' ) {
+                        $notification_instance = WPPB_Plugin_Notifications::get_instance();
+                        if ($notification_instance->is_plugin_page()){
+                            $force_show = true;
+                        }
+                    }
+
 					// Check that the user hasn't already clicked to ignore the message
-					if ( ! get_user_meta($user_id, $this->pluginPrefix.'_dismiss_notification' ) ) {
+					if ( ! get_user_meta($user_id, $this->pluginPrefix.'_dismiss_notification' ) || $force_show ) {
 						echo $finalMessage = apply_filters($this->pluginPrefix.'_notification_message','<div class="error wppb-serial-notification" >'.$this->notificaitonMessage.'</div>', $this->notificaitonMessage);
 					}
 				}
@@ -243,7 +253,14 @@ if ( $wppb_profile_builder_pro_hobbyist_serial_status == 'notFound' || $wppb_pro
 	new WPPB_add_notices( 'wppb', 'profile_builder_pro', sprintf( __( '<p>Your <strong>Profile Builder</strong> serial number is invalid or missing. <br/>Please %1$sregister your copy%2$s to receive access to automatic updates and support. Need a license key? %3$sPurchase one now%4$s</p>', 'profile-builder'), "<a href='". $register_url ."'>", "</a>", "<a href='https://www.cozmoslabs.com/wordpress-profile-builder/?utm_source=PB&utm_medium=dashboard&utm_campaign=PB-SN-Purchase' target='_blank' class='button-primary'>", "</a>" ), 'wppb_profile_builder_pro_serial_status' );
 }
 elseif ( $wppb_profile_builder_pro_hobbyist_serial_status == 'expired' ){
-    new WPPB_add_notices( 'wppb_expired', 'profile_builder_pro', sprintf( __( '<p>Your <strong>Profile Builder</strong> license has expired. <br/>Please %1$sRenew Your Licence%2$s to continue receiving access to product downloads, automatic updates and support. %3$sRenew now %4$s %5$sDismiss%6$s</p>', 'profile-builder'), "<a href='https://www.cozmoslabs.com/account/?utm_source=PB&utm_medium=dashboard&utm_campaign=PB-Renewal' target='_blank'>", "</a>", "<a href='https://www.cozmoslabs.com/account/?utm_source=PB&utm_medium=dashboard&utm_campaign=PB-Renewal' target='_blank' class='button-primary'>", "</a>", "<a href='". esc_url( add_query_arg( 'wppb_expired_dismiss_notification', '0' ) ) ."' class='wppb-dismiss-notification'>", "</a>" ), 'wppb_profile_builder_pro_serial_status' );
+        /* on our plugin pages do not add the dismiss button for the expired notification*/
+        $notification_instance = WPPB_Plugin_Notifications::get_instance();
+        if( $notification_instance->is_plugin_page() )
+            $message = __( '<p>Your <strong>Profile Builder</strong> license has expired. <br/>Please %1$sRenew Your Licence%2$s to continue receiving access to product downloads, automatic updates and support. %3$sRenew now %4$s</p>', 'profile-builder');
+        else
+            $message = __( '<p>Your <strong>Profile Builder</strong> license has expired. <br/>Please %1$sRenew Your Licence%2$s to continue receiving access to product downloads, automatic updates and support. %3$sRenew now %4$s %5$sDismiss%6$s</p>', 'profile-builder');
+
+    new WPPB_add_notices( 'wppb_expired', 'profile_builder_pro', sprintf( $message, "<a href='https://www.cozmoslabs.com/account/?utm_source=PB&utm_medium=dashboard&utm_campaign=PB-Renewal' target='_blank'>", "</a>", "<a href='https://www.cozmoslabs.com/account/?utm_source=PB&utm_medium=dashboard&utm_campaign=PB-Renewal' target='_blank' class='button-primary'>", "</a>", "<a href='". esc_url( add_query_arg( 'wppb_expired_dismiss_notification', '0' ) ) ."' class='wppb-dismiss-notification'>", "</a>" ), 'wppb_profile_builder_pro_serial_status' );
 }
 elseif( strpos( $wppb_profile_builder_pro_hobbyist_serial_status, 'aboutToExpire' ) === 0 ){
     $serial_status_parts = explode( '#', $wppb_profile_builder_pro_hobbyist_serial_status );

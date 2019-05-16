@@ -1113,6 +1113,7 @@
 <?php __("The serial number couldn't be validated because process timed out. This is possible due to the server being down. Please try again later!", "profile-builder"); ?>
 <?php __("(e.g. CLPB-15-SN-253a55baa4fbe7bf595b2aabb8d72985)", "profile-builder"); ?>
 <?php __("<p>Your <strong>Profile Builder</strong> serial number is invalid or missing. <br/>Please %1$sregister your copy%2$s to receive access to automatic updates and support. Need a license key? %3$sPurchase one now%4$s</p>", "profile-builder"); ?>
+<?php __("<p>Your <strong>Profile Builder</strong> license has expired. <br/>Please %1$sRenew Your Licence%2$s to continue receiving access to product downloads, automatic updates and support. %3$sRenew now %4$s</p>", "profile-builder"); ?>
 <?php __("<p>Your <strong>Profile Builder</strong> license has expired. <br/>Please %1$sRenew Your Licence%2$s to continue receiving access to product downloads, automatic updates and support. %3$sRenew now %4$s %5$sDismiss%6$s</p>", "profile-builder"); ?>
 <?php __("<p>Your <strong>Profile Builder</strong> license is about to expire on %5$s. <br/>Please %1$sRenew Your Licence%2$s to continue receiving access to product downloads, automatic updates and support. %3$sRenew now %4$s %6$sDismiss%7$s</p>", "profile-builder"); ?>
 <?php __("GDPR Checkbox", "profile-builder"); ?>
@@ -1337,9 +1338,22 @@
 <?php __("Conditional Logic", "profile-builder"); ?>
 <?php __("Conditional Rules", "profile-builder"); ?>
 <?php __("This field has conditional logic enabled.", "profile-builder"); ?>
+<?php __("Profile Builder Content Restriction", "profile-builder"); ?>
+<?php __("Restrict to logged in users", "profile-builder"); ?>
+<?php __("Allow only logged in users to see this content.", "profile-builder"); ?>
+<?php __("Restrict by User Roles", "profile-builder"); ?>
+<?php __("Allow users which have the specified role to see this content.", "profile-builder"); ?>
+<?php __("Restriction Messages", "profile-builder"); ?>
+<?php __("Enable Restriction Messages", "profile-builder"); ?>
+<?php __("Replace hidden content with the default messages from PB -> Settings -> Content Restriction, a custom message or an Elementor Template.", "profile-builder"); ?>
+<?php __("Enable Custom Messages", "profile-builder"); ?>
+<?php __("Add a custom message or template.", "profile-builder"); ?>
+<?php __("Content type", "profile-builder"); ?>
+<?php __("Text", "profile-builder"); ?>
+<?php __("Template", "profile-builder"); ?>
+<?php __("Select Template", "profile-builder"); ?>
 <?php __("You must be logged in to view this content.", "profile-builder"); ?>
 <?php __("This content is restricted for your user role.", "profile-builder"); ?>
-<?php __("Profile Builder Content Restriction", "profile-builder"); ?>
 <?php __("Display Options", "profile-builder"); ?>
 <?php __("Message", "profile-builder"); ?>
 <?php __("Redirect", "profile-builder"); ?>
@@ -1353,8 +1367,6 @@
 <?php __("Check if you wish to add a custom redirect URL for this %s.", "profile-builder"); ?>
 <?php __("Custom Redirect URL", "profile-builder"); ?>
 <?php __("Add a URL where you wish to redirect users that do not have access to this %s and try to access it directly.", "profile-builder"); ?>
-<?php __("Restriction Messages", "profile-builder"); ?>
-<?php __("Enable Custom Messages", "profile-builder"); ?>
 <?php __("Check if you wish to add custom messages for this %s.", "profile-builder"); ?>
 <?php __("Messages for logged-out users", "profile-builder"); ?>
 <?php __("Messages for logged-in users", "profile-builder"); ?>

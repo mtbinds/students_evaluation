@@ -754,8 +754,9 @@ class Forminator_Postdata extends Forminator_Field {
 	 * @return array|string $data - the data after sanitization
 	 */
 	public function sanitize( $field, $data ) {
-		$image   = '';
-		$content = '';
+		$original_data = $data;
+		$image         = '';
+		$content       = '';
 
 		// Do not sanitize image URL
 		if ( isset( $data['post-image'] ) ) {
@@ -780,7 +781,7 @@ class Forminator_Postdata extends Forminator_Field {
 			$data['post-content'] = $content;
 		}
 
-		return apply_filters( 'forminator_field_postdata_sanitize', $data, $field );
+		return apply_filters( 'forminator_field_postdata_sanitize', $data, $field, $original_data );
 	}
 
 	/**

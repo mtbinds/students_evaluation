@@ -157,19 +157,19 @@ class Forminator_CForm_General_Data_Protection extends Forminator_General_Data_P
 
 					foreach ( $entry_model->meta_data as $key => $meta_datum ) {
 						$meta_datum_value = $meta_datum['value'];
+						$meta_datum_encoded = $meta_datum_value;
 						// check nested array
 						if ( is_array( $meta_datum_value ) ) {
 							foreach ( $meta_datum_value as $value ) {
 								if ( is_array( $value ) ) {
-									$meta_datum_value = wp_json_encode( $meta_datum_value );
-									break;
+									$meta_datum_encoded = wp_json_encode( $meta_datum_value );
 								}
 							}
 						}
 
 						$data [] = array(
 							'name'  => $key,
-							'value' => Forminator_Form_Entry_Model::meta_value_to_string( '', $meta_datum_value, false ),
+							'value' => Forminator_Form_Entry_Model::meta_value_to_string( '', $meta_datum_encoded, false ),
 						);
 
 					}

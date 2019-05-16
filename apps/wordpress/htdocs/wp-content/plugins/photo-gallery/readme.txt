@@ -2,8 +2,8 @@
 Contributors: webdorado,wdsupport,photogallerysupport,10web
 Tags: gallery, photo gallery, image gallery, responsive gallery, wordpress gallery plugin, photo albums, gallery slider, gallery lightbox, wordpress photo gallery plugin, fullscreen gallery, watermarking, video gallery
 Requires at least: 3.4
-Tested up to: 5.1 
-Stable tag: 1.5.21
+Tested up to: 5.2
+Stable tag: 1.5.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -281,6 +281,26 @@ Choose whether to display random or the first/last specific number of images.
 **Theme.** Choose the theme, which will be applied to the gallery/album.
 
 == Changelog ==
+
+= 1.5.24 =
+* Fixed: Major bug.
+
+= 1.5.23 =
+* Fixed: Authenticated stored XSS.  
+* Fixed: Google fonts with 'Developer mode' set to 'No'.  
+* Fixed: Add images to gallery with exclamation mark in tag name.   
+* Fixed: Galleries list page with big data.  
+* Fixed: Filter in comments page.  
+* Fixed: Random ordering for lightbox.  
+* Fixed: Carousel view.  
+* Fixed: Scroll bar for image info.  
+* Fixed: Do not allow to save <a> tag in image alt.  
+* Fixed: Do not allow backslash in image alt and description.  
+* Fixed: HTML in alt/description.   
+* Changed: Polish translation.
+* Added: Integration with Google photos.  
+* Added: Lazy load(optional).  
+* Removed: Google+.   
 
 = 1.5.22 =
 * Changed: Banner to install image optimizer plugin.   

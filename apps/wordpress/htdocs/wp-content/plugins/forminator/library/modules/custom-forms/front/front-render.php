@@ -524,7 +524,7 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 		$html .= $this->do_after_render_form_fields_for_addons();
 
 		if ( $render ) {
-			echo $html;// wpcs XSS ok. unescaped html output expected
+			echo wp_kses_post( $html );// wpcs XSS ok. unescaped html output expected
 		} else {
 			/** @noinspection PhpInconsistentReturnPointsInspection */
 			return apply_filters( 'forminator_render_fields_markup', $html, $wrappers );
@@ -1612,7 +1612,7 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 		$html .= $this->do_after_render_form_for_addons();
 
 		if ( $render ) {
-			echo apply_filters( 'forminator_render_form_submit_markup', $html, $form_id, $post_id, $nonce ); // wpcs XSS ok. unescaped html output expected
+			echo apply_filters( 'forminator_render_form_submit_markup', wp_kses_post( $html ), $form_id, $post_id, $nonce ); // wpcs XSS ok. unescaped html output expected
 		} else {
 			/** @noinspection PhpInconsistentReturnPointsInspection */
 			return apply_filters( 'forminator_render_form_submit_markup', $html, $form_id, $post_id, $nonce );
@@ -2247,6 +2247,17 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 			return array();
 		}
 
+		$autoclose = true;
+		$autoclose_time = 5000;
+
+		if( isset( $form_properties['settings']['autoclose'] ) ) {
+			$autoclose = $form_properties['settings']['autoclose'];
+		}
+
+		if( isset( $form_properties['settings']['autoclose-time'] ) && ! empty( $form_properties['settings']['autoclose-time'] ) ) {
+			$autoclose_time = $form_properties['settings']['autoclose-time'] * 1000;
+		}
+
 		$options = array(
 			'form_type'         => $this->get_form_type(),
 			'inline_validation' => filter_var( $form_properties['inline_validation'], FILTER_VALIDATE_BOOLEAN ),
@@ -2255,6 +2266,8 @@ class Forminator_CForm_Front extends Forminator_Render_Form {
 			'conditions'        => $form_properties['conditions'],
 			'calendar'          => $this->get_strings_for_calendar(), // this is string, todo: refactor this to array to (ALL FIELDS will be affected)  avoid client JSON.parse
 			'pagination_config' => $form_properties['pagination'],
+			'fadeout'           => $autoclose,
+			'fadeout_time'      => $autoclose_time,
 		);
 
 		return $options;

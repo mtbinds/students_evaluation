@@ -11,6 +11,7 @@ class WD_BWG_Options {
   public $upload_thumb_width = 500;
   public $upload_thumb_height = 500;
   public $image_quality = 75;
+  public $lazyload_images = 0;
   public $preload_images = 1;
   public $preload_images_count = 10;
   public $show_hide_custom_post = 0;
@@ -280,7 +281,6 @@ class WD_BWG_Options {
   public $addthis_profile_id = '';
   public $popup_enable_facebook = 1;
   public $popup_enable_twitter = 1;
-  public $popup_enable_google = 1;
   public $popup_enable_pinterest = 0;
   public $popup_enable_tumblr = 0;
   public $popup_enable_ecommerce = 1;
@@ -364,5 +364,9 @@ class WD_BWG_Options {
 
     $this->jpeg_quality = $this->image_quality;
     $this->png_quality = 9 - round(9 * $this->image_quality / 100);
+  }
+
+  public function __get($name) {
+    return isset($this->$name) ? $this->$name : '';
   }
 }

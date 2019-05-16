@@ -1559,12 +1559,6 @@ class ShortcodeView_bwg extends AdminView_bwg {
               else {
                 jQuery("#popup_enable_twitter_0").attr('checked', 'checked');
               }
-              if (short_code['popup_enable_google'] == 1) {
-                jQuery("#popup_enable_google_1").attr('checked', 'checked');
-              }
-              else {
-                jQuery("#popup_enable_google_0").attr('checked', 'checked');
-              }
               if (short_code['popup_enable_pinterest'] == 1) {
                 jQuery("#popup_enable_pinterest_1").attr('checked', 'checked');
               }
@@ -2012,7 +2006,6 @@ class ShortcodeView_bwg extends AdminView_bwg {
         tagtext += ' addthis_profile_id="' + jQuery("#addthis_profile_id").val() + '"';
         tagtext += ' popup_enable_facebook="' + jQuery("input[name=popup_enable_facebook]:checked").val() + '"';
         tagtext += ' popup_enable_twitter="' + jQuery("input[name=popup_enable_twitter]:checked").val() + '"';
-        tagtext += ' popup_enable_google="' + jQuery("input[name=popup_enable_google]:checked").val() + '"';
         tagtext += ' popup_enable_pinterest="' + jQuery("input[name=popup_enable_pinterest]:checked").val() + '"';
         tagtext += ' popup_enable_tumblr="' + jQuery("input[name=popup_enable_tumblr]:checked").val() + '"';
         tagtext += ' popup_enable_ecommerce="' + jQuery("input[name=popup_enable_ecommerce]:checked").val() + '"';

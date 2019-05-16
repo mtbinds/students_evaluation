@@ -1,5 +1,5 @@
 <?php
-$section = isset( $_GET['section'] ) ? $_GET['section'] : 'emails'; // wpcs csrf ok.
+$section = isset( $_GET['section'] ) ? $_GET['section'] : 'dashboard'; // wpcs csrf ok.
 
 $captcha_key      = get_option( "forminator_captcha_key", "" );
 $captcha_secret   = get_option( "forminator_captcha_secret", "" );

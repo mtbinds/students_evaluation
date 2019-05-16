@@ -134,7 +134,7 @@ class Forminator_Addon_Mailchimp_Form_Hooks extends Forminator_Addon_Form_Hooks_
 		}
 		$html .= '</div></div></div>';
 
-		echo $html;// WPCS: XSS ok. html output intended
+		echo wp_kses_post( $html );// WPCS: XSS ok. html output intended
 	}
 
 	/**

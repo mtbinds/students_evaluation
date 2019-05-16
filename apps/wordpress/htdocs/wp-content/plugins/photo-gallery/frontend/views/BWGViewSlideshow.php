@@ -8,6 +8,7 @@ public function display($params = array(), $bwg = 0) {
   $image_rows = $image_rows['images'];
   $images_count = count($image_rows);
   $content = '';
+  $lazyload = BWG()->options->lazyload_images;
 
   if ( $images_count ) {
     $filmstrip_direction = 'horizontal';
@@ -99,8 +100,8 @@ public function display($params = array(), $bwg = 0) {
         if ( !wp_script_is('bwg_embed', 'done') ) {
         wp_print_scripts('bwg_embed');
         }
-        if ( !wp_script_is('bwg_jquery_mobile', 'done') ) {
-        wp_print_scripts('bwg_jquery_mobile');
+        if ( !wp_script_is('jquery-mobile', 'done') ) {
+        wp_print_scripts('jquery-mobile');
         }
       }
       else {
@@ -246,7 +247,14 @@ public function display($params = array(), $bwg = 0) {
               $thumb_top = ($slideshow_filmstrip_height - $image_thumb_height) / 2;
               ?>
               <div id="bwg_filmstrip_thumbnail_<?php echo $key; ?>_<?php echo $bwg; ?>" class="bwg_slideshow_filmstrip_thumbnail_<?php echo $bwg; ?> <?php echo(($image_row->id == $current_image_id) ? 'bwg_slideshow_thumb_active_' . $bwg : 'bwg_slideshow_thumb_deactive_' . $bwg); ?>">
-                <img style="width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" class="skip-lazy bwg_filmstrip_thumbnail_img bwg_slideshow_filmstrip_thumbnail_img_<?php echo $bwg; ?>" src="<?php echo ($is_embed ? "" : BWG()->upload_url) . $image_row->thumb_url; ?>" onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()), '<?php echo $key; ?>', '', '', '<?php echo $bwg; ?>')" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $key; ?>" alt="<?php echo $image_row->alt; ?>" />
+                <img style="width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;"
+                     class="skip-lazy bwg_filmstrip_thumbnail_img bwg_slideshow_filmstrip_thumbnail_img_<?php echo $bwg; ?> <?php if( $lazyload ) { ?> bwg_lazyload <?php } ?>"
+                     src="<?php if( !$lazyload ) { echo ($is_embed ? "" : BWG()->upload_url) . $image_row->thumb_url; } else { echo BWG()->plugin_url."/images/lazy_placeholder.gif"; } ?>"
+                     data-original="<?php echo ($is_embed ? "" : BWG()->upload_url) . $image_row->thumb_url; ?>"
+                     onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()), '<?php echo $key; ?>', '', '', '<?php echo $bwg; ?>')"
+                     image_id="<?php echo $image_row->id; ?>"
+                     image_key="<?php echo $key; ?>"
+                     alt="<?php echo $image_row->alt; ?>" />
               </div>
               <?php
             }
@@ -300,7 +308,12 @@ public function display($params = array(), $bwg = 0) {
                         if ( !$is_embed ) {
                           ?>
                           <a <?php echo($params['thumb_click_action'] == 'open_lightbox' ? (' class="bwg_lightbox"' . (BWG()->options->enable_seo ? ' href="' . ($is_embed ? $image_row->thumb_url : BWG()->upload_url . $image_row->image_url) . '"' : '') . ' data-image-id="' . $image_row->id . '"') : ($params['thumb_click_action'] == 'redirect_to_url' && $image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' . ($params['thumb_link_target'] ? '_blank' : '') . '"' : '')) ?>>
-                          <img id="bwg_slideshow_image_<?php echo $bwg; ?>" class="skip-lazy bwg_slide bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo BWG()->upload_url . $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" alt="<?php echo $image_row->alt; ?>" />
+                          <img id="bwg_slideshow_image_<?php echo $bwg; ?>"
+                               class="skip-lazy bwg_slide bwg_slideshow_image_<?php echo $bwg; ?> <?php if( $lazyload ) { ?> bwg_lazyload <?php } ?>"
+                               src="<?php if( !$lazyload ) { echo BWG()->upload_url . $image_row->image_url; } else { echo BWG()->plugin_url."/images/lazy_placeholder.gif"; } ?>"
+                               data-original="<?php echo BWG()->upload_url . $image_row->image_url; ?>"
+                               image_id="<?php echo $image_row->id; ?>"
+                               alt="<?php echo $image_row->alt; ?>" />
                           </a>
                           <?php
                         }
@@ -364,7 +377,12 @@ public function display($params = array(), $bwg = 0) {
                         if ( !$is_embed ) {
                           ?>
                           <a <?php echo($params['thumb_click_action'] == 'open_lightbox' ? (' class="bwg_lightbox_' . $bwg . '"' . (BWG()->options->enable_seo ? ' href="' . ($is_embed ? $image_row->thumb_url : BWG()->upload_url . $image_row->image_url) . '"' : '') . ' data-image-id="' . $image_row->id . '"') : ($params['thumb_click_action'] == 'redirect_to_url' && $image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' . ($params['thumb_link_target'] ? '_blank' : '') . '"' : '')) ?>>
-                          <img id="bwg_slideshow_image_<?php echo $bwg; ?>" class="skip-lazy bwg_slide bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo BWG()->upload_url . $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" alt="<?php echo $image_row->alt; ?>" />
+                          <img id="bwg_slideshow_image_<?php echo $bwg; ?>"
+                               class="skip-lazy  bwg_slide bwg_slideshow_image_<?php echo $bwg; ?> <?php if( $lazyload ) { ?> bwg_lazyload lazy_loader <?php } ?>"
+                               src="<?php if( !$lazyload ) { echo BWG()->upload_url . $image_row->image_url; } else { echo BWG()->plugin_url."/images/lazy_placeholder.gif"; } ?>"
+                               data-original="<?php echo BWG()->upload_url . $image_row->image_url; ?>"
+                               image_id="<?php echo $image_row->id; ?>"
+                               alt="<?php echo $image_row->alt; ?>" />
                           </a>
                           <?php
                         }

@@ -5,6 +5,7 @@ class BWGViewThumbnails extends BWGViewSite {
     $image_rows = $params['image_rows'];
     $image_rows = $image_rows['images'];
     $inline_style = $this->inline_styles($bwg, $theme_row, $params);
+    $lazyload = BWG()->options->lazyload_images;
     if ( !WDWLibrary::elementor_is_active() ) {
       if ( !$ajax ) {
         if ( BWG()->options->use_inline_stiles_and_scripts ) {
@@ -60,16 +61,30 @@ class BWGViewThumbnails extends BWGViewSite {
         elseif ( $params['thumb_click_action'] == 'redirect_to_url' && $image_row->redirect_url ) {
           $href = ' href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"';
         }
+
+        $resolution_thumb = $image_row->resolution_thumb;
+        $image_thumb_width = '';
+        $image_thumb_height = '';
+
+        if($resolution_thumb != "" && strpos($resolution_thumb,'x') !== false) {
+          $resolution_th = explode("x", $resolution_thumb);
+          $image_thumb_width = $resolution_th[0];
+          $image_thumb_height = $resolution_th[1];
+        }
+
         ?>
       <div class="bwg-item">
         <a <?php echo $class; ?><?php echo $data_image_id; ?><?php echo $href; ?>>
         <?php if ( $params['image_title'] == 'show' && $theme_row->thumb_title_pos == 'top' ) { echo $title; } ?>
-        <div class="bwg-item0">
+        <div class="bwg-item0 <?php if( $lazyload ) { ?> lazy_loader <?php } ?>">
           <div class="bwg-item1 <?php echo $theme_row->thumb_hover_effect == 'zoom' && $params['image_title'] == 'hover' ? 'bwg-zoom-effect' : ''; ?>">
             <div class="bwg-item2">
-              <img class="skip-lazy bwg_standart_thumb_img_<?php echo $bwg; ?>"
+              <img class="skip-lazy bwg_standart_thumb_img_<?php echo $bwg; ?> <?php if( $lazyload ) { ?> bwg_lazyload <?php } ?>"
                    data-id="<?php echo $image_row->id; ?>"
-                   src="<?php echo ($is_embed ? "" : BWG()->upload_url) . $image_row->thumb_url; ?>"
+                   data-width="<?php echo $image_thumb_width; ?>"
+                   data-height="<?php echo $image_thumb_height; ?>"
+                   data-original="<?php echo ($is_embed ? "" : BWG()->upload_url) . $image_row->thumb_url; ?>"
+                   src="<?php if( !$lazyload ) { echo ($is_embed ? "" : BWG()->upload_url) . $image_row->thumb_url; } else { echo BWG()->plugin_url."/images/lazy_placeholder.gif"; } ?>"
                    alt="<?php echo $image_row->alt; ?>" />
             </div>
             <div class="<?php echo $theme_row->thumb_hover_effect == 'zoom' && $params['image_title'] == 'hover' ? 'bwg-zoom-effect-overlay' : ''; ?>">

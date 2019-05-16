@@ -1,6 +1,6 @@
 <?php
 /**
- * The template part for displaying slider
+ * The template part for displaying image layout
  *
  * @package VW Education Lite
  * @subpackage vw-education-lite
@@ -9,7 +9,7 @@
 ?>	
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <div class="entry-content">
-        <h1><?php the_title();?></h1>    
+        <h2><?php the_title();?></h2>    
         <div class="entry-attachment">
             <div class="attachment">
                 <?php vw_education_lite_the_attached_image(); ?>

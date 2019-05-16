@@ -41,7 +41,6 @@ class BWGViewGalleryBox {
     $enable_comment_social = (BWG()->is_pro && isset($_GET['enable_comment_social']) ? esc_html($_GET['enable_comment_social']) : 0);
     $enable_image_facebook = (BWG()->is_pro && isset($_GET['enable_image_facebook']) ? esc_html($_GET['enable_image_facebook']) : 0);
     $enable_image_twitter = (BWG()->is_pro && isset($_GET['enable_image_twitter']) ? esc_html($_GET['enable_image_twitter']) : 0);
-    $enable_image_google = (BWG()->is_pro && isset($_GET['enable_image_google']) ? esc_html($_GET['enable_image_google']) : 0);
     $enable_image_ecommerce = BWG()->is_pro ? WDWLibrary::esc_script('get', 'enable_image_ecommerce', 0, 'int') : 0;
     $enable_image_pinterest = (BWG()->is_pro &&  isset($_GET['enable_image_pinterest']) ? esc_html($_GET['enable_image_pinterest']) : 0);
     $enable_image_tumblr = (BWG()->is_pro && isset($_GET['enable_image_tumblr']) ? esc_html($_GET['enable_image_tumblr']) : 0);
@@ -131,7 +130,6 @@ class BWGViewGalleryBox {
       'enable_comment_social' => $enable_comment_social,
       'enable_image_facebook' => $enable_image_facebook,
       'enable_image_twitter' => $enable_image_twitter,
-      'enable_image_google' => $enable_image_google,
       'enable_image_ecommerce' => $enable_image_ecommerce,
       'enable_image_pinterest' => $enable_image_pinterest,
       'enable_image_tumblr' => $enable_image_tumblr,
@@ -471,7 +469,6 @@ class BWGViewGalleryBox {
       }
       .bwg_facebook,
       .bwg_twitter,
-      .bwg_google,
       .bwg_pinterest,
       .bwg_tumblr {
         color: #<?php echo $theme_row->lightbox_comment_share_button_color; ?>;
@@ -674,8 +671,8 @@ class BWGViewGalleryBox {
       $data[$key] = array();
       $data[$key]["number"] = $key + 1;
       $data[$key]["id"] = $image_row->id;
-      $data[$key]["alt"] = htmlspecialchars(str_replace(array("\r\n", "\n", "\r"), esc_html('<br />'), $image_row->alt), ENT_COMPAT | ENT_QUOTES);
-      $data[$key]["description"] = htmlspecialchars(str_replace(array("\r\n", "\n", "\r"), esc_html('<br />'), $image_row->description), ENT_COMPAT | ENT_QUOTES);
+      $data[$key]["alt"] = str_replace(array("\r\n", "\n", "\r"), esc_html('<br />'), $image_row->alt);
+      $data[$key]["description"] = str_replace(array("\r\n", "\n", "\r"), esc_html('<br />'), $image_row->description);
 
       $image_resolution = explode(' x ', $image_row->resolution);
       if (is_array($image_resolution)) {
@@ -688,8 +685,8 @@ class BWGViewGalleryBox {
       $data[$key]["image_height"] = $instagram_post_height;
       $data[$key]["pure_image_url"] = $image_row->pure_image_url;
       $data[$key]["pure_thumb_url"] = $image_row->pure_thumb_url;
-      $data[$key]["image_url"] = htmlspecialchars($image_row->image_url, ENT_COMPAT | ENT_QUOTES);
-      $data[$key]["thumb_url"] = htmlspecialchars($image_row->thumb_url, ENT_COMPAT | ENT_QUOTES);
+      $data[$key]["image_url"] = $image_row->image_url;
+      $data[$key]["thumb_url"] = $image_row->thumb_url;
       $data[$key]["date"] = $image_row->date;
       $data[$key]["comment_count"] = $image_row->comment_count;
       $data[$key]["filetype"] = $image_row->filetype;
@@ -725,10 +722,24 @@ class BWGViewGalleryBox {
                   $current_pos = $key * (($filmstrip_direction == 'horizontal' ? $image_filmstrip_width : $image_filmstrip_height) + $filmstrip_thumb_right_left_space);
                   $current_key = $key;
                 }
-                
+                $thumb_dimansions = $image_row->resolution_thumb;
+                $resolution_thumb = true;
                 $is_embed = preg_match('/EMBED/',$image_row->filetype)==1 ? true : false;
                 $is_embed_instagram = preg_match('/EMBED_OEMBED_INSTAGRAM/', $image_row->filetype ) == 1 ? true : false;
-                if ( $is_embed ) {
+                if ( !$is_embed ) {
+                  if($thumb_dimansions == "" || strpos($thumb_dimansions,'x') === false) {
+                    $resolution_thumb = false;
+                  }
+                  if( $resolution_thumb ) {
+                    $resolution_th = explode("x", $thumb_dimansions);
+                    $image_thumb_width = $resolution_th[0];
+                    $image_thumb_height = $resolution_th[1];
+                  } else {
+                    $image_thumb_width = 1;
+                    $image_thumb_height = 1;
+                  }
+                }
+                else {
                   if ($image_row->resolution != '') {
                     if (!$is_embed_instagram) {
                       $resolution_arr = explode(" ", $image_row->resolution);
@@ -754,23 +765,27 @@ class BWGViewGalleryBox {
                     $image_thumb_width = $image_filmstrip_width;
                     $image_thumb_height = $image_filmstrip_height;
                   }
-
-                  $_image_filmstrip_width  = $image_filmstrip_width - $filmstrip_thumb_right_left_space;
-                  $_image_filmstrip_height = $image_filmstrip_height - $filmstrip_thumb_top_bottom_space;
-                  $scale = max($image_filmstrip_width / $image_thumb_width, $image_filmstrip_height / $image_thumb_height);
-                  $image_thumb_width *= $scale;
-                  $image_thumb_height *= $scale;
-                  $thumb_left = ($_image_filmstrip_width - $image_thumb_width) / 2;
-                  $thumb_top = ($_image_filmstrip_height - $image_thumb_height) / 2;
-
                 }
-
-              ?>
-              <div id="bwg_filmstrip_thumbnail_<?php echo $key; ?>" class="bwg_filmstrip_thumbnail <?php echo (($image_row->id == $current_image_id) ? 'bwg_thumb_active' : 'bwg_thumb_deactive'); ?>">
-                <div class="bwg_filmstrip_thumbnail_img_wrap">
-					        <img <?php if( $is_embed ) { ?> style="width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" <?php } ?> class="bwg_filmstrip_thumbnail_img hidden" data-url="<?php echo ($is_embed ? "" : BWG()->upload_url) . $image_row->thumb_url; ?>" src="" onclick='bwg_change_image(parseInt(jQuery("#bwg_current_image_key").val()), "<?php echo $key; ?>")' ontouchend='bwg_change_image(parseInt(jQuery("#bwg_current_image_key").val()), "<?php echo $key; ?>")' image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $key; ?>" alt="<?php echo $image_row->alt; ?>" />
-				        </div>
-              </div>
+				        $_image_filmstrip_width  = $image_filmstrip_width - $filmstrip_thumb_right_left_space;
+                $_image_filmstrip_height = $image_filmstrip_height - $filmstrip_thumb_top_bottom_space;
+                $scale = max($image_filmstrip_width / $image_thumb_width, $image_filmstrip_height / $image_thumb_height);
+                $image_thumb_width *= $scale;
+                $image_thumb_height *= $scale;
+				        $thumb_left = ($_image_filmstrip_width - $image_thumb_width) / 2;
+                $thumb_top = ($_image_filmstrip_height - $image_thumb_height) / 2;
+                ?>
+                <div id="bwg_filmstrip_thumbnail_<?php echo $key; ?>" class="bwg_filmstrip_thumbnail <?php echo (($image_row->id == $current_image_id) ? 'bwg_thumb_active' : 'bwg_thumb_deactive'); ?>">
+                  <div class="bwg_filmstrip_thumbnail_img_wrap">
+                    <img <?php if( $is_embed || $resolution_thumb ) { ?>
+                      style="width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" <?php } ?>
+                      class="bwg_filmstrip_thumbnail_img hidden"
+                      data-url="<?php echo ($is_embed ? "" : BWG()->upload_url) . $image_row->thumb_url; ?>"
+                      src=""
+                      onclick='bwg_change_image(parseInt(jQuery("#bwg_current_image_key").val()), "<?php echo $key; ?>")' ontouchend='bwg_change_image(parseInt(jQuery("#bwg_current_image_key").val()), "<?php echo $key; ?>")'
+                      image_id="<?php echo $image_row->id; ?>"
+                      image_key="<?php echo $key; ?>" alt="<?php echo $image_row->alt; ?>" />
+                  </div>
+                </div>
               <?php
               }
               ?>
@@ -855,13 +870,6 @@ class BWGViewGalleryBox {
             ?>
             <a id="bwg_twitter_a" href="https://twitter.com/share?url=<?php echo urlencode($current_url . '#bwg' . $gallery_id . '/' . $current_image_id); ?>" target="_blank" title="<?php echo __('Share on Twitter', BWG()->prefix); ?>">
               <i title="<?php echo __('Share on Twitter', BWG()->prefix); ?>" class="bwg-icon-twitter-square bwg_ctrl_btn bwg_twitter"></i>
-            </a>
-            <?php
-          }
-          if ($enable_image_google) {
-            ?>
-            <a id="bwg_google_a" href="https://plus.google.com/share?url=<?php echo urlencode($share_url); ?>" target="_blank" title="<?php echo __('Share on Google+', BWG()->prefix); ?>">
-              <i title="<?php echo __('Share on Google+', BWG()->prefix); ?>" class="bwg-icon-google-plus-square bwg_ctrl_btn bwg_google"></i>
             </a>
             <?php
           }
@@ -1381,7 +1389,7 @@ class BWGViewGalleryBox {
       'bwg_share_image_url'                   => urlencode(BWG()->upload_url),
       'slideshow_interval'                    => $slideshow_interval,
       'open_with_fullscreen'                  => $open_with_fullscreen,
-      'open_with_autoplay'                  => $open_with_autoplay,
+      'open_with_autoplay'                    => $open_with_autoplay,
       'event_stack'                           => array(),
       'bwg_playInterval'                      => 0,
       'data'                                  => $data,
@@ -1399,9 +1407,9 @@ class BWGViewGalleryBox {
       'bwg_ctrl_btn_container_height'         => $theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top,
       'filmstrip_thumb_right_left_space'      => $filmstrip_thumb_right_left_space,
       'all_images_right_left_space'           => $all_images_right_left_space,
-      'image_right_click' => $image_right_click,
-      'open_comment' => $open_comment,
-      'open_ecommerce' => $open_ecommerce,
+      'image_right_click'                     => $image_right_click,
+      'open_comment'                          => $open_comment,
+      'open_ecommerce'                        => $open_ecommerce,
     );
     $gallery_box_data = json_encode( $bwg_gallery_box_params );
     ?>

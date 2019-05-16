@@ -260,11 +260,10 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 		$is_enabled = isset( $model->settings['enable-share'] ) && "on" === $model->settings['enable-share'];
 		$is_fb = isset( $model->settings['facebook'] ) && filter_var( $model->settings['facebook'], FILTER_VALIDATE_BOOLEAN );
 		$is_tw = isset( $model->settings['twitter'] ) && filter_var( $model->settings['twitter'], FILTER_VALIDATE_BOOLEAN );
-		$is_g  = isset( $model->settings['google'] ) && filter_var( $model->settings['google'], FILTER_VALIDATE_BOOLEAN );
 		$is_li = isset( $model->settings['linkedin'] ) && filter_var( $model->settings['linkedin'], FILTER_VALIDATE_BOOLEAN );
 
 		if( $is_enabled ) {
-			if ( $is_fb || $is_g || $is_tw || $is_li ):
+			if ( $is_fb || $is_tw || $is_li ):
 				$result_message = sprintf( __( 'I got %1$s on %2$s quiz!', Forminator::DOMAIN ), $result['title'], $model->settings['formName'] );
 				?>
 				<div class="forminator-social--share">
@@ -279,11 +278,6 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 						<?php if ( $is_tw ): ?>
 							<li class="forminator-social--icon">
 								<a href="#" data-social="twitter" class="wpdui-icon wpdui-icon-social-twitter" aria-label="<?php esc_html_e( 'Share on Twitter', Forminator::DOMAIN ); ?>"></a>
-							</li>
-						<?php endif; ?>
-						<?php if ( $is_g ): ?>
-							<li class="forminator-social--icon">
-								<a href="#" data-social="google" class="wpdui-icon wpdui-icon-social-google-plus" aria-label="<?php esc_html_e( 'Share on Google Plus', Forminator::DOMAIN ); ?>"></a>
 							</li>
 						<?php endif; ?>
 						<?php if ( $is_li ): ?>
@@ -504,11 +498,10 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 		$is_enabled = isset( $model->settings['enable-share'] ) && "on" === $model->settings['enable-share'];
 		$is_fb = isset( $model->settings['facebook'] ) && filter_var( $model->settings['facebook'], FILTER_VALIDATE_BOOLEAN );
 		$is_tw = isset( $model->settings['twitter'] ) && filter_var( $model->settings['twitter'], FILTER_VALIDATE_BOOLEAN );
-		$is_g  = isset( $model->settings['google'] ) && filter_var( $model->settings['google'], FILTER_VALIDATE_BOOLEAN );
 		$is_li = isset( $model->settings['linkedin'] ) && filter_var( $model->settings['linkedin'], FILTER_VALIDATE_BOOLEAN );
 
 		if( $is_enabled ) {
-			if ( $is_fb || $is_g || $is_tw || $is_li ):
+			if ( $is_fb || $is_tw || $is_li ):
 				$result_message = sprintf( __( 'I got %1$s/%2$s on %3$s quiz!', Forminator::DOMAIN ), $right_answers, $total_answers, $model->settings['formName'] );
 				?>
 				<p class="forminator-social--text"><?php esc_html_e( "Share your results", Forminator::DOMAIN ); ?></p>
@@ -522,11 +515,6 @@ class Forminator_Quizz_Front_Action extends Forminator_Front_Action {
 					<?php if ( $is_tw ): ?>
 						<li class="forminator-social--icon">
 							<a href="#" data-social="twitter" class="wpdui-icon wpdui-icon-social-twitter" aria-label="<?php esc_html_e( 'Share on Twitter', Forminator::DOMAIN ); ?>"></a>
-						</li>
-					<?php endif; ?>
-					<?php if ( $is_g ): ?>
-						<li class="forminator-social--icon">
-							<a href="#" data-social="google" class="wpdui-icon wpdui-icon-social-google-plus" aria-label="<?php esc_html_e( 'Share on Google Plus', Forminator::DOMAIN ); ?>"></a>
 						</li>
 					<?php endif; ?>
 					<?php if ( $is_li ): ?>

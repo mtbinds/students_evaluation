@@ -120,7 +120,8 @@ class Forminator_Admin_L10n {
 				"new_form_placeholder"    => __( 'E.g. Blank Form', Forminator::DOMAIN ),
 				"new_poll_placeholder"    => __( 'E.g. Blank Poll', Forminator::DOMAIN ),
 				"new_quiz_placeholder"    => __( 'E.g. My Awesome Quiz', Forminator::DOMAIN ),
-				"create"                  => __( 'Create', Forminator::DOMAIN )
+				"create"                  => __( 'Create', Forminator::DOMAIN ),
+				'reset'                   => __( 'RESET', Forminator::DOMAIN ),
 			),
 			"quiz"          => array(
 				"choose_quiz_title"       => __( 'Choose Quiz Type', Forminator::DOMAIN ),

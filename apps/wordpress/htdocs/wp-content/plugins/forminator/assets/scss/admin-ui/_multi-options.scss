@@ -13,7 +13,7 @@ $fui-multi-options--button-line-height:  16px;
 $fui-multi-options--option-background: $white;
 
 @include body-class(true) {
-	
+
 	.fui-multi-options {
 		background-color: $fui-multi-options--background;
 
@@ -73,7 +73,6 @@ $fui-multi-options--option-background: $white;
 			border-radius: $border-radius;
 			background-color: $fui-multi-options--option-background;
 			box-shadow: 0 2px 7px 0 rgba(162,138,138,0.05);
-			transition: 0.2s ease;
 
 			@include icon(before, drag) {
 				width: 30px;

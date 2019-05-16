@@ -68,7 +68,7 @@ function tml_admin_register_settings() {
 
 				// Add the field
 				if ( ! empty( $field['callback'] ) && ! empty( $field['title'] ) ) {
-					add_settings_field( $field_id, $field['title'], $field['callback'], $page, $section_id, $field['args'] );
+					add_settings_field( $field_id, $field['title'], $field['callback'], $page, $section_id, isset( $field['args'] ) ? $field['args'] : array() );
 				}
 
 				// Register the setting
@@ -458,7 +458,9 @@ function tml_admin_setting_callback_license_key_field( $args ) {
 function tml_admin_settings_page() {
 	global $title, $plugin_page;
 
-	tml_flush_rewrite_rules();
+	if ( 'theme-my-login' == $plugin_page ) {
+		tml_flush_rewrite_rules();
+	}
 
 	settings_errors();
 ?>

@@ -132,6 +132,14 @@ if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) and !empty($_SERVER['HTTP_X_FORWARDED
 //print_r($headers);
 //exit;
 
+if(!function_exists('curl_init')) {
+    if(function_exists('http_response_code'))
+        http_response_code(500);
+
+    echo 'PHP Curl library is required';
+    exit;
+}
+
 // proxy request
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $page_url);

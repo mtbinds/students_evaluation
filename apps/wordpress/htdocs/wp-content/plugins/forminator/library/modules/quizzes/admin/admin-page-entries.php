@@ -152,6 +152,8 @@ class Forminator_Quizz_View_Page extends Forminator_Admin_Page {
 							exit;
 						}
 						break;
+					default:
+						break;
 				}
 			}
 		}

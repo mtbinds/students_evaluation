@@ -271,7 +271,7 @@ class Forminator_Export {
 
 		$receipts = array();
 		foreach ( $export_schedules as $row ) {
-			if ( ! isset( $row['enabled'] ) || ( isset( $row['enabled'] ) && 'false' === $row['enabled'] ) || ( isset( $row['email'] ) && empty( $row['email'] ) ) ) {
+			if ( ! isset( $row['enabled'] ) || ( isset( $row['enabled'] ) && ( 'false' === $row['enabled'] || ! $row['enabled'] ) ) || ( isset( $row['email'] ) && empty( $row['email'] ) ) ) {
 				continue;
 			}
 			$last_sent = $row['last_sent'];
@@ -290,6 +290,8 @@ class Forminator_Export {
 					$month_date = isset( $row['month_day'] ) ? $row['month_day'] : 1;
 					$next_sent  = $this->get_monthly_export_date( $last_sent, $month_date );
 					$next_sent  = date( 'Y-m-d', $next_sent ) . ' ' . $row['hour'];
+					break;
+				default:
 					break;
 			}
 
@@ -420,7 +422,7 @@ class Forminator_Export {
 						if ( isset( $meta['answers'] ) ) {
 							foreach ( $meta['answers'] as $answer ) {
 								$row   = array();
-								$row[] = $entry->date_created_sql;
+								$row[] = $entry->time_created;
 								$row[] = $answer['question'];
 								$row[] = $answer['answer'];
 								$row[] = $meta['result']['title'];
@@ -439,7 +441,7 @@ class Forminator_Export {
 						$meta = $entry->meta_data['entry']['value'];
 						foreach ( $meta as $answer ) {
 							$row   = array();
-							$row[] = $entry->date_created_sql;
+							$row[] = $entry->time_created;
 							$row[] = $answer['question'];
 							$row[] = $answer['answer'];
 							$row[] = ( ( $answer['isCorrect'] ) ? __( 'Correct', Forminator::DOMAIN ) : __( 'Incorrect', Forminator::DOMAIN ) );
@@ -494,7 +496,7 @@ class Forminator_Export {
 					$entry = new Forminator_Form_Entry_Model( $map_entry['entry_id'] );
 					$extra = $entry->get_meta( 'extra', null );
 					$row   = array(
-						$map_entry['date_created'],
+						$entry->time_created,
 						$label,
 						$extra,
 					);
@@ -591,6 +593,8 @@ class Forminator_Export {
 
 				$data                = array_merge( array( 'headers' => $headers ), $result );
 				$export_result->data = $data;
+				break;
+			default:
 				break;
 		}
 
@@ -740,9 +744,9 @@ class Forminator_Export {
 		$mappers = array(
 			array(
 				// read form model's property
-				'property' => 'date_created', // must be on export
-				'label'    => __( 'Submission Date', Forminator::DOMAIN ),
-				'type'     => 'entry_date_created',
+				'property' => 'time_created', // must be on export
+				'label'    => __( 'Submission Time', Forminator::DOMAIN ),
+				'type'     => 'entry_time_created',
 			),
 		);
 
@@ -880,6 +884,19 @@ class Forminator_Export {
 				$mappers[] = $mapper;
 			}
 		}
+
+		/**
+		 * Filter column mappers to be used on export custom form
+		 *
+		 * @since 1.6.3
+		 *
+		 * @param array                        $mappers
+		 * @param int                          $form_id
+		 * @param Forminator_Custom_Form_Model $model
+		 *
+		 * @return array
+		 */
+		$mappers = apply_filters( 'forminator_custom_form_export_mappers', $mappers, $model->id, $model );
 
 		return $mappers;
 	}
@@ -1201,6 +1218,8 @@ class Forminator_Export {
 					break;
 				case 'quiz':
 					$form_type = 'forminator_quizzes';
+					break;
+				default:
 					break;
 			}
 			$submission_links[] = sprintf( $submissions_link_format, $form_type, (int) $export_result->model->id );

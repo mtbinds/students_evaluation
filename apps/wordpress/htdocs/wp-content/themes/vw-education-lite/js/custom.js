@@ -42,18 +42,23 @@
 		}
 	}
 
-	jQuery(document).ready(function() {
-        if( jQuery( '#slider' ).length > 0 ){
-	        jQuery('.nivoSlider').nivoSlider({
-		        effect:'fade',
-		        animSpeed: 500,
-		        pauseTime: 3000,
-		        startSlide: 0,
-				directionNav: true,
-				controlNav: true,
-				pauseOnHover:false,
-		    });
-        }
+	$(document).ready(function () {
+
+		$(window).scroll(function () {
+		    if ($(this).scrollTop() > 100) {
+		        $('.scrollup i').fadeIn();
+		    } else {
+		        $('.scrollup i').fadeOut();
+		    }
+		});
+
+		$('.scrollup i').click(function () {
+		    $("html, body").animate({
+		        scrollTop: 0
+		    }, 600);
+		    return false;
+		});
+
 	});
 
 })( jQuery );

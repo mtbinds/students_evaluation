@@ -131,11 +131,16 @@ function forminator_custom_forms() {
  * Return custom forms modules
  *
  * @since 1.0
+ * @since 1.6.3 add $status arg
+ *
+ * @param int          $limit
+ * @param string|array $status status of cform
+ *
  * @return mixed
  */
-function forminator_cform_modules( $limit = 4 ) {
+function forminator_cform_modules( $limit = 4, $status = '' ) {
 	$modules   = array();
-	$models    = Forminator_Custom_Form_Model::model()->get_models( $limit );
+	$models    = Forminator_Custom_Form_Model::model()->get_models( $limit, $status );
 	$form_view = Forminator_Form_Views_Model::get_instance();
 
 	if ( ! empty( $models ) ) {
@@ -195,14 +200,16 @@ function forminator_polls_forms() {
  * Return polls modules
  *
  * @since 1.0
+ * @since 1.6.3 add $status arg
  *
- * @param int $limit
+ * @param int          $limit
+ * @param string|array $status
  *
  * @return array
  */
-function forminator_polls_modules( $limit = 4 ) {
+function forminator_polls_modules( $limit = 4, $status = '' ) {
 	$modules   = array();
-	$models    = Forminator_Poll_Form_Model::model()->get_models( $limit );
+	$models    = Forminator_Poll_Form_Model::model()->get_models( $limit, $status );
 	$form_view = Forminator_Form_Views_Model::get_instance();
 
 	if ( ! empty( $models ) ) {
@@ -246,14 +253,16 @@ function forminator_quizzes_forms() {
  * Return polls modules
  *
  * @since 1.0
+ * @since 1.6.3 add $status arg
  *
- * @param int $limit
+ * @param int          $limit
+ * @param string|array $status
  *
  * @return array
  */
-function forminator_quizzes_modules( $limit = 4 ) {
+function forminator_quizzes_modules( $limit = 4, $status = '' ) {
 	$modules   = array();
-	$models    = Forminator_Quiz_Form_Model::model()->get_models( $limit );
+	$models    = Forminator_Quiz_Form_Model::model()->get_models( $limit, $status );
 	$form_view = Forminator_Form_Views_Model::get_instance();
 
 	if ( ! empty( $models ) ) {
@@ -544,6 +553,8 @@ function forminator_prepare_css( $css_string, $prefix, $as_array = false, $separ
 	$media_names_key = 0;
 	$index           = 0;
 	foreach ( $elements as $element ) {
+		// We need to null prepared else styles are multiplied
+		$prepared = "";
 
 		$check_element = trim( $element );
 		if ( empty( $check_element ) ) {

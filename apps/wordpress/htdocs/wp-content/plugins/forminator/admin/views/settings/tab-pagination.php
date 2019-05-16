@@ -1,5 +1,5 @@
 <?php
-$section = isset( $_GET['section'] ) ? $_GET['section'] : 'emails'; // wpcs csrf ok.
+$section = isset( $_GET['section'] ) ? $_GET['section'] : 'dashboard'; // wpcs csrf ok.
 
 $entries_per_page = get_option( "forminator_pagination_entries", 10 );
 $module_per_page  = get_option( "forminator_pagination_listings", 10 );

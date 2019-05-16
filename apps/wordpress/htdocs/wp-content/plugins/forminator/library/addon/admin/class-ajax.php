@@ -264,7 +264,7 @@ class Forminator_Addon_Admin_Ajax {
 				array(
 					'notification' => array(
 						'type' => 'error',
-						'text' => '<strong>' . $addon->get_title() . '</strong> ' . __( 'Failed to disconnected from this form' ),
+						'text' => '<strong>' . $addon->get_title() . '</strong> ' . __( 'Failed to disconnect from this form' ),
 					),
 				)
 			);
@@ -596,7 +596,7 @@ class Forminator_Addon_Admin_Ajax {
 				array(
 					'notification' => array(
 						'type' => 'error',
-						'text' => '<strong>' . $addon->get_title() . '</strong> ' . __( 'Failed to disconnected from this poll' ),
+						'text' => '<strong>' . $addon->get_title() . '</strong> ' . __( 'Failed to disconnect from this poll' ),
 					),
 				)
 			);

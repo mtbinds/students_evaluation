@@ -13,12 +13,14 @@ class BWGControllerSite {
     require_once BWG()->plugin_dir . '/frontend/views/BWGView' . $view . '.php';
     $view_class = 'BWGView' . $view;
     $this->view = new $view_class();
+
+    do_action('bwg_before_init_gallery');
   }
 
   public function execute( $params = array(), $from_shortcode = 0, $bwg = 0 ) {
     $theme_id = $params['theme_id'];
     $theme_row = $this->model->get_theme_row_data($theme_id);
-	$params['pagination_default_style'] = 0;
+	  $params['pagination_default_style'] = 0;
 
     if ( !isset($params['type']) ) {
       $params['type'] = '';
@@ -106,7 +108,7 @@ class BWGControllerSite {
         }
         elseif ( $params['gallery_view_type'] == 'image_browser' ) {
           $params['gallery_type'] = 'image_browser';
-		  $params['pagination_default_style'] = 1;
+		      $params['pagination_default_style'] = 1;
         }
         elseif ( $params['gallery_view_type'] == 'blog_style' ) {
           $params['gallery_type'] = 'blog_style';
@@ -142,7 +144,7 @@ class BWGControllerSite {
         $params['load_more_image_count'] = $params['images_per_page'];
         $params['items_per_page'] = array('images_per_page' => $params['images_per_page'], 'load_more_image_count' => $params['load_more_image_count']);
 	    $album_gallery_rows = $this->model->get_alb_gals_row($bwg, $params['album_gallery_id'], $params['images_per_page'], $params['album_sort_by'], $params['album_order_by'], $params['image_enable_page'], $from);
-		$params['album_gallery_rows'] = $album_gallery_rows;
+		  $params['album_gallery_rows'] = $album_gallery_rows;
 	}
     else { // Gallery views (thumbnail/masonry/mosaic).
 	    /* Set parameters for gallery view from album shortcode.*/
@@ -374,7 +376,6 @@ class BWGControllerSite {
       'enable_comment_social' => $params['popup_enable_comment'],
       'enable_image_facebook' => $params['popup_enable_facebook'],
       'enable_image_twitter' => $params['popup_enable_twitter'],
-      'enable_image_google' => $params['popup_enable_google'],
       'enable_image_ecommerce' => $params['popup_enable_ecommerce'],
       'enable_image_pinterest' => $params['popup_enable_pinterest'],
       'enable_image_tumblr' => $params['popup_enable_tumblr'],

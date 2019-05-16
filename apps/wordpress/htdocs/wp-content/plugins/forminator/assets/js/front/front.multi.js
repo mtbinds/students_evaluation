@@ -99,6 +99,8 @@
 				forminator_selector: self.forminator_selector,
 				chart_design: self.settings.chart_design,
 				chart_options: self.settings.chart_options,
+				fadeout: self.settings.fadeout,
+				fadeout_time: self.settings.fadeout_time,
 			});
 
 
@@ -564,6 +566,22 @@
 			// 		$(this).val(sanitized);
 			// 	}
 			// });
+			var form = $(this.element);
+			form.find('input[type=number]').each(function () {
+				$(this).keypress(function(e) {
+					var i;
+					var allowed = [44, 45, 46];
+					var key = e.which;
+					
+					for (i = 48; i < 58; i++) {
+						allowed.push(i);
+					}
+
+					if (! (allowed.indexOf(key) >= 0) ) {
+						e.preventDefault();
+					}
+				});
+			});
 		},
 
 		field_time: function () {

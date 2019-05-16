@@ -222,8 +222,8 @@ class BWGModelSite {
       $query .= ' AND t2.published=1' . str_replace('{{table}}', 't2', $search_where);
       $query .= ')';
       $limitation = ' ' . $order_by . ' ' . $limit_str;
-	  $sql = $query . $limitation;
-	  $rows = $wpdb->get_results($sql);
+      $sql = $query . $limitation;
+      $rows = $wpdb->get_results($sql);
       $total = count($wpdb->get_results($query));
     }
     if ( $rows ) {
@@ -235,10 +235,13 @@ class BWGModelSite {
         else {
           $row->permalink = '';
         }
+
         if ( !empty($row->preview_image) ) {
+          $row->resolution_thumb = WDWLibrary::get_thumb_size($row->preview_image);
           $row->preview_image = WDWLibrary::image_url_version($row->preview_image, $row->modified_date);
         }
         if ( !empty($row->random_preview_image) ) {
+          $row->resolution_thumb = WDWLibrary::get_thumb_size($row->random_preview_image);
           $row->random_preview_image = WDWLibrary::image_url_version($row->random_preview_image, $row->modified_date);
         }
         if ( !$row->preview_image ) {

@@ -20,7 +20,7 @@ function vw_education_lite_admin_font_url() {
 	$font_family[] = 'Muli:300,400,600,700,800,900';
 
 	$query_args = array(
-		'family'	=> urlencode(implode('|',$font_family)),
+		'family'	=> rawurlencode(implode('|',$font_family)),
 	);
 	$font_url = add_query_arg($query_args,'//fonts.googleapis.com/css');
 	return $font_url;
@@ -43,10 +43,10 @@ function vw_education_lite_mostrar_guide() {
 			<img src="<?php echo esc_url(get_template_directory_uri()); ?>/inc/getting-started/images/final-logo.png" alt="" />
 		</div>
 		<div class="update-now">
-			<h4><?php esc_html_e('Buy VW Education at 10% Discount','vw-education-lite'); ?></h4>
-			<h4><?php esc_html_e('Use Coupon','vw-education-lite'); ?> ( <span><?php esc_html_e('vwten2018','vw-education-lite'); ?></span> ) </h4> 
+			<h4><?php esc_html_e('Buy VW Education at 20% Discount','vw-education-lite'); ?></h4>
+			<h4><?php esc_html_e('Use Coupon','vw-education-lite'); ?> ( <span><?php esc_html_e('vwpro20','vw-education-lite'); ?></span> ) </h4> 
 			<div class="info-link">
-				<a href="<?php echo esc_url( vw_education_lite_BUY_NOW ); ?>" target="_blank"> <?php esc_html_e( 'Upgrade to Pro', 'vw-education-lite' ); ?></a>
+				<a href="<?php echo esc_url( VW_EDUCATION_LITE_BUY_NOW ); ?>" target="_blank"> <?php esc_html_e( 'Upgrade to Pro', 'vw-education-lite' ); ?></a>
 			</div>
 		</div>
     </div>
@@ -67,7 +67,7 @@ function vw_education_lite_mostrar_guide() {
 		  		<h4><?php esc_html_e( 'Theme Documentation', 'vw-education-lite' ); ?></h4>
 				<p><?php esc_html_e( 'If you need any assistance regarding setting up and configuring the Theme, our documentation is there.', 'vw-education-lite' ); ?></p>
 				<div class="info-link">
-					<a href="<?php echo esc_url( vw_education_lite_FREE_THEME_DOC ); ?>" target="_blank"> <?php esc_html_e( 'Documentation', 'vw-education-lite' ); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_FREE_THEME_DOC ); ?>" target="_blank"> <?php esc_html_e( 'Documentation', 'vw-education-lite' ); ?></a>
 				</div>
 				<hr>
 				<h4><?php esc_html_e('Theme Customizer', 'vw-education-lite'); ?></h4>
@@ -79,13 +79,13 @@ function vw_education_lite_mostrar_guide() {
 				<h4><?php esc_html_e('Having Trouble, Need Support?', 'vw-education-lite'); ?></h4>
 				<p> <?php esc_html_e('Our dedicated team is well prepared to help you out in case of queries and doubts regarding our theme.', 'vw-education-lite'); ?></p>
 				<div class="info-link">
-					<a href="<?php echo esc_url( vw_education_lite_SUPPORT ); ?>" target="_blank"><?php esc_html_e('Support Forum', 'vw-education-lite'); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_SUPPORT ); ?>" target="_blank"><?php esc_html_e('Support Forum', 'vw-education-lite'); ?></a>
 				</div>
 				<hr>
 				<h4><?php esc_html_e('Reviews & Testimonials', 'vw-education-lite'); ?></h4>
 				<p> <?php esc_html_e('All the features and aspects of this WordPress Theme are phenomenal. I\'d recommend this theme to all.', 'vw-education-lite'); ?>  </p>
 				<div class="info-link">
-					<a href="<?php echo esc_url( vw_education_lite_REVIEW ); ?>" target="_blank"><?php esc_html_e('Reviews', 'vw-education-lite'); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_REVIEW ); ?>" target="_blank"><?php esc_html_e('Reviews', 'vw-education-lite'); ?></a>
 				</div>
 		  		<div class="link-customizer">
 					<h3><?php esc_html_e( 'Link to customizer', 'vw-education-lite' ); ?></h3>
@@ -120,7 +120,7 @@ function vw_education_lite_mostrar_guide() {
 								<span class="dashicons dashicons-screenoptions"></span><a href="<?php echo esc_url( admin_url('customize.php?autofocus[panel]=widgets') ); ?>" target="_blank"><?php esc_html_e('Footer Widget','vw-education-lite'); ?></a>
 							</div>
 							<div class="row-box2">
-								<span class="dashicons dashicons-admin-links"></span><a href="<?php echo esc_url( admin_url('customize.php?autofocus[section]=vw_education_lite_topbar_header') ); ?>" target="_blank"><?php esc_html_e('Add Social Icon','vw-education-lite'); ?></a>
+								<span class="dashicons dashicons-screenoptions"></span><a href="<?php echo esc_url( admin_url('customize.php?autofocus[panel]=widgets') ); ?>" target="_blank"><?php esc_html_e('Social Icons','vw-education-lite'); ?></a>
 							</div>
 						</div>
 						<div class="row-box">
@@ -157,9 +157,9 @@ function vw_education_lite_mostrar_guide() {
 		    <div class="col-left-pro">
 		    	<p><?php esc_html_e('Do you run an education based firm? You would require a premium education WordPress theme to go along with it. Well you know? Our best Education WordPress theme for schools and colleges is perfect for you. We have made this theme with the intent to revamp your website and make it look astonishing. You would need a theme that can beautifully showcase your campus and everything else that you have to offer. Our premium education WordPress theme is fully responsive and multipurpose, It is made to be insanely fast across all platforms and browsers. This ensures quality performance, which will lead to your viewers never having a bad experience with our theme.','vw-education-lite'); ?></p>
 		    	<div class="pro-links">
-			    	<a href="<?php echo esc_url( vw_education_lite_LIVE_DEMO ); ?>" target="_blank"><?php esc_html_e('Live Demo', 'vw-education-lite'); ?></a>
-					<a href="<?php echo esc_url( vw_education_lite_BUY_NOW ); ?>"><?php esc_html_e('Buy Pro', 'vw-education-lite'); ?></a>
-					<a href="<?php echo esc_url( vw_education_lite_PRO_DOC ); ?>" target="_blank"><?php esc_html_e('Pro Documentation', 'vw-education-lite'); ?></a>
+			    	<a href="<?php echo esc_url( VW_EDUCATION_LITE_LIVE_DEMO ); ?>" target="_blank"><?php esc_html_e('Live Demo', 'vw-education-lite'); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_BUY_NOW ); ?>"><?php esc_html_e('Buy Pro', 'vw-education-lite'); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_PRO_DOC ); ?>" target="_blank"><?php esc_html_e('Pro Documentation', 'vw-education-lite'); ?></a>
 				</div>
 		    </div>
 		    <div class="col-right-pro">
@@ -331,7 +331,7 @@ function vw_education_lite_mostrar_guide() {
 							<tr>
 								<td></td>
 								<td class="table-img"></td>
-								<td class="update-link"><a href="<?php echo esc_url( vw_education_lite_BUY_NOW ); ?>" target="_blank"><?php esc_html_e('Upgrade to Pro', 'vw-education-lite'); ?></a></td>
+								<td class="update-link"><a href="<?php echo esc_url( VW_EDUCATION_LITE_BUY_NOW ); ?>" target="_blank"><?php esc_html_e('Upgrade to Pro', 'vw-education-lite'); ?></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -344,42 +344,35 @@ function vw_education_lite_mostrar_guide() {
 		  		<h4><span class="dashicons dashicons-star-filled"></span><?php esc_html_e('Pro Version', 'vw-education-lite'); ?></h4>
 				<p> <?php esc_html_e('To gain access to extra theme options and more interesting features, upgrade to pro version.', 'vw-education-lite'); ?></p>
 				<div class="info-link">
-					<a href="<?php echo esc_url( vw_education_lite_BUY_NOW ); ?>" target="_blank"><?php esc_html_e('Get Pro', 'vw-education-lite'); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_BUY_NOW ); ?>" target="_blank"><?php esc_html_e('Get Pro', 'vw-education-lite'); ?></a>
 				</div>
 		  	</div>
 		  	<div class="col-3">
 		  		<h4><span class="dashicons dashicons-cart"></span><?php esc_html_e('Pre-purchase Queries', 'vw-education-lite'); ?></h4>
 				<p> <?php esc_html_e('If you have any pre-sale query, we are prepared to resolve it.', 'vw-education-lite'); ?></p>
 				<div class="info-link">
-					<a href="<?php echo esc_url( vw_education_lite_CONTACT ); ?>" target="_blank"><?php esc_html_e('Question', 'vw-education-lite'); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_CONTACT ); ?>" target="_blank"><?php esc_html_e('Question', 'vw-education-lite'); ?></a>
 				</div>
 		  	</div>
 		  	<div class="col-3">
 		  		<h4><span class="dashicons dashicons-admin-customizer"></span><?php esc_html_e('Child Theme', 'vw-education-lite'); ?></h4>
 				<p> <?php esc_html_e('For theme file customizations, make modifications in the child theme and not in the main theme file.', 'vw-education-lite'); ?></p>
 				<div class="info-link">
-					<a href="<?php echo esc_url( vw_education_lite_CHILD_THEME ); ?>" target="_blank"><?php esc_html_e('About Child Theme', 'vw-education-lite'); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_CHILD_THEME ); ?>" target="_blank"><?php esc_html_e('About Child Theme', 'vw-education-lite'); ?></a>
 				</div>
 		  	</div>
 		  	<div class="col-3">
 		  		<h4><span class="dashicons dashicons-admin-comments"></span><?php esc_html_e('Frequently Asked Questions', 'vw-education-lite'); ?></h4>
 				<p> <?php esc_html_e('We have gathered top most, frequently asked questions and answered them for your easy understanding. We will list down more as we get new challenging queries. Check back often.', 'vw-education-lite'); ?></p>
 				<div class="info-link">
-					<a href="<?php echo esc_url( vw_education_lite_FAQ ); ?>" target="_blank"><?php esc_html_e('View FAQ','vw-education-lite'); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_FAQ ); ?>" target="_blank"><?php esc_html_e('View FAQ','vw-education-lite'); ?></a>
 				</div>
 		  	</div>
 		  	<div class="col-3">
 		  		<h4><span class="dashicons dashicons-sos"></span><?php esc_html_e('Post-purchase Queries', 'vw-education-lite'); ?></h4>
 				<p> <?php esc_html_e('If you have any queries after purchase, you can contact us. We are eveready to help you out.', 'vw-education-lite'); ?></p>
 				<div class="info-link">
-					<a href="<?php echo esc_url( vw_education_lite_SUPPORT ); ?>" target="_blank"><?php esc_html_e('Contact Us', 'vw-education-lite'); ?></a>
-				</div>
-		  	</div>
-		  	<div class="col-3">
-		  		<h4><span class="dashicons dashicons-media-text"></span><?php esc_html_e('Theme Demo Content', 'vw-education-lite'); ?></h4>
-				<p> <?php esc_html_e('We are providing the demo content file within the theme folder.  You will require an importer plugin to import the demo content.', 'vw-education-lite'); ?></p>
-				<div class="info-link">
-					<a href="<?php echo esc_url( vw_education_lite_DEMO_DATA ); ?>" target="_blank"><?php esc_html_e('Demo Content', 'vw-education-lite'); ?></a>
+					<a href="<?php echo esc_url( VW_EDUCATION_LITE_SUPPORT ); ?>" target="_blank"><?php esc_html_e('Contact Us', 'vw-education-lite'); ?></a>
 				</div>
 		  	</div>
 		</div>

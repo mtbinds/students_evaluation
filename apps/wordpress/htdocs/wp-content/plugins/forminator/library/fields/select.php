@@ -175,15 +175,25 @@ class Forminator_Select extends Forminator_Field {
 
 			$html .= '</ul>';
 		} else {
-			$html .= sprintf( '<select class="forminator-select--field forminator-select" id="%s" data-required="%s" name="%s">', $id, $required, $name );
+			$options_markup = '';
+			$default = '';
 
 			foreach ( $options as $option ) {
 				$value          = $option['value'] ? $option['value'] : '';
 				$option_default = isset( $option['default'] ) ? filter_var( $option['default'], FILTER_VALIDATE_BOOLEAN ) : false;
+				
+				if( $option_default ) {
+					$default = $value;
+				}
+
 				$selected       = ( $value === $post_value || $option_default ) ? 'selected="selected"' : '';
 
-				$html .= sprintf( '<option value="%s" %s>%s</option>', $value, $selected, $option['label'] );
+				$options_markup .= sprintf( '<option value="%s" %s>%s</option>', $value, $selected, $option['label'] );
 			}
+
+			$html .= sprintf( '<select class="forminator-select--field forminator-select" id="%s" data-required="%s" name="%s" data-default-value="%s">', $id, $required, $name, $default );
+
+			$html .= $options_markup;
 
 			$html .= sprintf( '</select>' );
 		}
@@ -271,9 +281,10 @@ class Forminator_Select extends Forminator_Field {
 	 * @return array|string $data - the data after sanitization
 	 */
 	public function sanitize( $field, $data ) {
+		$original_data = $data;
 		// Sanitize
 		$data = forminator_sanitize_field( $data );
 
-		return apply_filters( 'forminator_field_single_sanitize', $data, $field );
+		return apply_filters( 'forminator_field_single_sanitize', $data, $field, $original_data );
 	}
 }

@@ -3,7 +3,7 @@ Contributors: awordpresslife
 Tags: full-width-template, threaded-comments, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, custom-colors, custom-header, featured-image-header, featured-images, footer-widgets, post-formats, blog, sticky-post, custom-background, custom-menu,translation-ready
 Requires at least: 4.0
 Tested up to: 5.1.1
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -69,6 +69,9 @@ License : CC0 Public Domain
 Activate the Theme through the 'Themes' menu in WordPress then See Customizer-> Daron Theme Options to change theme specific options.
 
 == Changelog ==
+
+= 1.2.5 =
+* None
 
 = 1.2.5 =
 * Fix Woocommerce sidebar

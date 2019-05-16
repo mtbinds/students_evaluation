@@ -112,7 +112,7 @@ class Forminator_Addon_Googlesheet_Quiz_Settings extends Forminator_Addon_Quiz_S
 			$buttons['disconnect']['markup'] = Forminator_Addon_Abstract::get_button_markup(
 				esc_html__( 'DISCONNECT', Forminator::DOMAIN ),
 				'sui-button-ghost sui-tooltip sui-tooltip-top-center forminator-addon-form-disconnect',
-				esc_html__( 'Disconnect this Google Sheets Integration from this Quiz.', Forminator::DOMAIN )
+				esc_html__( 'Disconnect Google Sheets Integration from this Quiz.', Forminator::DOMAIN )
 			);
 		}
 
@@ -250,7 +250,7 @@ class Forminator_Addon_Googlesheet_Quiz_Settings extends Forminator_Addon_Quiz_S
 			$buttons['disconnect']['markup'] = Forminator_Addon_Abstract::get_button_markup(
 				esc_html__( 'DISCONNECT', Forminator::DOMAIN ),
 				'sui-button-ghost sui-tooltip sui-tooltip-top-center forminator-addon-form-disconnect',
-				esc_html__( 'Disconnect this Google Sheets Integration from this quiz.', Forminator::DOMAIN )
+				esc_html__( 'Disconnect Google Sheets Integration from this quiz.', Forminator::DOMAIN )
 			);
 		}
 

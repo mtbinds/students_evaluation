@@ -387,7 +387,7 @@ function tml_login_handler() {
 		if ( headers_sent() ) {
 			$user = new WP_Error( 'test_cookie', sprintf(
 					__( '<strong>ERROR</strong>: Cookies are blocked due to unexpected output. For help, please see <a href="%1$s">this documentation</a> or try the <a href="%2$s">support forums</a>.' ),
-					__( 'https://codex.wordpress.org/Cookies' ),
+					__( 'https://wordpress.org/support/article/cookies' ),
 					__( 'https://wordpress.org/support/' )
 				)
 			);
@@ -395,7 +395,7 @@ function tml_login_handler() {
 			// If cookies are disabled we can't log in even with a valid user+pass
 			$user = new WP_Error( 'test_cookie', sprintf(
 					__( '<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href="%s">enable cookies</a> to use WordPress.' ),
-					__( 'https://codex.wordpress.org/Cookies' )
+					__( 'https://wordpress.org/support/article/cookies#enable-cookies-your-browser' )
 				)
 			);
 		}
@@ -430,6 +430,10 @@ function tml_login_handler() {
 
 	// Clear errors if loggedout is set.
 	if ( ! empty( $_GET['loggedout'] ) || $reauth ) {
+		$errors = new WP_Error;
+	}
+
+	if ( empty( $_POST ) && $errors->get_error_codes() === array( 'empty_username', 'empty_password' ) ) {
 		$errors = new WP_Error;
 	}
 
@@ -626,17 +630,16 @@ function tml_password_reset_handler() {
  */
 function tml_confirmaction_handler() {
 	if ( ! isset( $_GET['request_id'] ) ) {
-		wp_die( __( 'Invalid request.' ) );
+		wp_die( __( 'Missing request ID.' ) );
+	}
+
+	if ( ! isset( $_GET['confirm_key'] ) ) {
+		wp_die( __( 'Missing confirm key.' ) );
 	}
 
 	$request_id = (int) $_GET['request_id'];
-
-	if ( isset( $_GET['confirm_key'] ) ) {
-		$key    = sanitize_text_field( wp_unslash( $_GET['confirm_key'] ) );
-		$result = wp_validate_user_request_key( $request_id, $key );
-	} else {
-		$result = new WP_Error( 'invalid_key', __( 'Invalid key' ) );
-	}
+	$key        = sanitize_text_field( wp_unslash( $_GET['confirm_key'] ) );
+	$result     = wp_validate_user_request_key( $request_id, $key );
 
 	if ( is_wp_error( $result ) ) {
 		wp_die( $result );

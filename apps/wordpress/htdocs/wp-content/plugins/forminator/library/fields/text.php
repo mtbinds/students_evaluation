@@ -353,9 +353,10 @@ class Forminator_Text extends Forminator_Field {
 	 * @return array|string $data - the data after sanitization
 	 */
 	public function sanitize( $field, $data ) {
+		$original_data = $data;
 		// Sanitize
 		$data = forminator_sanitize_field( $data );
 
-		return apply_filters( 'forminator_field_text_sanitize', $data, $field );
+		return apply_filters( 'forminator_field_text_sanitize', $data, $field, $original_data );
 	}
 }

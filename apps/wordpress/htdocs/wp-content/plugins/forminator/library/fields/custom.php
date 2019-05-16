@@ -42,7 +42,7 @@ class Forminator_Custom extends Forminator_Field {
 	 */
 	public function __construct() {
 		parent::__construct();
-		
+
 		$this->name = __( 'Custom Field', Forminator::DOMAIN );
 	}
 
@@ -236,6 +236,8 @@ class Forminator_Custom extends Forminator_Field {
 			case "hidden":
 				$html .= sprintf( '<input class="forminator-hidden--field" type="hidden" id="%s" name="%s" value="%s" />', $id, $name, $default_value );
 				break;
+			default:
+				break;
 		}
 
 		return apply_filters( 'forminator_field_custom_markup', $html, $id, $required, $field_type, $placeholder );
@@ -272,4 +274,3 @@ class Forminator_Custom extends Forminator_Field {
 		return $data;
 	}
 }
-

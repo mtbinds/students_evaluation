@@ -150,7 +150,8 @@ class Forminator_Form_Entry_Model {
 
 			return $entry_object_cache;
 		} else {
-			$sql   = "SELECT `entry_type`, `form_id`, `is_spam`, `date_created` FROM {$this->table_name} WHERE `entry_id` = %d";
+			$table_name      = Forminator_Database_Tables::get_table_name( Forminator_Database_Tables::FORM_ENTRY );
+			$sql   = "SELECT `entry_type`, `form_id`, `is_spam`, `date_created` FROM {$table_name} WHERE `entry_id` = %d";
 			$entry = $wpdb->get_row( $wpdb->prepare( $sql, $entry_id ) ); // WPCS: unprepared SQL ok. false positive
 			if ( $entry ) {
 				$this->entry_id         = $entry_id;
@@ -260,7 +261,8 @@ class Forminator_Form_Entry_Model {
 			$db = $wpdb;
 		}
 		$this->meta_data = array();
-		$sql             = "SELECT `meta_id`, `meta_key`, `meta_value` FROM {$this->table_meta_name} WHERE `entry_id` = %d";
+		$table_meta_name = Forminator_Database_Tables::get_table_name( Forminator_Database_Tables::FORM_ENTRY_META );
+		$sql             = "SELECT `meta_id`, `meta_key`, `meta_value` FROM {$table_meta_name} WHERE `entry_id` = %d";
 		$results         = $db->get_results( $db->prepare( $sql, $this->entry_id ) );
 		foreach ( $results as $result ) {
 			$this->meta_data[ $result->meta_key ] = array(
@@ -667,6 +669,11 @@ class Forminator_Form_Entry_Model {
 		$table_name       = Forminator_Database_Tables::get_table_name( Forminator_Database_Tables::FORM_ENTRY_META );
 		$entry_table_name = Forminator_Database_Tables::get_table_name( Forminator_Database_Tables::FORM_ENTRY );
 
+		// Make sure $form_id is always number
+		if( ! is_numeric( $form_id ) ) {
+			$form_id = 0;
+		}
+
 		$element_ids = array();
 		foreach ( $fields as $field ) {
 			$element_id    = (string) $field['element_id'];
@@ -740,6 +747,11 @@ class Forminator_Form_Entry_Model {
 		$map_entries      = array();
 		$table_name       = Forminator_Database_Tables::get_table_name( Forminator_Database_Tables::FORM_ENTRY_META );
 		$entry_table_name = Forminator_Database_Tables::get_table_name( Forminator_Database_Tables::FORM_ENTRY );
+
+		// Make sure $form_id is always number
+		if( ! is_numeric( $form_id ) ) {
+			$form_id = 0;
+		}
 
 		$element_ids = array();
 		foreach ( $fields as $field ) {
@@ -891,11 +903,12 @@ class Forminator_Form_Entry_Model {
 	 *
 	 * @return string|bool
 	 */
-	public static function check_entry_date_by_ip_and_form( $form_id, $ip, $entry_id, $interval ) {
+	public static function check_entry_date_by_ip_and_form( $form_id, $ip, $entry_id, $interval = '' ) {
 		global $wpdb;
 		$current_date     = date_i18n( 'Y-m-d H:i:s' );
 		$table_name       = Forminator_Database_Tables::get_table_name( Forminator_Database_Tables::FORM_ENTRY_META );
 		$entry_table_name = Forminator_Database_Tables::get_table_name( Forminator_Database_Tables::FORM_ENTRY );
+		$interval         = esc_sql( $interval );
 		$sql
 		                  =
 			"SELECT m.`meta_id` FROM {$table_name} m LEFT JOIN {$entry_table_name} e ON(e.`entry_id` = m.`entry_id`) WHERE e.`form_id` = %d AND m.`meta_key` = %s AND m.`meta_value` = %s AND m.`entry_id` = %d AND DATE_ADD(m.`date_created`, {$interval}) < %s order by m.`meta_id` desc limit 0,1";
@@ -1135,7 +1148,11 @@ class Forminator_Form_Entry_Model {
 						$string_value = '';
 					}
 				} else {
-					$string_value = $meta_value['year'] . '/' . sprintf( "%02d", $meta_value['month'] ) . '/' . sprintf( "%02d", $meta_value['day'] );
+					if ( empty( $meta_value['year'] ) || empty( $meta_value['month'] ) || empty( $meta_value['day'] ) ) {
+						$string_value = '';
+					} else {
+						$string_value = $meta_value['year'] . '/' . sprintf( "%02d", $meta_value['month'] ) . '/' . sprintf( "%02d", $meta_value['day'] );
+					}
 				}
 				//truncate
 				if ( strlen( $string_value ) > $truncate ) {

@@ -1152,7 +1152,7 @@ msgstr ""
 
 #: admin/views/Galleries.php:417
 msgid ""
-"Enter YouTube, Vimeo, Instagram, Facebook, Flickr or Dailymotion URL here."
+"Enter YouTube, Vimeo, Instagram, Flickr or Dailymotion URL here."
 msgstr ""
 
 #: admin/views/Galleries.php:418 admin/views/Galleries.php:454

@@ -323,9 +323,9 @@
 			if (this.step === (this.totalSteps - 1)) {
 				var submit_button_text = this.$el.find('.forminator-pagination-submit').html();
 				if ( this.$el.hasClass('forminator-design--material') ) {
-					this.$el.find('.forminator-pagination-next .forminator-button--text').html(submit_button_text);
+					this.$el.find('.forminator-pagination-next').removeClass('forminator-pagination-next').attr('id', 'forminator-submit').find('.forminator-button--text').html(submit_button_text);
 				} else {
-					this.$el.find('.forminator-pagination-next').html(submit_button_text);
+					this.$el.find('.forminator-pagination-next').removeClass('forminator-pagination-next').attr('id', 'forminator-submit').html(submit_button_text);
 				}
 
 			} else {

@@ -100,7 +100,6 @@ function bwg_lightbox_hide_show_params() {
     jQuery("#tr_popup_captcha").css('display', '');
     jQuery("#tr_popup_facebook").css('display', '');
     jQuery("#tr_popup_twitter").css('display', '');
-    jQuery("#tr_popup_google").css('display', '');
     jQuery("#tr_popup_pinterest").css('display', '');
     jQuery("#tr_popup_thumblr").css('display', '');
   }
@@ -115,7 +114,6 @@ function bwg_lightbox_hide_show_params() {
     jQuery("#tr_popup_captcha").css('display', 'none');
     jQuery("#tr_popup_facebook").css('display', 'none');
     jQuery("#tr_popup_twitter").css('display', 'none');
-    jQuery("#tr_popup_google").css('display', 'none');
     jQuery("#tr_popup_pinterest").css('display', 'none');
     jQuery("#tr_popup_thumblr").css('display', 'none');
   }

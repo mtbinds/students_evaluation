@@ -22,7 +22,7 @@
 
 <div class="sui-actions-right">
 	<?php if ( forminator_is_show_documentation_link() ) : ?>
-		<a href="https://premium.wpmudev.org/docs/wpmu-dev-plugins/forminator/#chapter-4" target="_blank" class="sui-button sui-button-ghost">
+		<a href="https://premium.wpmudev.org/docs/wpmu-dev-plugins/forminator/#quizzes" target="_blank" class="sui-button sui-button-ghost">
 			<i class="sui-icon-academy"></i> <?php esc_html_e( "View Documentation", Forminator::DOMAIN ); ?>
 		</a>
 	<?php endif; ?>

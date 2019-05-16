@@ -3,8 +3,8 @@
 Contributors: keonthemes
 Tags: blog, portfolio, education, grid-Layout, two-columns, flexible-header, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, full-width-template, post-formats, rtl-language-support, theme-options, sticky-post, threaded-comments, translation-ready
 Requires at least: 4.7
-Tested up to: 5.0.3
-Stable tag: 1.1.9
+Tested up to: 5.2.0
+Stable tag: 1.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,6 +21,9 @@ Business Consultr Professional WordPress Consultant Firm theme is designed with 
 Business Consultr includes support for WooCommerce, Contact From 7 and Jetpack.
 
 == Changelog ==
+
+= 1.2.0 =
+* RSS feed social icon supported.
 
 = 1.1.9 =
 * Added Gutenberg compatibility.
@@ -67,6 +70,9 @@ Business Consultr includes support for WooCommerce, Contact From 7 and Jetpack.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* This version supported RSS feed social icon.
 
 = 1.1.9 =
 * This version added Gutenberg compatibility, updated Header and Slider image sizes, added Header search disable/enable option and Style issues fixed.

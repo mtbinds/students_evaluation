@@ -83,27 +83,8 @@ class LoginPress_Settings {
 
     if ( ! has_action( 'loginpress_pro_add_template' ) ) {
 
-      // Add Add-Ons Promotion tabs in version 1.1.22
-      if ( ! class_exists( 'LoginPress_Addons' ) ) :
-        include LOGINPRESS_DIR_PATH . 'classes/class-loginpress-addons.php';
-      endif;
-
-      $loginpress_addon = new LoginPress_Addons;
-
-      if( is_array( $loginpress_addon->_get_addons() ) ) {
-        foreach( $loginpress_addon->_get_addons() as $addon ) {
-          if ( ! is_null( $loginpress_addon->_addon_promotion( $addon ) ) ) {
-            array_push( $loginpress_general_tab , $loginpress_addon->_addon_promotion( $addon ) );
-          }
-        }
-      }
-
-      $loginpress_premium = array(
-        'id'    => 'loginpress_premium',
-        'title' => __( 'Upgrade to Pro for More Features', 'loginpress' )
-      );
-
-      array_push( $loginpress_general_tab , $loginpress_premium );
+      // Add Add-Ons Promotion tabs @since 1.1.22 @version 1.1.24
+      include LOGINPRESS_DIR_PATH . 'classes/class-loginpress-promotion.php';
     }
 
     $sections = apply_filters( 'loginpress_settings_tab', $loginpress_general_tab );

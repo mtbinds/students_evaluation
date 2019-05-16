@@ -271,9 +271,10 @@ class Forminator_Email extends Forminator_Field {
 	 * @return array|string $data - the data after sanitization
 	 */
 	public function sanitize( $field, $data ) {
+		$original_data = $data;
 		// Sanitize email
 		$data = sanitize_email( $data );
 
-		return apply_filters( 'forminator_field_email_sanitize', $data, $field );
+		return apply_filters( 'forminator_field_email_sanitize', $data, $field, $original_data );
 	}
 }

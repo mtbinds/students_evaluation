@@ -3,7 +3,7 @@
 Contributors: awordpresslife
 Requires at least: 4.0
 Tested up to: 5.1.1
-Stable tag: 0.0.8
+Stable tag: 0.0.9
 
 Multi-purpose WordPress theme
 
@@ -39,6 +39,9 @@ Soucre : https://pixabay.com/
 License: CC0 Public Domain
 
 == Changelog ==
+
+version : 0.0.9
+Bug fix: None
 
 version : 0.0.8
 Features : Add transition to post navigations

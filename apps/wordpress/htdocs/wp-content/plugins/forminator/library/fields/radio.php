@@ -65,7 +65,7 @@ class Forminator_Radio extends Forminator_Field {
 	 */
 	public function defaults() {
 		return array(
-			'value_type'  => 'select',
+			'value_type'  => 'radio',
 			'field_label' => __( 'Radio', Forminator::DOMAIN ),
 			'options'     => array(
 				array(
@@ -255,9 +255,10 @@ class Forminator_Radio extends Forminator_Field {
 	 * @return array|string $data - the data after sanitization
 	 */
 	public function sanitize( $field, $data ) {
+		$original_data = $data;
 		// Sanitize
 		$data = forminator_sanitize_field( $data );
 
-		return apply_filters( 'forminator_field_single_sanitize', $data, $field );
+		return apply_filters( 'forminator_field_single_sanitize', $data, $field, $original_data );
 	}
 }

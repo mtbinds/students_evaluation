@@ -489,7 +489,7 @@ class Forminator_Poll_Front extends Forminator_Render_Form {
 		}
 
 		if ( $render ) {
-			echo $html; // phpcs:ignore
+			echo wp_kses_post( $html ); // phpcs:ignore
 		} else {
 			return apply_filters( 'forminator_render_fields_markup', $html, $wrappers, $this );
 		}

@@ -142,7 +142,7 @@ function wppb_login_form( $args = array() ) {
 		$form_location = 'widget';
 
 	$form = '
-		<form name="' . $args['form_id'] . '" id="' . $args['form_id'] . '" action="'. wppb_curpageurl() .'" method="post">
+		<form name="' . $args['form_id'] . '" id="' . $args['form_id'] . '" action="'. esc_url( wppb_curpageurl() ) .'" method="post">
 			' . $login_form_top . '
 			<p class="login-username">
 				<label for="' . esc_attr( $args['id_username'] ) . '">' . esc_html( $args['label_username'] ) . '</label>

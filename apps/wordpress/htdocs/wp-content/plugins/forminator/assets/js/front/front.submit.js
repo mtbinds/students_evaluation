@@ -67,6 +67,11 @@
 
 			}
 		},
+		decodeHtmlEntity: function(str) {
+			return str.replace(/&#(\d+);/g, function(match, dec) {
+				return String.fromCharCode(dec);
+			});
+		},
 		handle_submit_custom_form: function () {
 			var self = this,
 				form = $(this.element);
@@ -180,7 +185,8 @@
 
 									// Reset selects
 									$this.find('.forminator-select').each(function () {
-										$(this).val(null).trigger("change");
+										var defaultValue = $(this).data('default-value');
+										$(this).val(defaultValue).trigger("change");
 									});
 
 									$this.trigger('forminator:form:submit:success', formData);
@@ -190,7 +196,7 @@
 								}
 
 								if (typeof data.data.url !== "undefined") {
-									window.location.href = data.data.url;
+									window.location.href = self.decodeHtmlEntity( data.data.url );
 								}
 
 								if (typeof data.data.behav !== "undefined" && data.data.behav === 'behaviour-hide') {
@@ -406,6 +412,12 @@
 		focus_to_element: function ($element, fadeout) {
 			fadeout = fadeout || false;
 
+			if( fadeout ) {
+				fadeout = this.settings.fadeout;
+			}
+
+			var fadeout_time = this.settings.fadeout_time;
+
 			// force show in case its hidden of fadeOut
 			$element.show();
 			$('html,body').animate({scrollTop: ($element.offset().top - ($(window).height() - $element.outerHeight(true)) / 2)}, 500, function () {
@@ -414,8 +426,7 @@
 				}
 				$element.focus();
 				if (fadeout) {
-					// fadeout after 5 second delay
-					$element.show().delay(5000).fadeOut('slow');
+					$element.show().delay( fadeout_time ).fadeOut('slow');
 				}
 
 			});

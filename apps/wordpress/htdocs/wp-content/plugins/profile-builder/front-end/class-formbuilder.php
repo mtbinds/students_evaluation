@@ -121,7 +121,7 @@ class Profile_Builder_Form_Creator{
             if( !empty( $role_in_arg->capabilities['manage_options'] ) || !empty( $role_in_arg->capabilities['remove_users'] ) ){
                 if( !current_user_can( 'manage_options' ) || !current_user_can( 'remove_users' ) ){
                     $this->args['role'] = get_option('default_role');
-                    echo apply_filters( 'wppb_register_pre_form_user_role_message', '<p class="alert" id="wppb_general_top_error_message">'.__( 'The role of the created user set to the default role. Only an administrator can register a user with the role assigned to this form.', 'profile-builder').'</p>' );
+                    echo apply_filters( 'wppb_register_pre_form_user_role_message', '<p class="alert wppb-error" id="wppb_form_general_message">'.__( 'The role of the created user set to the default role. Only an administrator can register a user with the role assigned to this form.', 'profile-builder').'</p>' );
                 }
             }
         }
@@ -274,7 +274,7 @@ class Profile_Builder_Form_Creator{
 
 				if( ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ( $_POST['action'] == $this->args['form_type'] ) ) {
 
-                    $form_message_tpl_start = apply_filters( 'wppb_form_message_tpl_start', '<p class="alert" id="wppb_form_success_message">' );
+                    $form_message_tpl_start = apply_filters( 'wppb_form_message_tpl_start', '<p class="alert wppb-success" id="wppb_form_general_message">' );
                     $form_message_tpl_end = apply_filters( 'wppb_form_message_tpl_end', '</p>' );
 
                     if( ! current_user_can( 'manage_options' ) && $this->args['form_type'] != 'edit_profile' && isset( $_POST['custom_field_user_role'] ) ) {
@@ -360,7 +360,7 @@ class Profile_Builder_Form_Creator{
 				}
 			
 			}else
-				echo $message.apply_filters( 'wppb_general_top_error_message', '<p id="wppb_general_top_error_message">'.__( 'There was an error in the submitted form', 'profile-builder' ).'</p>' );
+				echo $message.apply_filters( 'wppb_general_top_error_message', '<p id="wppb_form_general_message" class="wppb-error">'.__( 'There was an error in the submitted form', 'profile-builder' ).'</p>' );
 		
 		}else
 			echo $message;
@@ -400,7 +400,7 @@ class Profile_Builder_Form_Creator{
         $wppb_form_class .= $wppb_user_role_class;
 
         ?>
-        <form enctype="multipart/form-data" method="post" id="<?php echo apply_filters( 'wppb_form_id', $wppb_form_id, $this ); ?>" class="<?php echo apply_filters( 'wppb_form_class', $wppb_form_class, $this ); ?>" action="<?php echo apply_filters( 'wppb_form_action', wppb_curpageurl() ); ?>">
+        <form enctype="multipart/form-data" method="post" id="<?php echo apply_filters( 'wppb_form_id', $wppb_form_id, $this ); ?>" class="<?php echo apply_filters( 'wppb_form_class', $wppb_form_class, $this ); ?>" action="<?php echo esc_url( apply_filters( 'wppb_form_action', wppb_curpageurl()."#wppb_form_general_message" ) ); ?>">
 			<?php
             do_action( 'wppb_form_args_before_output', $this->args );
 

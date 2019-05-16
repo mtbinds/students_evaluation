@@ -63,7 +63,7 @@ class Forminator_Form_Views_Model {
 			$ip_query = ' AND `ip` IS NULL';
 		}
 
-		$sql 		= "SELECT `view_id` FROM {$this->table_name} WHERE `form_id` = %d AND `page_id` = %d {$ip_query} AND `date_created` BETWEEN DATE_SUB(utc_timestamp(), INTERVAL 1 DAY) AND utc_timestamp()";
+		$sql 		= "SELECT `view_id` FROM {$this->get_table_name()} WHERE `form_id` = %d AND `page_id` = %d {$ip_query} AND `date_created` BETWEEN DATE_SUB(utc_timestamp(), INTERVAL 1 DAY) AND utc_timestamp()";
 
 		if ( ! is_null( $ip ) ) {
 			$prepared_sql = $wpdb->prepare( $sql, $form_id, $page_id, $ip ); // WPCS: unprepared SQL ok. false positive
@@ -114,7 +114,7 @@ class Forminator_Form_Views_Model {
 			global $wpdb;
 			$db = $wpdb;
 		}
-		$db->query( $db->prepare( "UPDATE {$this->table_name} SET `count` = `count`+1, `date_updated` = now() WHERE `view_id` = %d", $id ) );
+		$db->query( $db->prepare( "UPDATE {$this->get_table_name()} SET `count` = `count`+1, `date_updated` = now() WHERE `view_id` = %d", $id ) );
 	}
 
 	/**
@@ -139,7 +139,7 @@ class Forminator_Form_Views_Model {
 	 */
 	public function delete_by_form( $form_id ) {
 		global $wpdb;
-		$sql = "DELETE FROM {$this->table_name} WHERE `form_id` = %d";
+		$sql = "DELETE FROM {$this->get_table_name()} WHERE `form_id` = %d";
 		$wpdb->query( $wpdb->prepare( $sql, $form_id ) ); // WPCS: unprepared SQL ok. false positive
 	}
 
@@ -188,7 +188,7 @@ class Forminator_Form_Views_Model {
 	private function _count( $form_id, $starting_date = null, $ending_date = null ) {
 		global $wpdb;
 		$date_query = $this->_generate_date_query( $wpdb, $starting_date, $ending_date );
-		$sql 		= "SELECT SUM(`count`) FROM {$this->table_name} WHERE `form_id` = %d $date_query";
+		$sql 		= "SELECT SUM(`count`) FROM {$this->get_table_name()} WHERE `form_id` = %d $date_query";
 		$counts 	= $wpdb->get_var( $wpdb->prepare( $sql, $form_id ) ); // WPCS: unprepared SQL ok. false positive
 
 		if ( $counts ) {
@@ -240,14 +240,14 @@ class Forminator_Form_Views_Model {
 
 		if ( ! is_null( $form_type ) && ! empty( $form_type ) ) {
 			$date_query  = $this->_generate_date_query( $wpdb, $starting_date, $ending_date, 'd.' );
-			$sql_views   = "SELECT d.form_id, SUM(d.`count`) AS views FROM {$this->table_name} d LEFT JOIN {$wpdb->posts}  p ON (p.`ID` = d.`form_id`) WHERE p.post_type = %s $date_query GROUP BY d.`form_id`";
+			$sql_views   = "SELECT d.form_id, SUM(d.`count`) AS views FROM {$this->get_table_name()} d LEFT JOIN {$wpdb->posts}  p ON (p.`ID` = d.`form_id`) WHERE p.post_type = %s $date_query GROUP BY d.`form_id`";
 			$sql_entries = "SELECT e.form_id, COUNT(1) AS entries FROM $entry_table_name e LEFT JOIN  {$wpdb->posts} p ON (p.`ID` = e.`form_id`) WHERE p.post_type = %s GROUP BY e.`form_id`";
 			$sql         = "SELECT v.form_id, ROUND( (( s.entries *100 )/ v.views), 1 ) AS conversion FROM ($sql_views) v LEFT JOIN ($sql_entries) s ON (s.form_id = v.form_id) WHERE v.views > 0 ORDER BY conversion DESC LIMIT 0, 1";
 
 			$sql = $wpdb->prepare( $sql, $form_type, $form_type ); // WPCS: unprepared SQL ok. false positive
 		} else {
 			$date_query  = $this->_generate_date_query( $wpdb, $starting_date, $ending_date, 'd.', 'WHERE' );
-			$sql_views   = "SELECT d.form_id, SUM(d.`count`) AS views FROM {$this->table_name} d $date_query GROUP BY d.`form_id`";
+			$sql_views   = "SELECT d.form_id, SUM(d.`count`) AS views FROM {$this->get_table_name()} d $date_query GROUP BY d.`form_id`";
 			$sql_entries = "SELECT e.form_id, COUNT(1) AS entries FROM $entry_table_name e GROUP BY e.`form_id`";
 			$sql         = "SELECT v.form_id, ROUND( (( s.entries *100 )/ v.views), 1 ) AS conversion FROM ($sql_views) v LEFT JOIN ($sql_entries) s ON (s.form_id = v.form_id) WHERE v.views > 0 ORDER BY conversion DESC LIMIT 0, 1";
 		}
@@ -277,11 +277,11 @@ class Forminator_Form_Views_Model {
 
 		if ( !is_null( $form_type ) && !empty( $form_type ) ) {
 			$date_query = $this->_generate_date_query( $wpdb, $starting_date, $ending_date, 'd.' );
-			$sql 		= "SELECT d.`form_id`, SUM(d.`count`) as views FROM  {$this->table_name} d LEFT JOIN {$wpdb->posts} p ON (p.`ID` = d.`form_id`) WHERE p.post_type = %s $date_query GROUP BY d.`form_id` ORDER BY views DESC LIMIT 0,1";
+			$sql 		= "SELECT d.`form_id`, SUM(d.`count`) as views FROM  {$this->get_table_name()} d LEFT JOIN {$wpdb->posts} p ON (p.`ID` = d.`form_id`) WHERE p.post_type = %s $date_query GROUP BY d.`form_id` ORDER BY views DESC LIMIT 0,1";
 			$sql 		= $wpdb->prepare( $sql, $form_type ); // WPCS: unprepared SQL ok. false positive
 		} else {
 			$date_query = $this->_generate_date_query( $wpdb, $starting_date, $ending_date, 'd.', 'WHERE' );
-			$sql 		= "SELECT d.`form_id`, SUM(d.`count`) as views FROM  {$this->table_name} d $date_query GROUP BY d.`form_id` ORDER BY views DESC LIMIT 0,1";
+			$sql 		= "SELECT d.`form_id`, SUM(d.`count`) as views FROM  {$this->get_table_name()} d $date_query GROUP BY d.`form_id` ORDER BY views DESC LIMIT 0,1";
 		}
 
 		$results = $wpdb->get_results( $sql ); // WPCS: unprepared SQL OK.
@@ -301,8 +301,8 @@ class Forminator_Form_Views_Model {
 	 */
 	public function count_non_empty_ip_address() {
 		global $wpdb;
-		$sql   = "SELECT COUNT(1) FROM {$this->table_name} WHERE NULLIF(ip, %s) IS NOT NULL";
-		$total = $wpdb->get_var( $wpdb->prepare( $sql, '' ) ); // WPCS: unprepared SQL ok. false positive
+		$sql   = $wpdb->prepare( "SELECT COUNT(1) FROM {$this->get_table_name()} WHERE NULLIF(ip, %s) IS NOT NULL", '' );
+		$total = $wpdb->get_var( $sql ); // WPCS: unprepared SQL ok. false positive
 
 		return intval( $total );
 	}
@@ -315,11 +315,22 @@ class Forminator_Form_Views_Model {
 	public function maybe_cleanup_ip_address() {
 		global $wpdb;
 		if ( $this->count_non_empty_ip_address() ) {
-			$wpdb->query( "UPDATE {$this->table_name} SET `ip` = NULL" );// WPCS: unprepared SQL ok. false positive
+			$wpdb->query( "UPDATE {$this->get_table_name()} SET `ip` = NULL" );// WPCS: unprepared SQL ok. false positive
 			forminator_maybe_log(__METHOD__);
 			return true;
 		}
 
 		return false;
 	}
+
+	/**
+	 * Return views table name
+	 *
+	 * @since 1.6.3
+	 *
+	 * @return string
+	 */
+	 public function get_table_name() {
+		 return Forminator_Database_Tables::get_table_name( Forminator_Database_Tables::FORM_VIEWS );
+	 }
 }

@@ -177,6 +177,7 @@ class Forminator_Phone extends Forminator_Field {
 		$html = '';
 
 		$phone_attr = array(
+			'type'          => 'text',
 			'class'         => 'forminator-phone--field forminator-input',
 			'text'          => 'forminator-phone--field forminator-input',
 			'data-required' => $required,
@@ -457,9 +458,10 @@ class Forminator_Phone extends Forminator_Field {
 	 * @return array|string $data - the data after sanitization
 	 */
 	public function sanitize( $field, $data ) {
+		$original_data = $data;
 		// Sanitize
 		$data = forminator_sanitize_field( $data );
 
-		return apply_filters( 'forminator_field_phone_sanitize', $data, $field );
+		return apply_filters( 'forminator_field_phone_sanitize', $data, $field, $original_data );
 	}
 }

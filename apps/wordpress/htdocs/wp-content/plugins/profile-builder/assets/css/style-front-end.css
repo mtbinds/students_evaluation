@@ -361,7 +361,6 @@ label[for=blog-privacy]{
 4.0 Errors & Notices
 --------------------------------------------------------------*/
 
-#wppb_general_top_error_message,
 .wppb-error,
 .wppb-warning {
     padding: 6px 9px;
@@ -373,19 +372,20 @@ label[for=blog-privacy]{
     border: 1px solid #C00;
 }
 
-#wppb_general_top_error_message,
 .wppb-error,
 .wppb-warning{
     color:#222222 !important;
 }
 
-#wppb_general_top_error_message a,
 .wppb-error a,
 .wppb-warning a{
     color:#007acc !important;
 }
 
-#wppb_general_top_error_message a:hover,
+.admin-bar #wppb_form_general_message{
+    padding-top:32px;
+}
+
 .wppb-error a:hover,
 .wppb-warning a:hover{
     color:#007acc !important;
@@ -401,7 +401,6 @@ label[for=blog-privacy]{
     margin-left:5px;
 }
 
-#wppb_form_success_message,
 .wppb-success {
     padding: 6px 9px;
     margin: 0 auto 25px;

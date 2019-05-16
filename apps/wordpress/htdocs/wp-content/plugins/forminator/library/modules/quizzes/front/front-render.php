@@ -200,7 +200,7 @@ class Forminator_QForm_Front extends Forminator_Render_Form {
 		}
 
 		if ( $render ) {
-			echo $html; // WPCS: XSS ok.
+			echo wp_kses_post( $html ); // WPCS: XSS ok.
 		} else {
 			return apply_filters( 'forminator_render_fields_markup', $html, $fields );
 		}

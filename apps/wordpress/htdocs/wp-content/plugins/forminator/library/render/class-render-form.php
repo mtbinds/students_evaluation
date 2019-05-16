@@ -448,7 +448,7 @@ abstract class Forminator_Render_Form {
 		}
 
 		if ( $render ) {
-			echo $html; // WPCS: XSS ok.
+			echo wp_kses_post( $html ); // WPCS: XSS ok.
 		} else {
 			/** @noinspection PhpInconsistentReturnPointsInspection */
 			return apply_filters( 'forminator_render_fields_markup', $html, $fields );

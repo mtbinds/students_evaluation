@@ -451,6 +451,7 @@ abstract class Forminator_Field {
 	 */
 	public static function create_select( $attr = array(), $label = '', $options = array(), $value = '', $description = '', $required = false ) {
 		$html   = '';
+
 		$markup = self::implode_attr( $attr );
 		if ( self::get_post_data( $attr['name'], false ) ) {
 			$value = self::get_post_data( $attr['name'] );
@@ -463,6 +464,8 @@ abstract class Forminator_Field {
 				$html .= sprintf( '<div class="forminator-field--label"><label class="forminator-label">%s</label></div>', $label );
 			}
 		}
+
+		$markup .= ' data-default-value="' . esc_attr( $value ) . '"';
 
 		$html .= sprintf( '<select %s>', $markup );
 
@@ -899,7 +902,35 @@ abstract class Forminator_Field {
 	 * @return mixed value of $_POST[$id] or $fallback when unavailable
 	 */
 	public static function get_post_data( $id, $fallback = '' ) {
-		return isset( $_POST[ $id ] ) ? $_POST[ $id ] : $fallback;//WPCS CSRF ok: already validated on form submit.
+		if( isset( $_POST[ $id ] ) ) {
+			return self::get_post_data_sanitize( $_POST[ $id ], $fallback );
+		}
+
+		return $fallback;
+	}
+
+	/**
+	 * Return sanitized $_POST vlaue, or the fallback value
+	 *
+	 * @since 1.6.3
+	 *
+	 * @param string $data
+	 * @param mixed  $fallback
+	 *
+	 * @return mixed value of $_POST[$id] or $fallback when unavailable
+	 */
+	public static function get_post_data_sanitize( $data, $fallback ) {
+		if( is_array( $data ) ) {
+			$escaped = array();
+
+			foreach( $data as $key => $value ) {
+				$escaped[ $key ] = self::get_post_data_sanitize( $value, '' );
+			}
+
+			return $escaped;
+		}
+
+		return esc_html( $data );
 	}
 
 	/**

@@ -169,6 +169,8 @@ class Forminator_CForm_Page extends Forminator_Admin_Page {
 					}
 				}
 				break;
+			default:
+				break;
 		}
 
 		if ( $is_redirect ) {

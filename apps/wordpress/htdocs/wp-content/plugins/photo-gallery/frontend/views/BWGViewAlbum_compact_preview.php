@@ -45,6 +45,7 @@ class BWGViewAlbum_compact_preview extends BWGViewSite {
     $theme_row->thumb_gal_title_margin = $theme_row->album_compact_gal_title_margin;
     $theme_row->thumb_gal_title_align = $theme_row->album_compact_gal_title_align;
     $inline_style = $this->inline_styles($bwg, $theme_row, $params);
+    $lazyload = BWG()->options->lazyload_images;
     if ( !WDWLibrary::elementor_is_active() ) {
       if ( !$params['ajax'] ) {
         if ( BWG()->options->use_inline_stiles_and_scripts ) {
@@ -83,6 +84,17 @@ class BWGViewAlbum_compact_preview extends BWGViewSite {
 		  "bwg_search_" . $bwg => $search_value = !empty($_REQUEST['bwg_search_' . $bwg]) ? trim( esc_html($_REQUEST['bwg_search_' . $bwg]) ) : '',
         ), $_SERVER['REQUEST_URI']);
         $title = '<div class="bwg-title1"><div class="bwg-title2">' . ($row->name ? htmlspecialchars_decode($row->name, ENT_COMPAT | ENT_QUOTES) : '&nbsp;') . '</div></div>';
+
+        $resolution_thumb = $row->resolution_thumb;
+        $image_thumb_width = '';
+        $image_thumb_height = '';
+
+        if($resolution_thumb != "" && strpos($resolution_thumb,'x') !== false) {
+          $resolution_th = explode("x", $resolution_thumb);
+          $image_thumb_width = $resolution_th[0];
+          $image_thumb_height = $resolution_th[1];
+        }
+
         ?>
         <div class="bwg-item">
           <a class="<?php echo $from !== "widget" ? 'bwg-album ' : ''; ?>bwg_album_<?php echo $bwg; ?>"
@@ -95,10 +107,15 @@ class BWGViewAlbum_compact_preview extends BWGViewSite {
              data-title="<?php echo htmlspecialchars(addslashes($row->name)); ?>"
              data-bwg="<?php echo $bwg; ?>">
             <?php if ( $params['compuct_album_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'top' ) { echo $title; } ?>
-            <div class="bwg-item0">
+            <div class="bwg-item0 lazy_loader">
               <div class="bwg-item1 <?php echo $theme_row->album_compact_thumb_hover_effect == 'zoom' && $params['compuct_album_title'] == 'hover' ? 'bwg-zoom-effect' : ''; ?>">
                 <div class="bwg-item2">
-                  <img class="skip-lazy" src="<?php echo $row->preview_image; ?>" alt="<?php echo $row->name; ?>" />
+                  <img class="skip-lazy <?php if( $lazyload ) { ?> bwg_lazyload <?php } ?>"
+                       data-width="<?php echo $image_thumb_width; ?>"
+                       data-height="<?php echo $image_thumb_height; ?>"
+                       data-original="<?php echo $row->preview_image; ?>"
+                       src="<?php if( !$lazyload ) { echo $row->preview_image; } else { echo BWG()->plugin_url."/images/lazy_placeholder.gif"; } ?>"
+                       alt="<?php echo $row->name; ?>" />
                 </div>
                 <div class="<?php echo $theme_row->album_compact_thumb_hover_effect == 'zoom' && $params['compuct_album_title'] == 'hover' ? 'bwg-zoom-effect-overlay' : ''; ?>">
                   <?php if ( $params['compuct_album_title'] == 'hover' ) { echo $title; } ?>

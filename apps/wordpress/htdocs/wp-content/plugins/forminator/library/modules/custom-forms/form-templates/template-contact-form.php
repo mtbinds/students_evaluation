@@ -127,6 +127,8 @@ class Forminator_Template_Contact_Form extends Forminator_Template {
 			'admin-email-recipients' => array(
 				get_option( 'admin_email' ),
 			),
+			'user-email-title'      => __( "Thank you", Forminator::DOMAIN ),
+			'user-email-editor'     => __( "Thank you for contacting us, we will be in touch shortly. <br/>---<br/> This message was sent from {site_url}.", Forminator::DOMAIN ),
 
 			// Main container
 			'form-padding-top'              => '0',

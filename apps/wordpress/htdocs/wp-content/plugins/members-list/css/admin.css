@@ -1,0 +1,81 @@
+/**************************************************************************************************/
+/*
+/*		File:
+/*			admin.css
+/*		Description:
+/*			This file contains CSS for the administrative aspects of the plugin.
+/*		Date:
+/*			Added on April 29th 2011 for Members List v3.4 for Wordpress
+/*		Copyright:
+/*			Copyright (c) 2011 Matthew Praetzel.
+/*		License:
+/*			License:
+/*			This software is licensed under the terms of the GNU Lesser General Public License v3
+/*			as published by the Free Software Foundation. You should have received a copy of of
+/*			the GNU Lesser General Public License along with this software. In the event that you
+/*			have not, please visit: http://www.gnu.org/licenses/gpl-3.0.txt
+/*
+/**************************************************************************************************/
+
+/*-----------------------
+	html
+-----------------------*/
+a { cursor:hand;cursor:pointer; }
+.clear { clear:both; }
+
+/*------------------------------------------------------------------------------------------------
+	Forms
+------------------------------------------------------------------------------------------------*/
+
+.form-modal { display:none; }
+
+.WP_ml_form .categories, #TB_window .WP-ml-modal-form .categories { overflow:scroll;height:200px;border:1px solid #ccc; }
+.WP_ml_form .categories > div, #TB_window .WP-ml-modal-form .categories > div { padding:10px; }
+.WP_ml_form .chk { width:auto;margin:0 4px 0 0; }
+
+.WP-inline-fields * { vertical-align:middle; }
+.WP-inline-fields select, .WP-inline-fields input { display:inline-block;width:40% !important; }
+.WP-inline-fields a { display:inline-block; }
+
+/*------------------------------------------------------------------------------------------------
+	Modal Forms
+------------------------------------------------------------------------------------------------*/
+
+#TB_window .WP-ml-modal-form label { display:block;margin:20px 0 4px; }
+#TB_window .WP-ml-modal-form .categories label { margin:2px; }
+#TB_window .WP-ml-modal-form .button-primary { width:auto;height:auto;padding:3px 8px; }
+
+/*-----------------------
+	Forms
+-----------------------*/
+
+/*
+.add_item { display:none; }
+#members_list_add_item_form { padding:40px; }
+#members_list_add_item_form fieldset { display:inline;width:100%;border:0;margin:0;padding:0;vertical-align:top; }
+#members_list_add_item_form fieldset.half { width:48%; }
+#members_list_add_item_form label { display:block;margin:20px 0 4px; }
+#members_list_add_item_form input { width:100%;padding:2px 0;font-size:20px; }
+#members_list_add_item_form input.chk { width:auto; }
+#members_list_add_item_form input.btn { width:auto;margin-top:20px;padding:3px 10px; }
+#wpbody-content .chk { width:auto;margin:0 4px 0 0; }
+*/
+
+/*------------------------------------------------------------------------------------------------
+	Alerts
+------------------------------------------------------------------------------------------------*/
+
+.tern_error, .tern_alert, .tern_warning, .tern_message { background:#ffebe8;border:1px solid #c00;margin:10px 15px 10px 0;padding:0 20px;border-radius:3px;-webkit-border-radius:3px;-moz-border-radius:3px;color:#c00; }
+.tern_alert { background:#cbffcd;border:1px solid #390;color:#030; }
+.tern_warning { background:#fcf8e3;border:1px solid #fbeed5;color:#c09853; }
+.tern_message { background:#d9edf7;border:1px solid #bce8f1; }
+.tern_message * { color:#31708f;font-size:18px;text-decoration:none; }
+
+/*
+.errors_cn { position:relative;clear:both;overflow:hidden;width:100%;height:1px;border:1px solid #990000;visibility:hidden; }
+.errors { position:absolute;padding:20px;color:#990000; }
+.errors ul { margin:0px;padding:0px;list-style:none; }
+.errors li { margin:0px;padding:0px; }
+.errors li li { padding:5px 10px 5px 10px; }
+.req { font-weight:bold;color:#990000; }
+*/

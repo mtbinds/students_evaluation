@@ -45,8 +45,8 @@ final class Forminator_Addon_Googlesheet extends Forminator_Addon_Abstract {
 	public function __construct() {
 		// late init to allow translation
 		$this->_description                = __( 'Get awesome by your form.', Forminator::DOMAIN );
-		$this->_activation_error_message   = __( 'Sorry but we failed to activate Googlesheet Integration, don\'t hesitate to contact us', Forminator::DOMAIN );
-		$this->_deactivation_error_message = __( 'Sorry but we failed to deactivate Googlesheet Integration, please try again', Forminator::DOMAIN );
+		$this->_activation_error_message   = __( 'Sorry but we failed to activate GoogleSheet Integration, don\'t hesitate to contact us', Forminator::DOMAIN );
+		$this->_deactivation_error_message = __( 'Sorry but we failed to deactivate GoogleSheet Integration, please try again', Forminator::DOMAIN );
 
 		$this->_update_settings_error_message = __(
 			'Sorry, we failed to update settings, please check your form and try again',

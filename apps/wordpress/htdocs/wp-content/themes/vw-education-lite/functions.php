@@ -52,7 +52,7 @@ function vw_education_lite_setup() {
 	
 	if ( is_admin() && ('themes.php' == $pagenow) && isset( $_GET['activated'] ) ) {
 		add_action( 'admin_notices', 'vw_education_lite_activation_notice' );
-	}	
+	}
 
 }
 endif; // vw_education_lite_setup
@@ -132,6 +132,16 @@ function vw_education_lite_widgets_init() {
 		'name'          => __( 'Footer 4', 'vw-education-lite' ),
 		'description'   => __( 'Appears on footer', 'vw-education-lite' ),
 		'id'            => 'footer-4',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Social Icon', 'vw-education-lite' ),
+		'description'   => __( 'Appears on topbar', 'vw-education-lite' ),
+		'id'            => 'social-icon',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h3 class="widget-title">',
@@ -240,9 +250,10 @@ function vw_education_lite_font_url() {
 	$font_family[] = 'Marck Script';
 	$font_family[] = 'Sacramento';
 	$font_family[] = 'Unica One';
+	$font_family[] = 'Work Sans:100,200,300,400,500,600,700,800,900';
 
 	$query_args = array(
-		'family'	=> urlencode(implode('|',$font_family)),
+		'family'	=> rawurlencode(implode('|',$font_family)),
 	);
 	$font_url = add_query_arg($query_args,'//fonts.googleapis.com/css');
 	return $font_url;
@@ -250,97 +261,14 @@ function vw_education_lite_font_url() {
 
 function vw_education_lite_scripts() {
 	wp_enqueue_style( 'vw-education-lite-font', vw_education_lite_font_url(), array() );
-	wp_enqueue_style( 'bootstrap-style', get_template_directory_uri().'/css/bootstrap.css' );
+	wp_enqueue_style( 'bootstrap', get_template_directory_uri().'/css/bootstrap.css' );
 	wp_enqueue_style( 'vw-education-lite-basic-style', get_stylesheet_uri() );
+	require get_parent_theme_file_path( '/inline-style.php' );
+	wp_add_inline_style( 'vw-education-lite-basic-style',$custom_css );
 	wp_style_add_data( 'vw-education-lite-style', 'rtl', 'replace' );
 	wp_enqueue_style( 'font-awesome', get_template_directory_uri().'/css/fontawesome-all.css' );
-	wp_enqueue_style( 'nivo-slider-style', get_template_directory_uri().'/css/nivo-slider.css' );
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.js', array('jquery') );
 
-	// Paragraph
-	    $vw_education_lite_paragraph_color = get_theme_mod('vw_education_lite_paragraph_color', '');
-	    $vw_education_lite_paragraph_font_family = get_theme_mod('vw_education_lite_paragraph_font_family', '');
-	    $vw_education_lite_paragraph_font_size = get_theme_mod('vw_education_lite_paragraph_font_size', '');
-	// "a" tag
-		$vw_education_lite_atag_color = get_theme_mod('vw_education_lite_atag_color', '');
-	    $vw_education_lite_atag_font_family = get_theme_mod('vw_education_lite_atag_font_family', '');
-	// "li" tag
-		$vw_education_lite_li_color = get_theme_mod('vw_education_lite_li_color', '');
-	    $vw_education_lite_li_font_family = get_theme_mod('vw_education_lite_li_font_family', '');
-	// H1
-		$vw_education_lite_h1_color = get_theme_mod('vw_education_lite_h1_color', '');
-	    $vw_education_lite_h1_font_family = get_theme_mod('vw_education_lite_h1_font_family', '');
-	    $vw_education_lite_h1_font_size = get_theme_mod('vw_education_lite_h1_font_size', '');
-	// H2
-		$vw_education_lite_h2_color = get_theme_mod('vw_education_lite_h2_color', '');
-	    $vw_education_lite_h2_font_family = get_theme_mod('vw_education_lite_h2_font_family', '');
-	    $vw_education_lite_h2_font_size = get_theme_mod('vw_education_lite_h2_font_size', '');
-	// H3
-		$vw_education_lite_h3_color = get_theme_mod('vw_education_lite_h3_color', '');
-	    $vw_education_lite_h3_font_family = get_theme_mod('vw_education_lite_h3_font_family', '');
-	    $vw_education_lite_h3_font_size = get_theme_mod('vw_education_lite_h3_font_size', '');
-	// H4
-		$vw_education_lite_h4_color = get_theme_mod('vw_education_lite_h4_color', '');
-	    $vw_education_lite_h4_font_family = get_theme_mod('vw_education_lite_h4_font_family', '');
-	    $vw_education_lite_h4_font_size = get_theme_mod('vw_education_lite_h4_font_size', '');
-	// H5
-		$vw_education_lite_h5_color = get_theme_mod('vw_education_lite_h5_color', '');
-	    $vw_education_lite_h5_font_family = get_theme_mod('vw_education_lite_h5_font_family', '');
-	    $vw_education_lite_h5_font_size = get_theme_mod('vw_education_lite_h5_font_size', '');
-	// H6
-		$vw_education_lite_h6_color = get_theme_mod('vw_education_lite_h6_color', '');
-	    $vw_education_lite_h6_font_family = get_theme_mod('vw_education_lite_h6_font_family', '');
-	    $vw_education_lite_h6_font_size = get_theme_mod('vw_education_lite_h6_font_size', '');
-
-
-		$custom_css ='
-			p,span{
-			    color:'.esc_html($vw_education_lite_paragraph_color).'!important;
-			    font-family: '.esc_html($vw_education_lite_paragraph_font_family).';
-			    font-size: '.esc_html($vw_education_lite_paragraph_font_size).';
-			}
-			a{
-			    color:'.esc_html($vw_education_lite_atag_color).'!important;
-			    font-family: '.esc_html($vw_education_lite_atag_font_family).';
-			}
-			li{
-			    color:'.esc_html($vw_education_lite_li_color).'!important;
-			    font-family: '.esc_html($vw_education_lite_li_font_family).';
-			}
-			h1{
-			    color:'.esc_html($vw_education_lite_h1_color).'!important;
-			    font-family: '.esc_html($vw_education_lite_h1_font_family).'!important;
-			    font-size: '.esc_html($vw_education_lite_h1_font_size).'!important;
-			}
-			h2{
-			    color:'.esc_html($vw_education_lite_h2_color).'!important;
-			    font-family: '.esc_html($vw_education_lite_h2_font_family).'!important;
-			    font-size: '.esc_html($vw_education_lite_h2_font_size).'!important;
-			}
-			h3{
-			    color:'.esc_html($vw_education_lite_h3_color).'!important;
-			    font-family: '.esc_html($vw_education_lite_h3_font_family).'!important;
-			    font-size: '.esc_html($vw_education_lite_h3_font_size).'!important;
-			}
-			h4{
-			    color:'.esc_html($vw_education_lite_h4_color).'!important;
-			    font-family: '.esc_html($vw_education_lite_h4_font_family).'!important;
-			    font-size: '.esc_html($vw_education_lite_h4_font_size).'!important;
-			}
-			h5{
-			    color:'.esc_html($vw_education_lite_h5_color).'!important;
-			    font-family: '.esc_html($vw_education_lite_h5_font_family).'!important;
-			    font-size: '.esc_html($vw_education_lite_h5_font_size).'!important;
-			}
-			h6{
-			    color:'.esc_html($vw_education_lite_h6_color).'!important;
-			    font-family: '.esc_html($vw_education_lite_h6_font_family).'!important;
-			    font-size: '.esc_html($vw_education_lite_h6_font_size).'!important;
-			}
-
-			';
-		wp_add_inline_style( 'vw-education-lite-basic-style',$custom_css );
-
-	wp_enqueue_script( 'nivo-slider-jquery', get_template_directory_uri() . '/js/jquery.nivo.slider.js', array('jquery') );	
 	wp_enqueue_script( 'vw-education-lite-custom-jquery', get_template_directory_uri() . '/js/custom.js', array('jquery') );
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -354,22 +282,20 @@ function vw_education_lite_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'vw_education_lite_scripts' );
 
-define('vw_education_lite_FREE_THEME_DOC','https://vwthemes.com/docs/vw-education-lite/','vw-education-lite');
-define('vw_education_lite_SUPPORT','https://wordpress.org/support/theme/vw-education-lite/','vw-education-lite');
-define('vw_education_lite_REVIEW','https://www.vwthemes.com/topic/reviews-and-testimonials/','vw-education-lite');
-define('vw_education_lite_BUY_NOW','http://www.vwthemes.com/product/vw-education-theme/','vw-education-lite');
-define('vw_education_lite_LIVE_DEMO','https://www.vwthemes.net/vw-education-theme/','vw-education-lite');
-define('vw_education_lite_PRO_DOC','https://www.vwthemes.com/docs/vw-education-pro/','vw-education-lite');
-define('vw_education_lite_FAQ','https://www.vwthemes.com/faqs/','vw-education-lite');
-define('vw_education_lite_CHILD_THEME','https://developer.wordpress.org/themes/advanced-topics/child-themes/','vw-education-lite');
-define('vw_education_lite_CONTACT','https://www.vwthemes.com/contact/','vw-education-lite');
-define('vw_education_lite_DEMO_DATA','https://www.vwthemes.net/docs/education-demo.xml.zip','vw-education-lite');
-
-define('vw_education_lite_CREDIT','https://www.vwthemes.com','vw-education-lite');
+define('VW_EDUCATION_LITE_FREE_THEME_DOC','https://www.vwthemesdemo.com/docs/free-vw-education-lite/','vw-education-lite');
+define('VW_EDUCATION_LITE_SUPPORT','https://wordpress.org/support/theme/vw-education-lite/','vw-education-lite');
+define('VW_EDUCATION_LITE_REVIEW','https://www.vwthemes.com/topic/reviews-and-testimonials/','vw-education-lite');
+define('VW_EDUCATION_LITE_BUY_NOW','http://www.vwthemes.com/product/vw-education-theme/','vw-education-lite');
+define('VW_EDUCATION_LITE_LIVE_DEMO','https://www.vwthemes.net/vw-education-theme/','vw-education-lite');
+define('VW_EDUCATION_LITE_PRO_DOC','https://www.vwthemesdemo.com/docs/vw-education-pro/','vw-education-lite');
+define('VW_EDUCATION_LITE_FAQ','https://www.vwthemes.com/faqs/','vw-education-lite');
+define('VW_EDUCATION_LITE_CHILD_THEME','https://developer.wordpress.org/themes/advanced-topics/child-themes/','vw-education-lite');
+define('VW_EDUCATION_LITE_CONTACT','https://www.vwthemes.com/contact/','vw-education-lite');
+define('VW_EDUCATION_LITE_CREDIT','https://www.vwthemes.com/free/wp-education-wordpress-theme/','vw-education-lite');
 
 if ( ! function_exists( 'vw_education_lite_credit' ) ) {
 	function vw_education_lite_credit(){
-		echo "<a href=".esc_url(vw_education_lite_CREDIT)." target='_blank'>".esc_html__('VWThemes','vw-education-lite')."</a>";
+		echo "<a href=".esc_url(VW_EDUCATION_LITE_CREDIT)." target='_blank'>".esc_html__('Education WordPress Theme','vw-education-lite')."</a>";
 	}
 }
 
@@ -384,6 +310,29 @@ if ( ! function_exists( 'vw_education_lite_credit' ) ) {
     }
 }
 
+/* Excerpt Limit Begin */
+function vw_education_lite_string_limit_words($string, $word_limit) {
+	$words = explode(' ', $string, ($word_limit + 1));
+	if(count($words) > $word_limit)
+	array_pop($words);
+	return implode(' ', $words);
+}
+
+// Change number or products per row to 3
+add_filter('loop_shop_columns', 'vw_education_lite_loop_columns');
+	if (!function_exists('vw_education_lite_loop_columns')) {
+	function vw_education_lite_loop_columns() {
+	return 3; // 3 products per row
+	}
+}
+
+function vw_education_lite_sanitize_dropdown_pages( $page_id, $setting ) {
+  	// Ensure $input is an absolute integer.
+	$page_id = absint( $page_id );
+  	// If $page_id is an ID of a published page, return it; otherwise, return the default.
+  	return ( 'publish' == get_post_status( $page_id ) ? $page_id : $setting->default );
+}
+
 /* Custom template tags for this theme. */
 require get_template_directory() . '/inc/template-tags.php';
 
@@ -395,3 +344,9 @@ require get_template_directory() . '/inc/custom-header.php';
 
 /* Implement the About theme page */
 require get_template_directory() . '/inc/getting-started/getting-started.php';
+
+/* Social Custom Widgets */
+require get_template_directory() . '/inc/custom-widgets/social-profile.php';
+
+/* Customizer Typogarphy. */
+require get_template_directory() . '/inc/typography/ctypo.php';

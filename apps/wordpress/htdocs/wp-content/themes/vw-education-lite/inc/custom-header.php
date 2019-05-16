@@ -23,21 +23,22 @@ function vw_education_lite_custom_header_setup() {
 
 add_action( 'after_setup_theme', 'vw_education_lite_custom_header_setup' );
 
-
-
-if ( ! function_exists( 'vw_education_lite_admin_header_image' ) ) :
+if ( ! function_exists( 'vw_education_lite_header_style' ) ) :
 /**
- * Custom header image markup displayed on the Appearance > Header admin panel.
+ * Styles the header image and text displayed on the blog
  *
  * @see vw_education_lite_custom_header_setup().
  */
-function vw_education_lite_admin_header_image() {
-?>
-	<div id="headimg">		
-		<?php if ( get_header_image() ) : ?>
-		<img src="<?php header_image(); ?>" alt="">
-		<?php endif; ?>
-	</div>
-<?php
+add_action( 'wp_enqueue_scripts', 'vw_education_lite_header_style' );
+function vw_education_lite_header_style() {
+	//Check if user has defined any header image.
+	if ( get_header_image() ) :
+	$custom_css = "
+        .header{
+			background-image:url('".esc_url(get_header_image())."');
+			background-position: center top;
+		}";
+	   	wp_add_inline_style( 'vw-education-lite-basic-style', $custom_css );
+	endif;
 }
-endif; // vw_education_lite_admin_header_image
+endif; // vw_education_lite_header_style
